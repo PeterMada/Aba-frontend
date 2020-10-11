@@ -1,7 +1,12 @@
 if (process.env.NODE_ENV !== 'production') {
   require("dotenv").config({
     path: `.env.${process.env.NODE_ENV}`,
-  })
+  });
+
+
+  const apiUrl = process.env.GATSBY_API_URL;
+} else {
+  const apiUrl = 'https://aba-strapi-api.herokuapp.com';
 }
 
 
@@ -24,7 +29,7 @@ module.exports = {
     {
       resolve: `gatsby-source-strapi`,
       options: {
-        apiURL: process.env.GATSBY_API_URL,
+        apiURL: apiUrl,
         queryLimit: 100, // Default to 100
         contentTypes: [`pages`, `sliders`, `Text-Block-With-Image`, `news`, `text-blocks`, `Therapists`, `Text-On-Images`, `news-tags`, `text-on-sliders`, `Text-with-photo-effects`, `Social-media-sites`],
         singleTypes: [`settings`, `menu-footer`, `menu-header`],
