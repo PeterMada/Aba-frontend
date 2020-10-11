@@ -1,12 +1,11 @@
+let apiUrl = 'https://aba-strapi-api.herokuapp.com';
+
 if (process.env.NODE_ENV !== 'production') {
   require("dotenv").config({
     path: `.env.${process.env.NODE_ENV}`,
   });
 
-
-  const apiUrl = process.env.GATSBY_API_URL;
-} else {
-  const apiUrl = 'https://aba-strapi-api.herokuapp.com';
+  apiUrl = process.env.GATSBY_API_URL;
 }
 
 
