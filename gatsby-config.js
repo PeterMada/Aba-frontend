@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `ABA Brno`,
@@ -17,7 +21,7 @@ module.exports = {
     {
       resolve: `gatsby-source-strapi`,
       options: {
-        apiURL: `http://localhost:1337`,
+        apiURL: process.env.GATSBY_API_URL,
         queryLimit: 100, // Default to 100
         contentTypes: [`pages`, `sliders`, `Text-Block-With-Image`, `news`, `text-blocks`, `Therapists`, `Text-On-Images`, `news-tags`, `text-on-sliders`, `Text-with-photo-effects`, `Social-media-sites`],
         singleTypes: [`settings`, `menu-footer`, `menu-header`],
