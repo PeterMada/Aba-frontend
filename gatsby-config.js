@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
     path: `.env.${process.env.NODE_ENV}`,
   });
 
-  apiUrl = process.env.GATSBY_API_URL;
+  // apiUrl = process.env.GATSBY_API_URL;
 }
 
 

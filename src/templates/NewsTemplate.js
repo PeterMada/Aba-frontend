@@ -81,10 +81,6 @@ export const pageQuery = graphql`
             Text
             strapiId
             created_at
-            created_by {
-                firstname
-                lastname
-            }
             updated_at
             updated_by{
                 firstname
