@@ -100,7 +100,7 @@ exports.createPages = async ({ graphql, actions }) => {
     urlMap.map(page => {
         // const basicTemplatePath = path.resolve('./src/templates/PageTemplate.js');
 
-        const basicTemplatePath = path.resolve(__dirname + '/src/templates/PageTemplate.js');
+        const basicTemplatePath = require.resolve('./src/templates//PageTemplate.js');
         const newsSignpostPath = path.resolve('./src/templates/NewsSignpostTemplate.js');
         const therapistSignpostPath = path.resolve('./src/templates/TherapistSignpostTemplate.js');
         let currentTemplate = basicTemplatePath;
