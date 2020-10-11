@@ -82,10 +82,6 @@ export const pageQuery = graphql`
             strapiId
             created_at
             updated_at
-            updated_by{
-                firstname
-                lastname
-            }
             news_tags {
                 Title
                 id

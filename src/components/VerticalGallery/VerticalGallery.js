@@ -6,7 +6,7 @@ export default ({ blockData }) => {
     return (
         <div className={cS.wrap}>
             {blockData.map((element, index) => (
-                <img key={`verticalImg-${index}`} className={cS.img} src={`${GATSBY_API_URL}/${element.url}`} />
+                <img key={`verticalImg-${index}`} className={cS.img} src={`TODO/${element.url}`} />
             ))}
         </div>
     )
