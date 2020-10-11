@@ -1,0 +1,155 @@
+@import '../../utlis/variables.scss';
+
+.footerWrapOuter {
+    background-color: $colorForth;
+}
+
+.footerWrap {
+    max-width: $maxWidth;
+    margin-left: auto;
+    margin-right: auto;
+    padding: $componentVerticalPadding $sitePaddings;
+    display: flex;
+    flex-direction: column;
+}
+
+.logoLink {
+    display: block;
+    text-align: center;
+}
+
+.logo {
+    text-align: center;
+    max-width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+
+    img {
+        margin-bottom: 0;
+    }
+}
+
+.social {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1rem 0;
+
+    &__list {
+        margin: 0;
+        line-height: 1;
+
+        a {
+            line-height: 1;
+            margin-right: 1rem;
+            font-size: 3rem;
+           // color: $colorHref;
+           transition: transform 0.2s linear;
+
+           &:hover {
+               transform: scale(1.2);
+           }
+        }
+
+        &:last-child {
+            a {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+.copyright {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+    text-align: center;
+    color: $colorWhite;
+}
+
+.footerColumn {
+
+    &__logo {
+        order: 999;
+        margin-bottom: 0;
+    }
+
+    &__menuWrap {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
+.social {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 5rem 0 1rem 0;
+    padding: 0;
+
+    &__list {
+        margin: 0;
+        line-height: 1;
+
+        a {
+            line-height: 1;
+            margin-right: 1rem;
+            font-size: 3rem;
+           // color: $colorHref;
+           transition: transform 0.2s linear;
+
+           &:hover {
+               transform: scale(1.2);
+           }
+        }
+
+        &:last-child {
+            a {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .footerColumn {
+        &__menuWrap {
+            flex-direction: row;
+            justify-content: space-around;
+        }
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .footerWrap {
+        flex-direction: row;
+    }
+
+    .footerColumn {
+        &__logo {
+            width: 20rem;
+            order: 0;
+        }
+
+        &__menuWrap {
+            padding-left: 4rem;
+            width: 100%;
+           // justify-content: left;
+        }
+    }
+
+    .social { 
+        justify-content: left;     
+        margin-top: 3rem;
+    }
+
+    .copyright {
+        text-align: left;
+    }
+
+    .logo {
+        margin-left: 0;
+    }
+}

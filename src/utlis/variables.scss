@@ -1,0 +1,44 @@
+// Main colors
+$colorMain: #575757; //#5B5B5B; AAA need to be 7:1
+$colorSecond: #3FD2C7;
+$colorThrid: #99DDFF;
+$colorForth: #00458B;
+
+$colorHeader: #eef1f7;
+$colorHeaderBorder: #cbd5e1;
+//$colorForth: #0E5D30;
+
+
+$colorHref: $colorForth;
+$colorHrefHover: $colorSecond;
+$colorText: $colorMain;
+$colorHeadlines: $colorForth;
+$colorBackground: #fafafa;
+
+// Base colors
+$colorWhite: #ffffff;
+$colorBlack: #000000;
+$colorGray: #ececec;
+
+// Fonts
+$fontSize: 1.6em;
+
+// Width
+$minWidth: 32rem;
+$maxWidth: 130rem; // Site inner max width
+$maxWidthSmaller: 80rem;
+$siteMaxWidth: 200rem;
+$sitePaddings: 2rem; // Outside padding
+$componentVerticalPadding: 4em; // Vertical padding between components
+$componentInsidePadding: 2em; // Space inside component examp: textWithImg
+
+
+// Colors social network
+$colorFacebook: #4267B2;
+$colorPintrest: #E60023;
+$colorTwitter: #1DA1F2;
+$colorInstagram: #E1306C;
+$colorLinkedin: #2867B2;
+$colorYoutube: #FF0000;
+$colorWeb: #1DB954;
+$colorIna: #FF5A5F;

@@ -1,0 +1,45 @@
+@import '../../utlis/variables.scss';
+
+.wrap {
+    max-width: $maxWidthSmaller;
+    padding: $componentVerticalPadding $sitePaddings;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.item {
+    text-align: center;
+    margin-bottom: $componentVerticalPadding;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 2.5rem;
+}
+
+.perex {
+    font-style: italic;
+    margin-bottom: 2.5rem;
+}
+
+.text {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+@media screen and (min-width: 600px) { 
+    .item {
+        text-align: left;
+    }
+
+    .title,
+    .perex {
+        text-align: center;
+    }
+}

@@ -1,0 +1,54 @@
+@import '../../utlis/variables.scss';
+
+.item {
+    margin-bottom: 6rem;
+    max-width: 30rem;
+
+    &:nth-child(odd){
+        .imgWrap {
+            transform: translate3d(0,0,0) scale(.9) rotate(-10deg);
+        }
+    }
+}
+
+.imgWrap {
+    box-shadow: 0 0.2rem 1.2rem rgba(0,0,0,0.2);
+    padding: 0.75rem 0.75rem 1.5rem;
+    border-radius: 0.25rem;
+    transform: translate3d(0,0,0) scale(.9) rotate(10deg);
+}
+
+.img {
+    max-height: 25rem;
+}
+
+.title {
+    text-align: center;
+    text-transform: none;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.text {
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+
+@media screen and (min-width: 700px) {  
+    .item {
+        width: 50%;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        max-width: 40rem;
+    }
+}
+
+
+@media screen and (min-width: 1200px) {  
+    .item {
+        width: 25%;
+        margin-bottom: 0;
+    }
+}

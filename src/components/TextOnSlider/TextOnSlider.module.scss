@@ -1,0 +1,150 @@
+@import '../../utlis/variables.scss';
+
+$arrowSize: 1.5em;
+
+.sliderWrap {
+}
+
+.slider {
+
+    &__slide {
+        display: none;
+        //visibility: hidden;
+        position: relative;
+        padding-left: 5rem;
+        padding-right: 5rem;
+        width: 100%;
+    }
+
+    &__arrow {
+        display: block;
+        // padding: $arrowPadding;
+        position: absolute;
+        left: $sitePaddings;
+        top: 50%;
+        z-index: 500;
+        width: $arrowSize;
+        height: $arrowSize;
+        border-top: none;
+        border-right: none;
+        border-bottom: solid;
+        border-left: solid;
+        border-width: 0 0 0.5rem 0.5rem;
+        border-color: $colorWhite;
+        transition: 0.1s linear;
+        transform: rotate(45deg) translateY(-50%);
+
+        &:hover {
+            // TODO  Animation is not 60 fps
+            border-width: 0.75rem;
+        }
+
+
+        &__next {
+            transform: rotate(225deg);
+            left: initial;
+            right: $sitePaddings;
+        }
+    }
+}
+
+.nav {
+    display: flex;
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 70;
+
+    &__circle {
+        display: block;
+        width: 2rem;
+        height: 2rem;
+        border: 0.25rem solid $colorWhite;
+        border-radius: 100%;
+        background-color: transparent;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        transition: background-color 0.25s linear, border-color 0.25s linear;
+
+        // TODO This is not by BEM standard
+        &__active {
+            background-color: $colorSecond;
+        }
+
+        &:hover {
+            cursor: pointer;
+            border-color: $colorSecond;
+        }
+    }
+}
+
+
+.active {
+    display: block;
+}
+
+.textOuter {
+    padding-top: $componentVerticalPadding;
+    padding-bottom: $componentVerticalPadding;
+
+    &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: $colorBlack;
+        opacity: 0.45;
+        z-index: 45;
+
+    }
+}
+
+.textInner {
+    color: $colorWhite;
+    position: relative;
+    z-index: 50;
+    max-width: 80rem;
+    margin-left:auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.title {
+    color: $colorWhite;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-transform: none;
+}
+
+.text {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.textUnder {
+    display: block;
+    font-weight: 900;
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+@media screen and (min-width: 600px) {    
+    .slider {
+        &__slide {
+            padding-left: 8rem;
+            padding-right: 8rem;
+        }
+    }
+    
+    .textOuter { 
+        padding-top: calc(#{$componentVerticalPadding} * 2);
+        padding-bottom: calc(#{$componentVerticalPadding} * 1.5);
+    }
+}

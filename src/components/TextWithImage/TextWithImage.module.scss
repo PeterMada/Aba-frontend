@@ -1,0 +1,79 @@
+@import '../../utlis/variables.scss';
+
+.wrap {
+    display: flex;
+    flex-direction: column-reverse;
+    min-height: 30rem;
+}
+
+.imageBlock {
+    width: 100%;
+}
+
+.textBlock {
+    padding: $componentVerticalPadding $componentInsidePadding;
+    width: 100%;
+    max-width: calc(#{$maxWidth}/2);
+    text-align: center;
+
+    &__title {
+        margin-bottom: 0.5em;
+        margin-top: 0;
+    }
+
+    &__perex {
+        font-style: italic;
+        margin-bottom: 0.5em;
+    }
+
+    &__text {
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .wrap {
+        flex-direction: row;
+    }
+
+    .wrapOdd {
+        flex-direction: row-reverse;
+    }
+
+
+    .image {
+        position: absolute!important;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .imageBlock {
+        width: 50%;
+        position: relative;
+    }
+
+    .textBlock {
+        width: 50%;
+        padding: $componentVerticalPadding $componentVerticalPadding ;
+        text-align: left;
+    }
+}
+
+
+@media screen and (min-width: 800px) { 
+    
+    .wrapOdd {
+        .textBlock {
+            padding-right: calc(#{$componentInsidePadding} * 2);
+            padding-left: $sitePaddings;
+        }
+    }
+
+    .textBlock {
+        padding: calc(#{$componentVerticalPadding} * 2) $sitePaddings calc(#{$componentVerticalPadding} * 2) calc(#{$componentInsidePadding} * 2);
+    }
+}
+
+

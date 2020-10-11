@@ -1,0 +1,137 @@
+
+@import '../../utlis/variables.scss';
+
+.wrap {
+    max-width: $maxWidthSmaller;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.imgWrap {
+
+}
+
+.img {
+    max-height: 30rem;
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.textWrap {
+    margin-top: 2rem;
+    padding-left: $sitePaddings;
+    padding-right: $sitePaddings;
+    padding-bottom: $componentVerticalPadding;
+}
+
+.title {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-transform: none;
+}
+
+.social {
+    text-align: center;
+    margin-top: 1rem;
+
+    // TODO this should be class
+    > a {
+        margin-right: 5px;
+    }
+}
+
+
+.perex {
+    text-align: center;
+    font-style: italic;
+}
+
+.tabWrap {
+    margin-top: 3rem;
+}
+
+.tabControls {
+}
+
+.tabControl {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    background-color: $colorWhite;
+    color: $colorHref;
+    border: 1px solid $colorHref;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
+
+    &:visited {
+        color: $colorHref;
+    }
+
+    &:hover {
+        background-color: $colorHref;
+        color: $colorWhite;
+    }
+
+    &.activeControl {
+        background-color: $colorHref;
+        color: $colorWhite;
+
+        &:hover {
+
+        }
+    }
+
+}
+
+.tabContents {
+
+}
+
+.tabContent {
+    display: none;
+    padding: 1rem 0;
+
+    &.activeContent {
+        display: block;
+        animation: fadeIn 0.75s;
+    }
+
+    > p:first-child {
+        margin-top: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+
+@media screen and (min-width: 600px) { 
+    .wrap {
+        display: flex;
+    }
+
+    .imgWrap {
+        width: 20rem;
+    }
+
+    .textWrap {
+        width: calc(100% - 20rem);
+        padding-left: calc(#{$sitePaddings} * 2);
+    }
+
+    .title {
+        text-align: left;
+    }
+
+    .perex {
+        text-align: left;
+    }
+
+    .social {
+      //  text-align: right;
+    }
+}

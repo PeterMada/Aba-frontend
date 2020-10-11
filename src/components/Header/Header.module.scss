@@ -1,0 +1,44 @@
+@import '../../utlis/variables.scss';
+
+.wrapInner {
+    padding: 1rem $sitePaddings;
+    max-width: $maxWidth;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrap {
+    background-color: $colorHeader;
+    border-bottom: 1px solid $colorHeaderBorder;
+}
+
+
+.logo {
+    width: 9rem;
+    //height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    > div {
+        display: block;
+        width: 100%;
+
+    }
+}
+
+
+
+@media screen and (min-width: 1000px) {
+    .wrapInner {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .logo {
+        width: 14rem;
+    }
+}

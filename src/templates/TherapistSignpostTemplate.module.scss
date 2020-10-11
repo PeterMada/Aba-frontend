@@ -1,0 +1,59 @@
+@import '../utlis/variables.scss';
+
+.title {
+    text-align: center;
+}
+
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonWrap {
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+    background-color: $colorHref;
+    border: 1px solid $colorHref;
+    color: $colorWhite;
+    transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    min-width: 10rem;
+    text-align: center;
+
+    &:visited {
+        color: $colorWhite;
+    }
+
+    &:hover {
+        color: $colorHref;
+        background-color: $colorWhite;
+    }
+}
+
+@media screen and (min-width: 560px) {  
+    .wrap {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: calc(100% + 4rem);
+        margin-left: -2rem;
+    }
+    
+    .buttonWrap {
+        text-align: right;
+    }
+}
+
+
+@media screen and (min-width: 860px) {  
+    .wrap {
+        width: calc(100% + 6rem);
+        margin-left: -3rem;
+    }
+}

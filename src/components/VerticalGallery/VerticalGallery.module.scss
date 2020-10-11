@@ -1,0 +1,13 @@
+@import '../../utlis/variables.scss';
+
+.wrap {
+    max-width: $maxWidth;
+    margin: 0 auto;
+    padding-left: $sitePaddings;
+    padding-right: $sitePaddings;
+}
+
+.img {
+    max-width: 200px;
+    max-height: 200px;
+}

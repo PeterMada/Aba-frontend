@@ -1,0 +1,67 @@
+@import '../../utlis/variables.scss';
+
+.wrap {
+    position: relative;
+
+}
+
+.textWrap {
+    position: relative;
+    z-index: 50;
+    max-width: $maxWidth;
+    margin-left: auto;
+    margin-right: auto;
+    padding: $componentVerticalPadding $componentInsidePadding;
+    text-align: center;
+
+}
+
+.title {
+    margin-top: 0;
+    color: $colorWhite;
+    text-transform: none;
+}
+
+.perex {
+    color: $colorWhite;
+    max-width: $maxWidthSmaller;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.textOuter {
+    &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: $colorBlack;
+        opacity: 0.3;
+        z-index: 45;
+
+    }
+}
+
+.text {
+    color: $colorWhite;
+}
+
+.imgWrap {
+    position: absolute;
+    z-index: 40;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.img {
+    position: relative;
+    z-index: 60;
+}

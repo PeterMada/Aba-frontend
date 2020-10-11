@@ -1,0 +1,54 @@
+@import '../../utlis/variables.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+
+.wrap {    
+    margin-top: 2em;
+    margin-bottom: 2em;
+
+    &.noPerex {
+        margin-bottom: 3em;
+    }
+}
+
+.wrapInner {
+    text-align: center;
+    position: relative;
+}
+
+.title {
+    margin-top: 0;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 30;
+    color: $colorMain;
+    text-transform: none;
+}
+
+.subtitle {
+    font-family: 'Caveat', cursive;
+    font-size: 6em;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    margin: 0;
+    z-index: 20;
+    color: rgba($colorHref, 0.1);
+   // margin-top: -0.5rem;
+}
+
+.text {
+    max-width: 60rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+
+@media screen and (min-width: 660px) {  
+    .subtitle {
+        font-size: 8em;
+    }
+}

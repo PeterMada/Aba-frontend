@@ -1,0 +1,80 @@
+@import '../../utlis/variables.scss';
+
+.articleWrap {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+
+@media screen and (min-width: 1200px) {
+    .articleWrap {
+        text-align: left;
+    }
+}
+
+.main {
+    display: block;
+    width: 100%;
+}
+
+.galery {
+    display: none;
+}
+
+
+.withGallery {
+}
+
+
+.title {
+    margin-top: 0;
+    padding-top: 2rem;
+}
+
+.perex {
+    margin: 0 auto;
+    background-color: $colorGray;
+    color: $colorBlack;
+}
+
+.perexInner {
+    padding-top: $sitePaddings;
+    padding-bottom: $sitePaddings;
+}
+
+.hidden {
+    display: none;
+}
+
+.text {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.date {
+    display: block;
+    text-align: right;
+    padding-bottom: 4rem;
+}
+
+
+.title,
+.perexInner,
+.text,
+.date {
+    max-width: $maxWidth;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: $sitePaddings;
+    padding-right: $sitePaddings;
+}
+
+.noGallery {
+    .title,
+    .perexInner,
+    .text,
+    .date  {
+        max-width: calc(#{$maxWidth} - 30rem);
+    }
+}

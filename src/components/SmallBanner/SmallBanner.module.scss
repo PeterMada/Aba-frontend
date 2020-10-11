@@ -1,0 +1,10 @@
+.wrap {
+    max-height: 100px;
+}
+
+
+@media screen and (min-width: 1200px) {
+    .wrap {
+        max-height: 150px;
+    }
+}

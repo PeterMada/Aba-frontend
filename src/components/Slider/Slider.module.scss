@@ -1,0 +1,158 @@
+@import '../../utlis/variables.scss';
+
+$arrowSize: 1.5em;
+
+
+.slider {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 20em;
+    margin-bottom: 0;
+    margin-top: 0;
+    overflow: hidden;
+    position: relative;
+
+    &__slide {
+        display: none;
+        position: relative;
+    }
+
+    &__arrow {
+        display: block;
+        // padding: $arrowPadding;
+        position: absolute;
+        left: $sitePaddings;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 500;
+        width: $arrowSize;
+        height: $arrowSize;
+        border-top: none;
+        border-right: none;
+        border-bottom: solid;
+        border-left: solid;
+        border-width: 0 0 0.5rem 0.5rem;
+        border-color: $colorWhite;
+        transition: 0.1s linear;
+        transform: rotate(45deg);
+
+
+        &:hover {
+            // TODO  Animation is not 60 fps
+            border-width: 0.75rem;
+        }
+
+
+        &__next {
+            transform: rotate(225deg);
+            left: initial;
+            right: $sitePaddings;
+        }
+    }
+}
+
+.nav {
+    display: flex;
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    &__circle {
+        display: block;
+        width: 2rem;
+        height: 2rem;
+        border: 0.25rem solid $colorWhite;
+        border-radius: 100%;
+        background-color: transparent;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        transition: background-color 0.25s linear, border-color 0.25s linear;
+
+        // TODO This is not by BEM standard
+        &__active {
+            background-color: $colorSecond;
+        }
+
+        &:hover {
+            cursor: pointer;
+            border-color: $colorSecond;
+        }
+    }
+}
+
+// TODO #5 this should be in .slider class (BEM)
+.active {
+    display: block;
+}
+
+.img {
+    max-height: 70vh;
+    min-height: 20em;
+}
+
+.text {
+    position: absolute;
+    top: 50%;
+    left: 5rem;
+    right: 5rem;
+    width: auto;
+    background-color: rgba($colorBlack, 0.3);
+    color: $colorWhite;
+    padding: 1em 1rem;
+    transform: translateY(-50%);
+    border-radius: 0.5rem;
+
+    &__title {
+        color: $colorWhite;
+        margin-bottom: 0;
+        margin-top: 0;
+        text-align: center;
+    }
+
+    &__perex {
+        margin-bottom: 0;
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .text {
+        max-width: 25em;
+        min-width: 20em;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        right: initial;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .text {
+        left: 14rem;
+        top: 7.5rem;
+        padding: 2em 3rem;
+        transform: none;
+    }
+
+    .slider {
+        &__arrow {
+            width: calc(2 * #{$arrowSize});
+            height: calc(2 * #{$arrowSize});
+            left: 4rem;
+
+            &__next {
+                right: 4rem;
+                left: initial;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .text {
+        left: 30rem;
+        top: 12rem;
+        padding: 2em 3rem;
+    }
+}
