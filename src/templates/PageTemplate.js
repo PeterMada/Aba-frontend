@@ -75,6 +75,7 @@ export default ({ data, pageContext }) => {
                         ))}
                     </div>
 
+
                     {!isLongList &&
                         <div className={cSTherapist.buttonWrap}>
                             <Link to='/novinky' className={cSTherapist.button}>Všechny novinky</Link>
