@@ -8,7 +8,7 @@ export default ({ title, subtitle, text }) => {
             <div className={cS.wrapInner}>
                 <h1 className={cS.title}>{title}</h1>
 
-                <p className={cS.subtitle}>{subtitle}</p>
+                <p className={cS.subtitle} aria-hidden="true">{subtitle}</p>
             </div>
             {text?.length > 0 &&
                 <p className={cS.text}>{text}</p>
