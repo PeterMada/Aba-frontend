@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import Img from 'gatsby-image';
 
+
+import remark from 'remark';
+import recommended from 'remark-preset-lint-recommended';
+import remarkHtml from 'remark-html';
+
 import cS from './Slider.module.scss';
 import './SliderColors.scss';
 
@@ -72,7 +77,12 @@ export default ({ blockData }) => {
 
                         <div className={cS.text}>
                             <h2 className={cS.text__title}>{slider.Title}</h2>
-                            <p className={cS.text__perex}>{slider.Text}</p>
+
+                            <div
+                                className={cS.text__perex}
+                                dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(slider.Text).toString() }}>
+                            </div>
+
                         </div>
                     </div>
                 ))
