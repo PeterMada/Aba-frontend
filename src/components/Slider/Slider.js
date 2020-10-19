@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import Img from 'gatsby-image';
 
 import cS from './Slider.module.scss';
+import './SliderColors.scss';
 
 // TODO Height of banner should be same for all slider
 export default ({ blockData }) => {
     const [activeIndex, setActiveIndex] = useState(1);
+    const [controlsColor, setControlsColor] = useState('white');
 
     const goToSlide = (e) => {
         e.preventDefault();
         setActiveIndex(parseInt(e.target.value));
+        getSliderColor(parseInt(e.target.value));
     }
 
     const goToPrevSlide = (e) => {
@@ -23,6 +26,7 @@ export default ({ blockData }) => {
         }
 
         setActiveIndex(prevSliderNumber);
+        getSliderColor(prevSliderNumber);
     }
 
     const goToNextSlide = (e) => {
@@ -36,14 +40,28 @@ export default ({ blockData }) => {
         }
 
         setActiveIndex(nextSliderNumber);
+        getSliderColor(nextSliderNumber);
+    }
+
+
+    const getSliderColor = (currentSld) => {
+
+        const currentSlider = blockData.find((slider, index) => (
+            (index + 1) === currentSld
+        ));
+
+        if (currentSlider) {
+            setControlsColor(currentSlider.ControlsColor.toLowerCase());
+        }
+
     }
 
     return (
         < section className={cS.slider} >
-            <a href='/' className={cS.slider__arrow} onClick={goToPrevSlide} rel='nofollow' title='Previous slide' aria-label='Previous slide'>
+            <a href='/' className={`${cS.slider__arrow} ${controlsColor}`} onClick={goToPrevSlide} rel='nofollow' title='Previous slide' aria-label='Previous slide'>
                 <span className="visualHidden">Previous slide</span>
             </a>
-            <a href='/' className={`${cS.slider__arrow} ${cS.slider__arrow__next}`} onClick={goToNextSlide} rel='nofollow' title='Next slide' aria-label='Next slide'>
+            <a href='/' className={`${cS.slider__arrow} ${cS.slider__arrow__next} ${controlsColor}`} onClick={goToNextSlide} rel='nofollow' title='Next slide' aria-label='Next slide'>
                 <span className="visualHidden">Next slide</span>
             </a>
             {
@@ -60,11 +78,11 @@ export default ({ blockData }) => {
                 ))
             }
 
-            <div className={cS.nav}>
+            <div className={`${cS.nav} ${controlsColor}`}>
                 {blockData.map((slider, index) => (
                     <button
                         key={`slider-nav--${(index + 1)}`}
-                        className={(index + 1) === activeIndex ? `${cS.nav__circle} ${cS.nav__circle__active}` : cS.nav__circle}
+                        className={(index + 1) === activeIndex ? `${cS.nav__circle} ${cS.nav__circle__active} active` : cS.nav__circle}
                         onClick={goToSlide}
                         value={(index + 1)}
                         aria-label={`Go to slide ${(index + 1)}`}>

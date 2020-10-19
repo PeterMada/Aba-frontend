@@ -252,6 +252,7 @@ export const query = graphql`
                     id
                     Title
                     Text
+                    ControlsColor
                     SliderImg {
                         childImageSharp {
                             fluid(maxWidth: 2500) {

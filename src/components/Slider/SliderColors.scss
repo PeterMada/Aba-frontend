@@ -1,0 +1,26 @@
+@import '../../utlis/variables.scss';
+
+.blue {
+    border-color: $colorHref!important;
+
+    > button {
+        border-color: $colorHref!important;
+
+        &.active {
+            background-color: $colorWhite!important;
+        }
+    }
+}
+
+.black {
+    border-color: $colorBlack!important;
+
+    > button {
+        border-color: $colorBlack!important;
+
+        
+        &.active {
+            background-color: $colorWhite!important;
+        }
+    }
+}
