@@ -19,10 +19,7 @@ import cSTherapist from './TherapistSignpostTemplate.module.scss';
 import cSNews from './NewsSignpostTemplate.module.scss';
 import cS from './PageTemplate.module.scss';
 
-//<h1 className={cSTherapist.title}>Terapeuti</h1>
-
 export default ({ data, pageContext }) => {
-
 
     const getRightComponent = currentComponent => {
         let returnComponent = '';

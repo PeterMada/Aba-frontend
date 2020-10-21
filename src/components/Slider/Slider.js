@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Img from 'gatsby-image';
 
-
 import remark from 'remark';
 import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
@@ -50,7 +49,6 @@ export default ({ blockData }) => {
 
 
     const getSliderColor = (currentSld) => {
-
         const currentSlider = blockData.find((slider, index) => (
             (index + 1) === currentSld
         ));
@@ -60,6 +58,8 @@ export default ({ blockData }) => {
         }
 
     }
+
+    getSliderColor(0);
 
     return (
         < section className={cS.slider} >
