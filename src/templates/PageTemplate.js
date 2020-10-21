@@ -55,12 +55,16 @@ export default ({ data, pageContext }) => {
         if (currentComponent?.HasNewsList) {
             let allNews = [];
             const isLongList = currentComponent?.IsLongList ? true : false;
+            const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
 
             if (isLongList) {
                 allNews = data.allStrapiNews.edges.filter((el, index) => true);
             } else {
                 allNews = data.allStrapiNews.edges.filter((el, index) => index < 4);
             }
+
+
+            const hasEnoughtNews = allNews.length > 4 ? true : false;
 
             returnComponent = (
                 <MaxWidthWrap>
@@ -73,9 +77,9 @@ export default ({ data, pageContext }) => {
                     </div>
 
 
-                    {!isLongList &&
+                    {!isLongList && hasButtonText && hasEnoughtNews &&
                         <div className={cSTherapist.buttonWrap}>
-                            <Link to='/novinky' className={cSTherapist.button}>Všechny novinky</Link>
+                            <Link to='/novinky' className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
                         </div>
                     }
                 </MaxWidthWrap>
@@ -87,12 +91,15 @@ export default ({ data, pageContext }) => {
         if (currentComponent?.HasTherapistList) {
             let allTherapist = [];
             const isLongList = currentComponent?.IsLongList ? true : false;
+            const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
 
             if (isLongList) {
                 allTherapist = data.allStrapiTherapists.edges.filter(el => true);
             } else {
                 allTherapist = data.allStrapiTherapists.edges.sort(() => Math.random() - Math.random()).slice(0, 4);
             }
+
+            const hasEnoughtTherapist = allTherapist.length > 4 ? true : false;
 
             returnComponent = (
                 <MaxWidthWrap>
@@ -106,9 +113,9 @@ export default ({ data, pageContext }) => {
                     </div>
 
 
-                    {!isLongList &&
+                    {!isLongList && hasButtonText && hasEnoughtTherapist &&
                         <div className={cSTherapist.buttonWrap}>
-                            <Link to='/terapeuti' className={cSTherapist.button}>Náš tým</Link>
+                            <Link to='/terapeuti' className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
                         </div>
                     }
 
@@ -231,6 +238,7 @@ export const query = graphql`
                 id
                 IsLongList
                 SmallImgTitle
+                ButtonText
                 BackgroundImg {
                     childImageSharp {
                         fluid(maxWidth: 2500) {
