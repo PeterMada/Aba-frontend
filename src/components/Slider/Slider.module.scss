@@ -130,7 +130,8 @@ $arrowSize: 1.5em;
 @media screen and (min-width: 1000px) {
     .text {
         left: 14rem;
-        top: 7.5rem;
+        bottom: 6rem;
+        top: inherit;
         padding: 2em 3rem;
         transform: none;
     }
