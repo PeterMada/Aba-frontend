@@ -39,14 +39,14 @@ $arrowSize: 6px;
     position: fixed;
     left: 0;
     right: 30%;
-    top: 6.8rem;
+    top: 5.9rem;
     bottom: 0;
     background: $colorHeader;
     z-index: 9999;
     padding: 0.5rem;
    // padding: 1rem calc(#{$sitePaddings} /2);
    overflow: scroll;
-   max-height: calc(100vh - 70px);
+   max-height: calc(100vh - 5.9rem);
 
 
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
@@ -85,8 +85,7 @@ $arrowSize: 6px;
 .listInner {
     display: block;
     width: 100%;
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.5rem;
+    padding: 0 1rem;
     height: auto;
     
     transition: transform  0.5s ease-in-out;
@@ -98,6 +97,9 @@ $arrowSize: 6px;
     &.activeSubmenu {
         height: auto;
         transform:scaleY(1);
+        margin-bottom: 0.5rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
     }
 }
 
@@ -211,6 +213,7 @@ $arrowSize: 6px;
 
 
 @media screen and (min-width: 1000px) {
+
     .menuButton {
         display: none;
     }
