@@ -1,6 +1,6 @@
 @import '../../utlis/variables.scss';
 
-$arrowSize: 12px;
+$arrowSize: 6px;
 .menuButton {
     display: block;
     position: relative;
@@ -209,6 +209,7 @@ $arrowSize: 12px;
     display: none;       
 }
 
+
 @media screen and (min-width: 1000px) {
     .menuButton {
         display: none;
@@ -288,7 +289,7 @@ $arrowSize: 12px;
         display: none;
     }
      
-
+    /*
     .arrowRight {
         width: $arrowSize;
         height: $arrowSize;
@@ -312,9 +313,31 @@ $arrowSize: 12px;
         transition: all 0.5s ease-in-out;
     //  animation: flip 10s ease-in-out infinite;
     }
+    */
+
+        
+    .arrowRightNew {
+        position: absolute;
+        top: calc(50%);
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+    }
+
+    .arrowMaskNew {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        vertical-align: middle;
+        border-top: $arrowSize solid;
+        border-right: $arrowSize solid transparent;
+        border-left: $arrowSize solid transparent;
+        color: $colorHref;
+    }
     
 
     .opened {
+        /*
         .arrowRight {
 
             top: calc(50% + 3px);
@@ -324,6 +347,10 @@ $arrowSize: 12px;
             top: 15%;
             right: 0%;
         }  
+        */ 
+        .arrowRightNew {
+
+        }
     }
 
     .activeSubmenu {

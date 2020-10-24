@@ -77,6 +77,8 @@ export default ({ blockData, siteUrlMap }) => {
         setActiveSubmenu(false);
     }
 
+    console.log(blockData);
+
     return (
         <div>
             <a href="" className={activeMenu ? `${cS.menuButton} ${cS.active}` : `${cS.menuButton}`} aria-label='Open menu' onClick={menuButtonClick}>
@@ -89,11 +91,11 @@ export default ({ blockData, siteUrlMap }) => {
                     {blockData.Menu.map((element, index) => (
                         <li key={`menu-top--${index}`} className={cS.item} onMouseOver={openDesktopSubmenu} onMouseLeave={closeDesktopSubmenu} data-id={index}>
                             <Link to={getRealUrl(element.MainPage.id)} className={cS.link} aria-current="page">
-                                {element.MainPage?.TitleInMenu?.length > 0 &&
+                                {element.MainPage?.TitleInMenu !== null &&
                                     element.MainPage.TitleInMenu
                                 }
 
-                                {element.MainPage?.TitleInMenu?.length == 0 &&
+                                {element.MainPage?.TitleInMenu === null &&
                                     element.MainPage.Title
                                 }
 
@@ -107,8 +109,9 @@ export default ({ blockData, siteUrlMap }) => {
                                     data-id={index} >
                                     <span className={`${cS.horizontal} ${cS.row}`}></span>
                                     <span className={`${cS.vertical} ${cS.row}`}></span>
-                                    <div className={cS.arrowRight}>
-                                        <div className={cS.arrowMask}></div>
+
+                                    <div className={cS.arrowRightNew}>
+                                        <div className={cS.arrowMaskNew}></div>
                                     </div>
                                     <span className='visuallyhidden'>Open submenu for "{element.MainPage.Title}"</span>
                                 </button>
