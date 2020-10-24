@@ -24,7 +24,6 @@ $arrowSize: 1.5em;
         position: absolute;
         left: $sitePaddings;
         top: 50%;
-        transform: translateY(-50%);
         z-index: 500;
         width: $arrowSize;
         height: $arrowSize;
@@ -35,7 +34,7 @@ $arrowSize: 1.5em;
         border-width: 0 0 0.5rem 0.5rem;
         border-color: $colorWhite;
         transition: 0.1s linear;
-        transform: rotate(45deg);
+        transform: translateY(-50%) rotate(45deg);
 
 
         &:hover {
@@ -45,7 +44,7 @@ $arrowSize: 1.5em;
 
 
         &__next {
-            transform: rotate(225deg);
+            transform: translateY(-50%) rotate(225deg);
             left: initial;
             right: $sitePaddings;
         }
