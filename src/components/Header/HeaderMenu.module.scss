@@ -146,11 +146,6 @@ $arrowSize: 6px;
     }
 }
 
-
-
-
-
-
 .closed {
     .vertical {
         transition: all 0.25s ease-in-out;
@@ -228,6 +223,7 @@ $arrowSize: 6px;
         overflow: visible;
         margin-right: 0;
         margin-left: auto;
+        padding: 0;
     }
 
     .list {
@@ -258,6 +254,8 @@ $arrowSize: 6px;
        // display: none;
        padding-left: 1rem;
        padding-right: 1rem;
+       margin-top: 1rem;
+       margin-bottom: 1rem;
     }
 
     .itemInner {
@@ -359,4 +357,25 @@ $arrowSize: 6px;
     .activeSubmenu {
     }
   
+    
+    .link  {
+        height: 6rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        display: flex;
+        align-items: center;   
+    }
+
+    .itemInner {
+        .link {
+            height: auto;
+            display: block;
+        }
+    }
+
+    .listInner {
+            top: 8rem;
+    }
 }
