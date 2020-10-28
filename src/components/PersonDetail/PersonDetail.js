@@ -12,7 +12,6 @@ import cS from './PersonDetail.module.scss';
 export default ({ blockData }) => {
     const [activeTab, setActiveTab] = useState(0);
 
-    console.log(blockData);
 
     const changeTab = (e, index) => {
         e.preventDefault();

@@ -1,6 +1,9 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 
+
+import { Helmet } from "react-helmet"
+
 import RootLayout from '../components/RootLayout/RootLayout';
 import Slider from '../components/Slider/Slider';
 import TextWithImage from '../components/TextWithImage/TextWithImage';
@@ -20,6 +23,8 @@ import cSNews from './NewsSignpostTemplate.module.scss';
 import cS from './PageTemplate.module.scss';
 
 export default ({ data, pageContext }) => {
+    console.log(data);
+    console.log(pageContext);
 
     const getRightComponent = currentComponent => {
         let returnComponent = '';
@@ -154,9 +159,18 @@ export default ({ data, pageContext }) => {
         return returnComponent;
     }
 
+    const siteTitle = data.strapiSettings.SiteName;
+    const currentPageTitle = '';
+
 
     return (
         <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title></title>
+                <link rel="canonical" href="http://mysite.com/example" />
+            </Helmet>
             <main>
                 {data.strapiPages.DynamicComponent.map((component, index) => (
                     <div key={index}>

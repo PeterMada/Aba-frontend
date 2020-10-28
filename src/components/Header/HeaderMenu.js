@@ -77,7 +77,6 @@ export default ({ blockData, siteUrlMap }) => {
         setActiveSubmenu(false);
     }
 
-    console.log(blockData);
 
     return (
         <div>
