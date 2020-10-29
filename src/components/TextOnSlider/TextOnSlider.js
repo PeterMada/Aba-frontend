@@ -3,6 +3,10 @@ import BackgroundImage from 'gatsby-background-image';
 
 import MaxWidthWrap from './../MaxWidthWrap/MaxWidthWrap';
 
+import remark from 'remark';
+import recommended from 'remark-preset-lint-recommended';
+import remarkHtml from 'remark-html';
+
 import cS from './TextOnSlider.module.scss';
 
 export default ({ blockData, backgroundData }) => {
@@ -61,7 +65,13 @@ export default ({ blockData, backgroundData }) => {
                                     {slider.ShowTitle &&
                                         <h2 className={cS.title}>{slider.Title}</h2>
                                     }
-                                    <p className={cS.text}>{slider.Text}</p>
+
+
+                                    <div
+                                        className={cS.text}
+                                        dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(slider.Text).toString() }}>
+                                    </div>
+
                                     {slider?.TextUnder?.length > 0 &&
                                         <p className={cS.textUnder}>{slider.TextUnder}</p>
                                     }

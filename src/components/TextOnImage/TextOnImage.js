@@ -2,6 +2,10 @@ import React from 'react';
 
 import BackgroundImage from 'gatsby-background-image';
 
+import remark from 'remark';
+import recommended from 'remark-preset-lint-recommended';
+import remarkHtml from 'remark-html';
+
 import cS from './TextOnImage.module.scss';
 
 export default ({ blockData }) => {
@@ -21,7 +25,11 @@ export default ({ blockData }) => {
                         {blockData.Perex.length > 0 &&
                             <p className={cS.perex}>{blockData.Perex}</p>
                         }
-                        <p className={cS.text}>{blockData.Text}</p>
+
+                        <div
+                            className={cS.text}
+                            dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(blockData.Text).toString() }}>
+                        </div>
                     </div>
                 </div>
             </BackgroundImage>
