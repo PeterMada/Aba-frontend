@@ -80,7 +80,7 @@ export default ({ blockData, siteUrlMap }) => {
 
     return (
         <div>
-            <a href="" className={activeMenu ? `${cS.menuButton} ${cS.active}` : `${cS.menuButton}`} aria-label='Open menu' onClick={menuButtonClick}>
+            <a href="" className={activeMenu ? `${cS.menuButton} ${cS.active}` : `${cS.menuButton}`} aria-label='Open menu' onClick={menuButtonClick} rel="nofollow">
                 <div className={cS.menuBar1}></div>
                 <div className={cS.menuBar2}></div>
                 <div className={cS.menuBar3}></div>
