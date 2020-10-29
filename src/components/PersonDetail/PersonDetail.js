@@ -3,6 +3,12 @@ import React, { useState } from 'react';
 import Img from 'gatsby-image';
 import ReactMarkdown from 'react-markdown';
 
+import remark from 'remark';
+import recommended from 'remark-preset-lint-recommended';
+import remarkHtml from 'remark-html';
+
+import Form from './../Form/Form';
+
 import SocialMediaSite from './../SocialMediaSite/SocialMediaSite';
 
 import cS from './PersonDetail.module.scss';
@@ -42,19 +48,27 @@ export default ({ blockData }) => {
                 {blockData?.TabText?.length > 0 &&
                     <div className={cS.tabWrap}>
                         <div className={cS.tabControls}>
-
                             {blockData.TabText.map((tabEl, index) => (
                                 <a className={activeTab === index ? `${cS.tabControl} ${cS.activeControl}` : `${cS.tabControl}`} href="" key={index} rel='nofollow' onClick={e => changeTab(e, index)}>{tabEl.Title}</a>
                             ))}
+
+                            <a className={activeTab === 9999 ? `${cS.tabControl} ${cS.activeControl}` : `${cS.tabControl}`} href="" key='9999' rel='nofollow' onClick={e => changeTab(e, 9999)}>Kontakt</a>
+
                         </div>
                         <div className={cS.tabContents}>
 
                             {blockData.TabText.map((tabEl, index) => (
-                                <div key={index} className={activeTab === index ? `${cS.tabContent} ${cS.activeContent}` : `${cS.tabContent}`}>
-
-                                    <ReactMarkdown source={tabEl.Text} />
+                                <div
+                                    key={index}
+                                    className={activeTab === index ? `${cS.tabContent} ${cS.activeContent}` : `${cS.tabContent}`}
+                                    dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(tabEl.Text).toString() }}>
                                 </div>
                             ))}
+                            <div
+                                key='9999'
+                                className={activeTab === 9999 ? `${cS.tabContent} ${cS.activeContent}` : `${cS.tabContent}`}>
+                                <Form />
+                            </div>
                         </div>
 
                     </div>
