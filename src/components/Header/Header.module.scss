@@ -8,18 +8,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 100%;
 }
 
 .wrap {
     background-color: $colorHeader;
     border-bottom: 1px solid $colorHeaderBorder;
-    max-height: 6rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
 }
 
-
 .logo {
-    width: 9rem;
-    //height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,21 +34,50 @@
 }
 
 
+.logoImg {
+    width: auto;
+    height: auto;
+    display: block;
+    max-height: 4rem;
+}
+
 
 @media screen and (min-width: 1000px) {
     .wrapInner {
-        height: 8rem;
         padding-top: 0;
         padding-bottom: 0;
+        height: 100%;
     }
 
     .logo {
-        width: 14.5rem;
-        padding-top: 0.8rem;
-        padding-bottom: 0.8rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        transition: all 0.2s ease-in-out;
     }
+    
+    .logoImg {
+        max-height: 5.5rem;
+        transition: all 0.2s ease-in-out;
+    }
+
     .wrap {
-        max-height: 8rem;
-        height: 8rem;
+        min-height: 6rem;
+        transition: all 0.2s ease-in-out;
+    }
+    
+    .isScrolled {
+        &.wrap {
+            min-height: 0;
+        }
+
+        .logoImg {
+            max-height: 3.5rem;
+        }
+
+        .logo {
+            padding-top: 0;
+            padding-bottom: 0;
+
+        }
     }
 }

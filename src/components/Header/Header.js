@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
@@ -8,15 +8,24 @@ import HeaderMenu from './HeaderMenu';
 import cS from './Header.module.scss';
 
 export default ({ blockData, siteUrlMap, siteMenu }) => {
+    const [scroll, setScroll] = useState(false);
 
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+            setScroll(window.scrollY > 200);
+        });
+    }, []);
+
+    //<Img fluid={blockData.SiteLogo.childImageSharp.fluid} />
+    console.log(blockData);
     return (
-        <header className={cS.wrap}>
+        <header className={scroll ? `${cS.wrap} ${cS.isScrolled}` : `${cS.wrap}`}>
             <div className={cS.wrapInner}>
                 <Link to='/' className={cS.logo}>
-                    <Img fluid={blockData.SiteLogo.childImageSharp.fluid} />
+                    <img className={cS.logoImg} src={blockData.SiteLogo.publicURL} alt={blockData.SiteName} />
                 </Link>
                 <HeaderMenu blockData={siteMenu} siteUrlMap={siteUrlMap} className={cS.menu} />
             </div>
-        </header>
+        </header >
     );
 }

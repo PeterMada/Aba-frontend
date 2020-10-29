@@ -192,6 +192,7 @@ export const query = graphql`
             SiteName
             Copyright
             SiteLogo {
+                publicURL
                 childImageSharp {
                     fluid(maxWidth: 300) {
                       ...GatsbyImageSharpFluid
