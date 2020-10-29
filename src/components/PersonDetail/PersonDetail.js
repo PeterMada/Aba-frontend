@@ -18,8 +18,8 @@ export default ({ blockData }) => {
         setActiveTab(index);
     }
 
-    const titleBefore = blockData?.TitleBefore.length > 0 ? `${blockData.TitleBefore} ` : '';
-    const titleAfter = blockData?.TitleAfter.length > 0 ? ` ${blockData?.TitleAfter}` : '';
+    const titleBefore = blockData?.TitleBefore?.length > 0 ? `${blockData.TitleBefore}` : '';
+    const titleAfter = blockData?.TitleAfter?.length > 0 ? `${blockData?.TitleAfter}` : '';
 
     const personFullName = `${titleBefore}${blockData.Name}${titleAfter}`;
 

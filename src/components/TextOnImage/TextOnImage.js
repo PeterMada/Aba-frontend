@@ -15,7 +15,6 @@ export default ({ blockData }) => {
 
             <BackgroundImage
                 className={cS.img}
-                Tag="section"
                 fluid={blockData.BackgroundImg.childImageSharp.fluid}
                 backgroundColor={`#040e18`}
                 style={{ backgroundAttachment: `fixed` }}>
