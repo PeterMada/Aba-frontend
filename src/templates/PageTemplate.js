@@ -39,7 +39,7 @@ export default ({ data, pageContext }) => {
 
         // Text block with images component
         if (currentComponent?.text_block_with_images?.length > 0) {
-            returnComponent = <TextWithImage blockData={currentComponent.text_block_with_images} />
+            returnComponent = <TextWithImage blockData={currentComponent.text_block_with_images} siteUrlMap={pageContext.pagesUrlMap} />
         }
 
         // Text on image component
@@ -299,6 +299,9 @@ export const query = graphql`
                     Title
                     Perex
                     Text
+                    ButtonText
+                    PageTarget
+                    ExternalUrl
                     Img {
                         childImageSharp {
                             fluid(maxWidth: 1000) {
