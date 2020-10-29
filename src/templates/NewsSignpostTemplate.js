@@ -33,6 +33,7 @@ export const pageQuery = graphql`
             SiteName
             Copyright
             SiteLogo {
+                publicURL
                 childImageSharp {
                     fluid(maxWidth: 300) {
                       ...GatsbyImageSharpFluid
