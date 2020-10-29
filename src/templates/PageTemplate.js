@@ -157,16 +157,26 @@ export default ({ data, pageContext }) => {
         return returnComponent;
     }
 
-    const siteTitle = data.strapiSettings.SiteName;
-    const currentPageTitle = '';
+    const siteTitle = data.strapiPages.Title;
+    const siteTitleMenu = data.strapiPages.TitleInMenu;
 
+    let currentPageTitle = '';
+    if (siteTitle?.toLowerCase() === 'homepage') {
+        currentPageTitle = data.strapiSettings.SiteName;
+    } else {
+        if (siteTitleMenu) {
+            currentPageTitle = `${siteTitleMenu} - ${data.strapiSettings.SiteName}`;
+        } else {
+            currentPageTitle = `${siteTitle} - ${data.strapiSettings.SiteName}`;
+        }
+    }
 
     return (
         <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
             <Helmet>
                 <meta charSet="utf-8" />
-                <title></title>
+                <title>{currentPageTitle}</title>
             </Helmet>
             <main>
                 {data.strapiPages.DynamicComponent.map((component, index) => (
@@ -240,6 +250,8 @@ export const query = graphql`
             }
         }
         strapiPages(id: {eq: $pageId}) {
+            Title
+            TitleInMenu
             Url
             DynamicComponent {
                 GraphicTitle
