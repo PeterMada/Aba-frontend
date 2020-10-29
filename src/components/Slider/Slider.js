@@ -63,12 +63,16 @@ export default ({ blockData }) => {
 
     return (
         < section className={cS.slider} >
-            <a href='/' className={`${cS.slider__arrow} ${controlsColor}`} onClick={goToPrevSlide} rel='nofollow' title='Previous slide' aria-label='Previous slide'>
-                <span className="visualHidden">Previous slide</span>
-            </a>
-            <a href='/' className={`${cS.slider__arrow} ${cS.slider__arrow__next} ${controlsColor}`} onClick={goToNextSlide} rel='nofollow' title='Next slide' aria-label='Next slide'>
-                <span className="visualHidden">Next slide</span>
-            </a>
+            {blockData.length > 1 &&
+                <>
+                    <a href='/' className={`${cS.slider__arrow} ${controlsColor}`} onClick={goToPrevSlide} rel='nofollow' title='Previous slide' aria-label='Previous slide'>
+                        <span className="visualHidden">Previous slide</span>
+                    </a>
+                    <a href='/' className={`${cS.slider__arrow} ${cS.slider__arrow__next} ${controlsColor}`} onClick={goToNextSlide} rel='nofollow' title='Next slide' aria-label='Next slide'>
+                        <span className="visualHidden">Next slide</span>
+                    </a>
+                </>
+            }
             {
                 blockData.map((slider, index) => (
                     <div key={`slider--${slider.id}`} className={(index + 1) === activeIndex ? `${cS.slider__slide} ${cS.active} ${cS.active}--${index}` : cS.slider__slide} >
@@ -88,17 +92,19 @@ export default ({ blockData }) => {
                 ))
             }
 
-            <div className={`${cS.nav} ${controlsColor}`}>
-                {blockData.map((slider, index) => (
-                    <button
-                        key={`slider-nav--${(index + 1)}`}
-                        className={(index + 1) === activeIndex ? `${cS.nav__circle} ${cS.nav__circle__active} active` : cS.nav__circle}
-                        onClick={goToSlide}
-                        value={(index + 1)}
-                        aria-label={`Go to slide ${(index + 1)}`}>
-                    </button>
-                ))}
-            </div>
+            {blockData.length > 1 &&
+                <div className={`${cS.nav} ${controlsColor}`}>
+                    {blockData.map((slider, index) => (
+                        <button
+                            key={`slider-nav--${(index + 1)}`}
+                            className={(index + 1) === activeIndex ? `${cS.nav__circle} ${cS.nav__circle__active} active` : cS.nav__circle}
+                            onClick={goToSlide}
+                            value={(index + 1)}
+                            aria-label={`Go to slide ${(index + 1)}`}>
+                        </button>
+                    ))}
+                </div>
+            }
         </section >
 
     )
