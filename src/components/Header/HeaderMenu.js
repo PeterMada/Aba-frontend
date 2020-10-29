@@ -48,7 +48,6 @@ export default ({ blockData, siteUrlMap }) => {
         if (finalUrl.url === '' || finalUrl.url === '/') {
             return '/';
         } else {
-            console.log(finalUrl.url);
             return `/${finalUrl.url}`;
         }
     }
