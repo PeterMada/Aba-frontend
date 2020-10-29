@@ -5,6 +5,7 @@
     max-width: $maxWidthSmaller;
     margin-left: auto;
     margin-right: auto;
+    padding-top: 3rem;
 }
 
 .imgWrap {
@@ -116,11 +117,13 @@
 
     .imgWrap {
         width: 20rem;
+        padding-left: $sitePaddings;
     }
 
     .textWrap {
         width: calc(100% - 20rem);
         padding-left: calc(#{$sitePaddings} * 2);
+        margin-top: 0;
     }
 
     .title {
@@ -133,5 +136,17 @@
 
     .social {
       //  text-align: right;
+    }
+}
+
+
+@media screen and (min-width: 600px) { 
+    .wrap {
+        padding-top: 8rem;
+    }
+
+    
+    .imgWrap {
+        padding-left: 0;
     }
 }

@@ -45,10 +45,11 @@ export default ({ blockData, siteUrlMap }) => {
         const returnUrl = siteUrlMap.filter(el => el.id === `Pages_${menuId}`);
         const [finalUrl, restOfUrl] = [...returnUrl];
 
-        if (finalUrl.url === '') {
+        if (finalUrl.url === '' || finalUrl.url === '/') {
             return '/';
         } else {
-            return finalUrl.url;
+            console.log(finalUrl.url);
+            return `/${finalUrl.url}`;
         }
     }
 
@@ -76,7 +77,6 @@ export default ({ blockData, siteUrlMap }) => {
     const closeDesktopSubmenu = (e) => {
         setActiveSubmenu(false);
     }
-
 
     return (
         <div>
@@ -120,7 +120,7 @@ export default ({ blockData, siteUrlMap }) => {
                                 <ul aria-haspopup="true" aria-expanded="false" className={activeSubmenu === index ? `${cS.listInner} ${cS.list} ${cS.activeSubmenu}` : `${cS.listInner} ${cS.list}`}>
                                     {element.SubmenuPages.map((subMenu, indexInner) => (
                                         <li key={`submenu--${indexInner}`} className={`${cS.item} ${cS.itemInner}`}>
-                                            <Link to={`/${getRealUrl(subMenu.id)}`} className={cS.link} tabIndex={activeSubmenu === index ? `0` : `-1`}>
+                                            <Link to={`${getRealUrl(subMenu.id)}`} className={cS.link} tabIndex={activeSubmenu === index ? `0` : `-1`}>
 
                                                 {subMenu?.TitleInMenu?.length > 0 &&
                                                     subMenu.TitleInMenu
