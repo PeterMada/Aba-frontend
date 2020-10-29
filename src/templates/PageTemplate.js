@@ -23,8 +23,6 @@ import cSNews from './NewsSignpostTemplate.module.scss';
 import cS from './PageTemplate.module.scss';
 
 export default ({ data, pageContext }) => {
-    console.log(data);
-    console.log(pageContext);
 
     const getRightComponent = currentComponent => {
         let returnComponent = '';
@@ -169,7 +167,6 @@ export default ({ data, pageContext }) => {
             <Helmet>
                 <meta charSet="utf-8" />
                 <title></title>
-                <link rel="canonical" href="http://mysite.com/example" />
             </Helmet>
             <main>
                 {data.strapiPages.DynamicComponent.map((component, index) => (

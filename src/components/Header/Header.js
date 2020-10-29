@@ -19,7 +19,7 @@ export default ({ blockData, siteUrlMap, siteMenu }) => {
     //<Img fluid={blockData.SiteLogo.childImageSharp.fluid} />
 
     return (
-        <header className={scroll ? `${cS.wrap} ${cS.isScrolled}` : `${cS.wrap}`}>
+        <header className={scroll ? `${cS.wrap} ${cS.isScrolled} header-wrap` : `${cS.wrap} header-wrap`}>
             <div className={cS.wrapInner}>
                 <Link to='/' className={cS.logo}>
                     <img className={cS.logoImg} src={blockData.SiteLogo.publicURL} alt={blockData.SiteName} />
