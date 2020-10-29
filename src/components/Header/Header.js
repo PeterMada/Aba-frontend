@@ -12,12 +12,12 @@ export default ({ blockData, siteUrlMap, siteMenu }) => {
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
-            setScroll(window.scrollY > 200);
+            setScroll(window.scrollY > 80);
         });
     }, []);
 
     //<Img fluid={blockData.SiteLogo.childImageSharp.fluid} />
-    console.log(blockData);
+
     return (
         <header className={scroll ? `${cS.wrap} ${cS.isScrolled}` : `${cS.wrap}`}>
             <div className={cS.wrapInner}>

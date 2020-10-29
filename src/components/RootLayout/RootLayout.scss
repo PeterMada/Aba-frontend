@@ -17,7 +17,6 @@ body {
     margin: 0 auto;
     font-size: $fontSize;
     color: $colorText;
-    margin-top: 6rem;
 
     * {
         box-sizing: border-box;
@@ -28,6 +27,7 @@ body {
 main {
     background-color: $colorBackground;
 }
+
 
 @media screen and (min-width: 2000px) {
     body {
