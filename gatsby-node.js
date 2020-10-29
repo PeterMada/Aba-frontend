@@ -98,9 +98,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
 
     urlMap.map(page => {
-        console.log(page);
-        //const basicTemplatePath = path.resolve('./src/templates/PageTemplate.js');
-
         const basicTemplatePath = path.resolve(__dirname + '/src/templates/PageTemplate.js');
         let currentTemplate = basicTemplatePath;
         let isNewsSignpostPage = false;
@@ -129,7 +126,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
 
     // Create news pages
-
     result.data.allStrapiNews.edges.map((page) => {
         createPage({
             path: `/${newsUrl}/${page.node.Url}`,

@@ -81,6 +81,8 @@ export const pageQuery = graphql`
         strapiTherapists(id: {eq: $pageId}) {
             id
             Name
+            TitleBefore
+            TitleAfter
             Perex
             strapiId
             TabText {

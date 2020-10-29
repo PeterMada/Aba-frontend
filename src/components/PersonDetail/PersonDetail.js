@@ -18,6 +18,11 @@ export default ({ blockData }) => {
         setActiveTab(index);
     }
 
+    const titleBefore = blockData?.TitleBefore.length > 0 ? `${blockData.TitleBefore} ` : '';
+    const titleAfter = blockData?.TitleAfter.length > 0 ? ` ${blockData?.TitleAfter}` : '';
+
+    const personFullName = `${titleBefore}${blockData.Name}${titleAfter}`;
+
     return (
         <div className={cS.wrap}>
             <div className={cS.imgWrap}>
@@ -31,7 +36,7 @@ export default ({ blockData }) => {
                 }
             </div>
             <div className={cS.textWrap}>
-                <h1 className={cS.title}>{blockData.Name}</h1>
+                <h1 className={cS.title}>{personFullName}</h1>
                 <p className={cS.perex}>{blockData.Perex}</p>
 
                 {blockData?.TabText?.length > 0 &&
