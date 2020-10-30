@@ -8,6 +8,8 @@ import remark from 'remark';
 import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
 
+import PageButton from './../PageButton/PageButton';
+
 import cS from './TextOnImage.module.scss';
 
 export default ({ blockData, siteUrlMap }) => {
@@ -22,7 +24,6 @@ export default ({ blockData, siteUrlMap }) => {
             return `/${finalUrl.url}`;
         }
     }
-    console.log(blockData);
 
     return (
         <div className={cS.wrap}>
@@ -44,15 +45,7 @@ export default ({ blockData, siteUrlMap }) => {
                             dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(blockData.Text).toString() }}>
                         </div>
 
-
-
-                        {blockData.ButtonText?.length > 0 && blockData?.PageTarget && blockData?.ExternalUrl?.length === 0 &&
-                            <Link to={getRealUrl(blockData.PageTarget)} className={cS.btn}>{blockData.ButtonText}</Link>
-                        }
-
-                        {blockData.ButtonText?.length > 0 && blockData.ExternalUrl && blockData?.PageTarget?.length === 0 &&
-                            <a href={blockData.ExternalUrl} className={cS.btn}>{blockData.ButtonText}</a>
-                        }
+                        <PageButton blockData={blockData} siteUrlMap={siteUrlMap} />
                     </div>
                 </div>
             </BackgroundImage>

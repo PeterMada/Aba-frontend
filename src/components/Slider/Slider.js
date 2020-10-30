@@ -5,11 +5,13 @@ import remark from 'remark';
 import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
 
+import PageButton from './../PageButton/PageButton';
+
 import cS from './Slider.module.scss';
 import './SliderColors.scss';
 
 // TODO Height of banner should be same for all slider
-export default ({ blockData }) => {
+export default ({ blockData, siteUrlMap }) => {
     const [activeIndex, setActiveIndex] = useState(1);
     const [controlsColor, setControlsColor] = useState('white');
 
@@ -86,6 +88,8 @@ export default ({ blockData }) => {
                                 className={cS.text__perex}
                                 dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(slider.Text).toString() }}>
                             </div>
+
+                            <PageButton blockData={slider} siteUrlMap={siteUrlMap} />
 
                         </div>
                     </div>

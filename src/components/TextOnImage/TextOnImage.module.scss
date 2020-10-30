@@ -13,27 +13,6 @@
     margin-right: auto;
     padding: $componentVerticalPadding $componentInsidePadding;
     text-align: center;
-
-    a {
-        display: inline-block;
-        color: $colorWhite;
-        background-color: $colorHref;
-        border: 1px solid $colorHref;
-        padding: 1rem 1.5rem;
-        text-decoration: none;
-        transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
-        margin-top: 2rem;
-        line-height: 1;
-    
-        &:visited {
-            color: $colorWhite;
-        }
-
-        &:hover {
-            color: $colorHref;
-            background-color: $colorWhite;
-        }
-    }
 }
 
 .title {

@@ -1,13 +1,14 @@
 import React from 'react';
 
-
 import remark from 'remark';
 import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
 
+import PageButton from './../PageButton/PageButton';
+
 import cS from './TextBlock.module.scss';
 
-export default ({ blockData }) => {
+export default ({ blockData, siteUrlMap }) => {
     return (
         <div className={cS.wrap}>
             {
@@ -21,8 +22,9 @@ export default ({ blockData }) => {
                         <div
                             className={cS.text}
                             dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(block.Text).toString() }}>
-
                         </div>
+
+                        <PageButton blockData={block} siteUrlMap={siteUrlMap} />
 
                     </article>
                 ))

@@ -124,6 +124,10 @@ $arrowSize: 1.5em;
     margin-top: 1rem;
     margin-bottom: 1rem;
     display: block;
+
+    a {
+        color: $colorWhite;
+    }
 }
 
 .textUnder {

@@ -102,17 +102,25 @@ $arrowSize: 1.5em;
     padding: 1em 1rem;
     transform: translateY(-50%);
     border-radius: 0.5rem;
+    text-align: center;
 
     &__title {
         color: $colorWhite;
         margin-bottom: 0;
         margin-top: 0;
-        text-align: center;
     }
 
     &__perex {
         margin-bottom: 0;
         text-align: center;
+
+        > p:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    a {
+        color: $colorWhite;
     }
 }
 

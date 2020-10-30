@@ -29,12 +29,12 @@ export default ({ data, pageContext }) => {
 
         // Slider Component
         if (currentComponent?.sliders?.length > 0) {
-            returnComponent = <Slider blockData={currentComponent.sliders} />
+            returnComponent = <Slider blockData={currentComponent.sliders} siteUrlMap={pageContext.pagesUrlMap} />
         }
 
         // Text block component
         if (currentComponent?.text_blocks?.length > 0) {
-            returnComponent = <TextBlock blockData={currentComponent.text_blocks} />
+            returnComponent = <TextBlock blockData={currentComponent.text_blocks} siteUrlMap={pageContext.pagesUrlMap} />
         }
 
         // Text block with images component
@@ -282,6 +282,9 @@ export const query = graphql`
                     Title
                     Text
                     ControlsColor
+                    ButtonText
+                    PageTarget
+                    ExternalUrl
                     SliderImg {
                         childImageSharp {
                             fluid(maxWidth: 2500) {
@@ -294,6 +297,9 @@ export const query = graphql`
                     Title
                     Perex
                     Text
+                    ButtonText
+                    PageTarget
+                    ExternalUrl
                 }
                 text_block_with_images {
                     Title
