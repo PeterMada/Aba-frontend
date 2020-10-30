@@ -12,7 +12,6 @@ import cS from './TextWithImage.module.scss';
 
 export default ({ blockData, siteUrlMap }) => {
 
-
     const getRealUrl = menuId => {
         const returnUrl = siteUrlMap.filter(el => el.id === `Pages_${menuId}`);
         const [finalUrl, restOfUrl] = [...returnUrl];
@@ -23,7 +22,6 @@ export default ({ blockData, siteUrlMap }) => {
             return `/${finalUrl.url}`;
         }
     }
-    //ExternalUrl
 
     return (
         <>
