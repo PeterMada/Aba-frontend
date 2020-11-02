@@ -54,6 +54,12 @@ export default ({ data, pageContext }) => {
             returnComponent = <TextOnSlilder blockData={currentComponent.text_on_sliders} backgroundData={currentComponent.BackgroundImg} />
         }
 
+        // Nice Title component
+        if (currentComponent?.NiceTitle?.length > 0) {
+            returnComponent = <NiceTitle title={currentComponent?.Title} subtitle={currentComponent?.GraphicTitle} text={currentComponent?.TextUnderTitle?.length ? currentComponent.TextUnderTitle : ''} />
+
+        }
+
         // News list component
         if (currentComponent?.HasNewsList) {
             let allNews = [];

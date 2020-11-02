@@ -4,10 +4,10 @@
 
 .wrap {    
     margin-top: 2em;
-    margin-bottom: 5em;
+    margin-bottom: 0;
 
     &.noPerex {
-        margin-bottom: 4em;
+        margin-bottom: 0;
     }
 }
 
@@ -53,9 +53,9 @@
 
     .wrap {
         margin-top: 5em;
-        margin-bottom: 5em;
+        margin-bottom: 0;
         &.noPerex {
-            margin-bottom: 5em;
+            margin-bottom: 0;
         }
     }
 
