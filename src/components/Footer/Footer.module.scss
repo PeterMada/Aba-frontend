@@ -1,7 +1,7 @@
 @import '../../utlis/variables.scss';
 
 .footerWrapOuter {
-    background-color: $colorForth;
+    background-color: rgba($colorHref, 0.1);
 }
 
 .footerWrap {
@@ -64,7 +64,7 @@
     font-size: 1.2rem;
     margin-bottom: 0;
     text-align: center;
-    color: $colorWhite;
+    color: $colorHref;
 }
 
 .footerColumn {

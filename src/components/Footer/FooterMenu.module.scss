@@ -8,7 +8,7 @@
 .title {
     margin-top: 0;
     margin-bottom: 1rem;
-    color: $colorWhite; 
+    color: $colorHref;
 }
 
 .menu {
@@ -31,10 +31,10 @@
         color: $colorText;
         margin-bottom: 0.5rem;
         text-decoration: none;
-        color: $colorWhite;   
+        color: $colorHref;
 
         &:visited {
-            color: $colorWhite;           
+            color: $colorHref;         
         }
 
         &:hover {

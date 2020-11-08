@@ -33,7 +33,13 @@ export default ({ blockData, siteUrlMap }) => {
                                 <Link
                                     to={getRealUrl(menuLink.id)}
                                     className={cS.menu__link} >
-                                    {menuLink.Title}
+                                    {menuLink?.TitleInMenu !== null &&
+                                        menuLink.TitleInMenu
+                                    }
+
+                                    {menuLink?.TitleInMenu === null &&
+                                        menuLink.Title
+                                    }
                                 </Link>
                             </li>
                         ))}

@@ -8,6 +8,7 @@
 .wrap {
     display: flex;
     flex-direction: column;
+    margin-top: 3rem;
 }
 
 .buttonWrap {
@@ -55,5 +56,6 @@
     .wrap {
         width: calc(100% + 6rem);
         margin-left: -3rem;
+        margin-top: 5rem;
     }
 }

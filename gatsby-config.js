@@ -8,7 +8,6 @@ if (process.env.NODE_ENV !== 'production') {
   apiUrl = process.env.GATSBY_API_URL;
 }
 
-
 module.exports = {
   siteMetadata: {
     title: `ABA Brno`,
