@@ -1,15 +1,16 @@
 @import '../../utlis/variables.scss';
 
 .wrap {
-    max-width: $maxWidthSmall;
-    padding: $componentVerticalPadding $sitePaddings;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .item {
     text-align: center;
+    padding: $componentVerticalPadding $sitePaddings;
     margin-bottom: $componentVerticalPadding;
+    
+    max-width: $maxWidthSmall;
+    margin-left: auto;
+    margin-right: auto;
 
     &:last-child {
         margin-bottom: 0;

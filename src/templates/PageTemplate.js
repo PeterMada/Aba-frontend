@@ -306,6 +306,7 @@ export const query = graphql`
                     ButtonText
                     PageTarget
                     ExternalUrl
+                    BackgroundColor
                 }
                 text_block_with_images {
                     Title
