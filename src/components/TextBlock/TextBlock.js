@@ -19,7 +19,7 @@ export default ({ blockData, siteUrlMap }) => {
                     }}>
                         <article className={cS.item} key={`text-block--${index}`} >
                             <h1 className={cS.title}>{block.Title}</h1>
-                            {block?.Perex.length > 0 &&
+                            {block?.Perex?.length > 0 &&
                                 <p className={cS.perex}>{block.Perex}</p>
                             }
 
