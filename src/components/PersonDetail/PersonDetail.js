@@ -28,7 +28,7 @@ export default ({ blockData }) => {
     const titleAfter = blockData?.TitleAfter?.length > 0 ? `${blockData?.TitleAfter}` : '';
 
     const personFullName = `${titleBefore}${blockData.Name}${titleAfter}`;
-
+    console.log(blockData);
     return (
         <div className={cS.wrap}>
             <div className={cS.imgWrap}>
@@ -67,6 +67,11 @@ export default ({ blockData }) => {
                             <div
                                 key='9999'
                                 className={activeTab === 9999 ? `${cS.tabContent} ${cS.activeContent}` : `${cS.tabContent}`}>
+                                {blockData.Email.length > 0 &&
+                                    <div className={cS.contactEmail}>
+                                        <a href={`mailto:${blockData.Email}`}>{blockData.Email}</a>
+                                    </div>
+                                }
                                 <Form />
                             </div>
                         </div>

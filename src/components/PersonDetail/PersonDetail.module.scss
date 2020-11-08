@@ -113,6 +113,12 @@
     }
 }
 
+.contactEmail {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 3rem;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
       to { opacity: 1; }

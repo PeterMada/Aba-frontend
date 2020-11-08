@@ -86,6 +86,7 @@ export const pageQuery = graphql`
             TitleAfter
             Perex
             strapiId
+            Email
             TabText {
                 Text
                 Title
