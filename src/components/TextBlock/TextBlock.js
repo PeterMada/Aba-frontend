@@ -16,8 +16,9 @@ export default ({ blockData, siteUrlMap }) => {
                 blockData.map((block, index) => (
                     <div style={{
                         backgroundColor: `${block.BackgroundColor}`
-                    }}>
-                        <article className={cS.item} key={`text-block--${index}`} >
+                    }}
+                        key={`text-block--${index}`} >
+                        <article className={cS.item} >
                             <h1 className={cS.title}>{block.Title}</h1>
                             {block?.Perex?.length > 0 &&
                                 <p className={cS.perex}>{block.Perex}</p>

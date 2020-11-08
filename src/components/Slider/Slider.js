@@ -51,7 +51,7 @@ export default ({ blockData, siteUrlMap }) => {
 
 
     const getSliderColor = (currentSld) => {
-        const currentSlider = blockData.find((slider, index) => (
+        let currentSlider = blockData.find((slider, index) => (
             (index + 1) === currentSld
         ));
 
@@ -60,8 +60,6 @@ export default ({ blockData, siteUrlMap }) => {
         }
 
     }
-
-    getSliderColor(0);
 
     return (
         < section className={cS.slider} >
