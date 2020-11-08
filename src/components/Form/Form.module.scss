@@ -1,0 +1,121 @@
+@import '../../utlis/variables.scss';
+
+// messages
+.message {
+    .bad,
+    .good {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        font-weight: 500;
+        display: block;
+        font-size: 1.2em;
+    }
+}
+
+.bad {
+    color: $colorRed;
+}
+
+.good {
+    color: $colorGreen;
+}
+
+//form 
+.wrap {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+
+.row {
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.rowHalf {
+    width: 100%;
+}
+
+
+.label {
+    display: block;
+    text-align: left;
+    margin-bottom: 0.5rem;
+}
+
+.input {
+    display: block;
+    width: 100%;
+    padding: 1em 1rem;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+}
+
+.select {
+
+}
+
+.textArea {
+    resize: vertical;
+    min-height: 15rem;
+}
+
+.error {
+    color: $colorRed;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+.buttonWrap {
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+    color: $colorWhite;
+    background-color: $colorHref;
+    border: 1px solid $colorHref;
+    padding: 1.5rem 2rem;
+    text-decoration: none;
+    transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
+    line-height: 1;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    box-shadow: none;
+
+    &:visited {
+        color: $colorWhite;
+    }
+
+    &:hover {
+        color: $colorHref;
+        background-color: $colorWhite;
+    } 
+}
+
+
+@media screen and (min-width: 700px) { 
+    .wrap {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .row {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .rowHalf {
+        width: 50%;
+        padding-right: 1rem;
+
+        &:nth-child(2n) {
+            padding-left: 1rem;
+            padding-right: 0;
+        }
+    }
+}
