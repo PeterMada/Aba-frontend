@@ -12,7 +12,7 @@ export default () => {
         <div>
             <div className={cS.message}>{message}</div>
             <Formik
-                initialValues={{ Jmeno: '', Text: '', Email: '', Interest: 'Terapie' }}
+                initialValues={{ Jmeno: '', Text: '', Email: '', Interest: 'Terapie_Supervize' }}
                 validate={values => {
                     const errors = {};
                     if (!values.Jmeno) {
@@ -52,7 +52,7 @@ export default () => {
                     });
 
                     actions.setSubmitting(false);
-                    actions.resetForm({ Jmeno: '', Text: '', Email: '', Interest: 'Terapie' });
+                    actions.resetForm({ Jmeno: '', Text: '', Email: '', Interest: 'Terapie_Supervize' });
                 }}
             >
                 {({ isSubmitting }) => (
@@ -70,8 +70,7 @@ export default () => {
                         <div className={`${cS.row} ${cS.rowHalf}`}>
                             <label htmlFor="Interest" className={cS.label}>Mám zájem o</label>
                             <Field name="Interest" as="select" className={`${cS.input} ${cS.select}`}>
-                                <option value="Terapie">Terapie</option>
-                                <option value="Supervize">Supervize </option>
+                                <option value="Terapie_Supervize">Terapie/Supervize</option>
                                 <option value="Jine">Jiné</option>
                             </Field>
                         </div>
