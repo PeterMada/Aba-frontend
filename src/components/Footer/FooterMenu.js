@@ -43,6 +43,20 @@ export default ({ blockData, siteUrlMap }) => {
                                 </Link>
                             </li>
                         ))}
+
+
+                        {menuEl.external_links.map((menuLink, menuIndex) => (
+                            <li
+                                key={`external-menu-index-${index}-${menuIndex}`}
+                                className={cS.menu__list}>
+                                <a
+                                    href={menuLink.Url}
+                                    target="_blank"
+                                    className={cS.menu__link} >
+                                    {menuLink.Title}
+                                </a>
+                            </li>
+                        ))}
                     </ul>
                 </div >
             ))}
