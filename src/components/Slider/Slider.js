@@ -85,7 +85,7 @@ export default ({ blockData, siteUrlMap }) => {
 
                             <div
                                 className={cS.text__perex}
-                                dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(slider.Text).toString() }}>
+                                dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(slider.Text.replace(RegExp("\n", "g"), "<br>")).toString() }}>
                             </div>
 
                             <PageButton blockData={slider} siteUrlMap={siteUrlMap} />

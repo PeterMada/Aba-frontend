@@ -42,7 +42,7 @@ export default ({ blockData, siteUrlMap }) => {
 
                         <div
                             className={cS.text}
-                            dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(blockData.Text).toString() }}>
+                            dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(blockData.Text.replace(RegExp("\n", "g"), "<br>")).toString() }}>
                         </div>
 
                         <PageButton blockData={blockData} siteUrlMap={siteUrlMap} />

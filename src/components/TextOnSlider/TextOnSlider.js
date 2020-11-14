@@ -73,7 +73,7 @@ export default ({ blockData, backgroundData }) => {
 
                                     <div
                                         className={cS.text}
-                                        dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(slider.Text).toString() }}>
+                                        dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(slider.Text.replace(RegExp("\n", "g"), "<br>")).toString() }}>
                                     </div>
 
                                     {slider?.TextUnder?.length > 0 &&

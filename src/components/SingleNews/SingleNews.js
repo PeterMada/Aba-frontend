@@ -16,7 +16,8 @@ export default ({ blockData }) => {
     const verticalGallery = blockData.ImgGallery.length > 0 ? <VerticalGallery blockData={blockData.ImgGallery} /> : false;
     const hasGallery = blockData.ImgGallery.length > 0 ? true : false;
 
-    const textContent = remark().use(recommended).use(remarkHtml).processSync(blockData.Text).toString();
+
+    const textContent = remark().use(recommended).use(remarkHtml).processSync(blockData.Text.replace(RegExp("\n", "g"), "<br>")).toString();
 
     return (
         <article className={hasGallery ? `${cS.articleWrap} ${cS.withGallery}` : `${cS.articleWrap} ${cS.noGallery}`}>

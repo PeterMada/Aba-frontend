@@ -61,7 +61,7 @@ export default ({ blockData }) => {
                                 <div
                                     key={index}
                                     className={activeTab === index ? `${cS.tabContent} ${cS.activeContent}` : `${cS.tabContent}`}
-                                    dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(tabEl.Text).toString() }}>
+                                    dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(tabEl.Text.replace(RegExp("\n", "g"), "<br>")).toString() }}>
                                 </div>
                             ))}
                             <div
