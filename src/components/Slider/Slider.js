@@ -61,6 +61,7 @@ export default ({ blockData, siteUrlMap }) => {
 
     }
 
+
     return (
         < section className={cS.slider} >
             {blockData.length > 1 &&

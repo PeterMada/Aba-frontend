@@ -35,12 +35,8 @@ export default () => {
                 onSubmit={(values, actions) => {
                     const Url = window.location.pathname;
                     const updateValues = { ...values, Url };
-
                     const subitJson = JSON.stringify(updateValues, null, 2);
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        actions.setSubmitting(false);
-                    }, 1000);
+
                     fetch(`${process.env.GATSBY_API_URL}/emails`, {
                         method: 'POST',
                         body: subitJson,
