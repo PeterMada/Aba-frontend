@@ -77,6 +77,11 @@ export const pageQuery = graphql`
                     Title
                     TitleInMenu
                 }
+                external_links {
+                    id
+                    Url
+                    Title
+                }
             }
         }
         strapiTherapists(id: {eq: $pageId}) {

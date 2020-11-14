@@ -70,6 +70,11 @@ export const pageQuery = graphql`
                     parent
                     Title
                 }
+                external_links {
+                    id
+                    Url
+                    Title
+                }
             }
         }
         allStrapiTherapists {

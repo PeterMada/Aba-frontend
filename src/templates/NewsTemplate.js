@@ -73,6 +73,11 @@ export const pageQuery = graphql`
                     Title
                     TitleInMenu
                 }
+                external_links {
+                    id
+                    Url
+                    Title
+                }
             }
         }
         strapiNews(id: {eq: $pageId}) {
