@@ -73,7 +73,7 @@ export default ({ data, pageContext }) => {
             }
 
 
-            const hasEnoughtNews = allNews.length > 4 ? true : false;
+            const hasEnoughtNews = allNews.length >= 4 ? true : false;
 
             returnComponent = (
                 <MaxWidthWrap>
@@ -86,10 +86,11 @@ export default ({ data, pageContext }) => {
                     </div>
 
 
-                    {!isLongList && hasButtonText && hasEnoughtNews &&
+                    {(!isLongList && hasButtonText && hasEnoughtNews) ? (
                         <div className={cSTherapist.buttonWrap}>
                             <Link to='/novinky' className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
                         </div>
+                    ) : null
                     }
                 </MaxWidthWrap>
             )

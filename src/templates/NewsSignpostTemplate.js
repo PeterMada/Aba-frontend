@@ -13,8 +13,6 @@ export default ({ data, pageContext }) => {
     return (
         <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
-            <h1 className={cS.title}>Novinky</h1>
-
             <MaxWidthWrap>
                 <div className={cS.list}>
                     {data.allStrapiNews.edges.map((singleNews, index) => (
