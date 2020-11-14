@@ -34,10 +34,6 @@ export default ({ blockData }) => {
                 </div>
                 <time dateTime={blockData.created_at} className={cS.date}>{formatedDate}</time>
             </div>
-
-            <div className={cS.gallery}>
-                {verticalGallery}
-            </div>
         </article>
     )
 }

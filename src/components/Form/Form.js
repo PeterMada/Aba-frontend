@@ -36,6 +36,7 @@ export default () => {
                     const Url = window.location.pathname;
                     const updateValues = { ...values, Url };
                     const subitJson = JSON.stringify(updateValues, null, 2);
+                    alert(subitJson);
 
                     fetch(`${process.env.GATSBY_API_URL}/emails`, {
                         method: 'POST',
