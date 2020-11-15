@@ -144,7 +144,7 @@ export default ({ data, pageContext }) => {
                     }
 
                     <div className={cS.textWithPhotoEffectWrap}>
-                        {currentComponent.text_with_photo_effects.map((el, index) => (
+                        {allBlocks.map((el, index) => (
                             <TextWithPhotoEffect blockData={el} key={index} />
                         ))}
                     </div>

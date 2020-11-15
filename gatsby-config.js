@@ -8,6 +8,8 @@ if (process.env.NODE_ENV !== 'production') {
   apiUrl = process.env.GATSBY_API_URL;
 }
 
+apiUrl = 'https://aba-strapi-api.herokuapp.com';
+
 module.exports = {
   siteMetadata: {
     title: `ABA Brno`,

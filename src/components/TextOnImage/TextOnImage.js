@@ -2,8 +2,6 @@ import React from 'react';
 
 import BackgroundImage from 'gatsby-background-image';
 
-import { Link } from 'gatsby';
-
 import remark from 'remark';
 import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
@@ -13,17 +11,6 @@ import PageButton from './../PageButton/PageButton';
 import cS from './TextOnImage.module.scss';
 
 export default ({ blockData, siteUrlMap }) => {
-
-    const getRealUrl = menuId => {
-        const returnUrl = siteUrlMap.filter(el => el.id === `Pages_${menuId}`);
-        const [finalUrl, restOfUrl] = [...returnUrl];
-
-        if (finalUrl.url === '' || finalUrl.url === '/') {
-            return '/';
-        } else {
-            return `/${finalUrl.url}`;
-        }
-    }
 
     return (
         <div className={cS.wrap}>

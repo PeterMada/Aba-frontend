@@ -1,6 +1,5 @@
 import React from 'react';
 
-import VerticalGallery from './../VerticalGallery/VerticalGallery';
 
 import cS from './SingleNews.module.scss';
 
@@ -13,7 +12,6 @@ export default ({ blockData }) => {
     const createdDate = new Date(blockData.created_at);
     const formatedDate = `${createdDate.getDate()}. ${(createdDate.getMonth() + 1)}. ${createdDate.getFullYear()}`;
 
-    const verticalGallery = blockData.ImgGallery.length > 0 ? <VerticalGallery blockData={blockData.ImgGallery} /> : false;
     const hasGallery = blockData.ImgGallery.length > 0 ? true : false;
 
 

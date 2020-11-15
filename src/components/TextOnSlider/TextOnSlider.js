@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import BackgroundImage from 'gatsby-background-image';
 
-import MaxWidthWrap from './../MaxWidthWrap/MaxWidthWrap';
-
 import remark from 'remark';
 import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';

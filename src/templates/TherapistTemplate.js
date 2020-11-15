@@ -3,8 +3,6 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import RootLayout from './../components/RootLayout/RootLayout';
-import MaxWidthWrap from './../components/MaxWidthWrap/MaxWidthWrap';
-import SmallBanner from './../components/SmallBanner/SmallBanner';
 import Footer from './../components/Footer/Footer';
 import PersonDetail from './../components/PersonDetail/PersonDetail';
 

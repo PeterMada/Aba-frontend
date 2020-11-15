@@ -1,8 +1,5 @@
 import React from 'react';
-
 import Img from 'gatsby-image';
-
-import { Link } from 'gatsby';
 
 import remark from 'remark';
 import recommended from 'remark-preset-lint-recommended';
@@ -13,17 +10,6 @@ import PageButton from './../PageButton/PageButton';
 import cS from './TextWithImage.module.scss';
 
 export default ({ blockData, siteUrlMap }) => {
-
-    const getRealUrl = menuId => {
-        const returnUrl = siteUrlMap.filter(el => el.id === `Pages_${menuId}`);
-        const [finalUrl, restOfUrl] = [...returnUrl];
-
-        if (finalUrl.url === '' || finalUrl.url === '/') {
-            return '/';
-        } else {
-            return `/${finalUrl.url}`;
-        }
-    }
 
     return (
         <>
