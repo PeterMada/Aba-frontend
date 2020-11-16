@@ -1,11 +1,10 @@
 import React from 'react';
-
-
-import cS from './SingleNews.module.scss';
-
 import remark from 'remark';
 import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
+
+import cS from './SingleNews.module.scss';
+
 
 
 export default ({ blockData }) => {

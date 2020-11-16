@@ -3,7 +3,6 @@ import { graphql } from 'gatsby';
 
 import RootLayout from './../components/RootLayout/RootLayout';
 import MaxWidthWrap from './../components/MaxWidthWrap/MaxWidthWrap';
-import SmallBanner from './../components/SmallBanner/SmallBanner';
 import NewsList from './../components/NewsList/NewsList';
 import Footer from './../components/Footer/Footer';
 

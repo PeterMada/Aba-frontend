@@ -3,16 +3,35 @@ import { graphql } from 'gatsby';
 
 import RootLayout from './../components/RootLayout/RootLayout';
 import SingleNews from './../components/SingleNews/SingleNews';
+import NewsList from '../components/NewsList/NewsList';
 import SmallBanner from './../components/SmallBanner/SmallBanner';
 import Footer from './../components/Footer/Footer';
+import MaxWidthWrap from '../components/MaxWidthWrap/MaxWidthWrap';
+
+import cSNews from './NewsSignpostTemplate.module.scss';
 
 export default ({ data, pageContext }) => {
+    console.log(data);
+    console.log(pageContext);
+
+    const allNews = data.allStrapiNews.edges.filter((el, index) => index < 4);
+
+    let returnComponent = (
+        <MaxWidthWrap>
+            <div className={cSNews.list}>
+                {allNews.map((singleNews, index) => (
+                    <NewsList blockData={singleNews.node} key={index} />
+                ))}
+            </div>
+        </MaxWidthWrap>
+    );
 
     return (
         <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
             <SmallBanner blockData={data.strapiNews.MainImage} />
             <main>
                 <SingleNews blockData={data.strapiNews} />
+                {returnComponent}
             </main>
             <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
         </RootLayout >
@@ -103,6 +122,27 @@ export const pageQuery = graphql`
                 id
                 url
                 alternativeText
+            }
+        }
+        allStrapiNews(limit: 5) {
+            edges {
+                node {
+                    Perex
+                    Title
+                    Url
+                    created_at
+                    news_tags {
+                        Title
+                        id
+                    }
+                    MainImage {
+                        childImageSharp {
+                            fluid(maxWidth: 250) {
+                            ...GatsbyImageSharpFluid
+                            }
+                        }
+                    }
+                }
             }
         }
     }`;
