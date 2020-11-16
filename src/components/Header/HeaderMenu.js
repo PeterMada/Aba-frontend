@@ -108,7 +108,7 @@ export default ({ blockData, siteUrlMap }) => {
                                     <div className={cS.arrowRightNew}>
                                         <div className={cS.arrowMaskNew}></div>
                                     </div>
-                                    <span className='visuallyhidden'>Open submenu for "{element.MainPage.Title}"</span>
+                                    <span className='visuallyhidden'>Open submenu for {element.MainPage.Title}</span>
                                 </button>
                             }
 
