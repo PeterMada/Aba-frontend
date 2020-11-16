@@ -49,7 +49,7 @@
     display: block;
     width: 100%;
     padding: 1em 1rem;
-    font-family: 'Roboto', sans-serif;
+    font-family: $fontFamily;
     width: 100%;
 }
 
@@ -82,7 +82,7 @@
     transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
     line-height: 1;
     font-weight: 500;
-    font-family: 'Roboto', sans-serif;
+    font-family: $fontFamily;
     text-transform: uppercase;
     margin-top: 1rem;
     box-shadow: none;

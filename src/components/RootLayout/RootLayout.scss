@@ -1,12 +1,12 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@500;600;700&family=Darker+Grotesque:wght@500;600;800&family=Patrick+Hand+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,800;1,500&display=swap');
+
 
 @import '../../utlis/variables.scss';
 
 html {
-    // font-family: 'Athiti', sans-serif;
-    font-family: 'Darker Grotesque', sans-serif;
-    
+    font-family: $fontFamily;
+
     // 1 rem == 10px
     font-size: 62.5%;
 }
@@ -42,8 +42,7 @@ main {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Patrick Hand SC', cursive;
-    font-weight: 700;
+    font-weight: 800;
     color: $colorHeadlines;
     text-transform: uppercase;
 }
