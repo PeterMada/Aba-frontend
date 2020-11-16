@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
 import { Link } from 'gatsby';
-import Img from 'gatsby-image';
-
 import HeaderMenu from './HeaderMenu';
 
 import cS from './Header.module.scss';

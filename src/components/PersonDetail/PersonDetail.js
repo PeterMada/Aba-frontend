@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import Img from 'gatsby-image';
-import ReactMarkdown from 'react-markdown';
 
 import remark from 'remark';
 import recommended from 'remark-preset-lint-recommended';
@@ -28,7 +27,7 @@ export default ({ blockData }) => {
     const titleAfter = blockData?.TitleAfter?.length > 0 ? `${blockData?.TitleAfter}` : '';
 
     const personFullName = `${titleBefore}${blockData.Name}${titleAfter}`;
-    console.log(blockData);
+
     return (
         <div className={cS.wrap}>
             <div className={cS.imgWrap}>

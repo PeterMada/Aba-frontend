@@ -7,12 +7,12 @@ import cS from './PageButton.module.scss';
 export default ({ blockData, siteUrlMap }) => {
     const getRealUrl = menuId => {
         const returnUrl = siteUrlMap.filter(el => el.id === `Pages_${menuId}`);
-        const [finalUrl, restOfUrl] = [...returnUrl];
+        const finalUrl = [...returnUrl];
 
-        if (finalUrl.url === '' || finalUrl.url === '/') {
+        if (finalUrl[0].url === '' || finalUrl[0].url === '/') {
             return '/';
         } else {
-            return `/${finalUrl.url}`;
+            return `/${finalUrl[0].url}`;
         }
     }
 

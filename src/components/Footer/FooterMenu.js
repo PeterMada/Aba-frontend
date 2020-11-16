@@ -9,12 +9,12 @@ export default ({ blockData, siteUrlMap }) => {
 
     const getRealUrl = menuId => {
         const returnUrl = siteUrlMap.filter(el => el.id === `Pages_${menuId}`);
-        const [finalUrl, restOfUrl] = [...returnUrl];
+        const finalUrl = [...returnUrl];
 
-        if (finalUrl.url === '') {
+        if (finalUrl[0].url === '') {
             return '/';
         } else {
-            return finalUrl.url;
+            return finalUrl[0].url;
         }
     }
 
@@ -52,6 +52,7 @@ export default ({ blockData, siteUrlMap }) => {
                                 <a
                                     href={menuLink.Url}
                                     target="_blank"
+                                    rel="noreferrer"
                                     className={cS.menu__link} >
                                     {menuLink.Title}
                                 </a>

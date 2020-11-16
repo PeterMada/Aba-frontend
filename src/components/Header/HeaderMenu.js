@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 
 import { Link } from 'gatsby';
 
-import MenuButton from '../Menu/MenuButton';
-import MenuItem from '../Menu/MenuItem';
-
 import cS from './HeaderMenu.module.scss';
-
-
 
 export default ({ blockData, siteUrlMap }) => {
     const [activeMenu, setActiveMenu] = useState(false);
@@ -43,15 +38,16 @@ export default ({ blockData, siteUrlMap }) => {
 
     const getRealUrl = menuId => {
         const returnUrl = siteUrlMap.filter(el => el.id === `Pages_${menuId}`);
-        const [finalUrl, restOfUrl] = [...returnUrl];
+        const finalUrl = [...returnUrl];
 
-        if (finalUrl.url === '' || finalUrl.url === '/') {
+        if (finalUrl[0].url === '' || finalUrl[0].url === '/') {
             return '/';
         } else {
-            return `/${finalUrl.url}`;
+            return `/${finalUrl[0].url}`;
         }
     }
 
+    /*
     const setTabIndex = (index = 1) => {
         const allElements = getKeyboardFocusableElements();
         allElements.map(el => {
@@ -64,6 +60,7 @@ export default ({ blockData, siteUrlMap }) => {
 
         return [...element[0].querySelectorAll('a, button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])')].filter(el => !el.hasAttribute('disabled'));
     }
+    */
 
     const openDesktopSubmenu = (e) => {
         const currentSubmenu = parseInt(e.currentTarget.dataset.id);
@@ -79,11 +76,11 @@ export default ({ blockData, siteUrlMap }) => {
 
     return (
         <div>
-            <a href="" className={activeMenu ? `${cS.menuButton} ${cS.active}` : `${cS.menuButton}`} aria-label='Open menu' onClick={menuButtonClick} rel="nofollow">
+            <button className={activeMenu ? `${cS.menuButton} ${cS.active}` : `${cS.menuButton}`} aria-label='Open menu' onClick={menuButtonClick} rel="nofollow">
                 <div className={cS.menuBar1}></div>
                 <div className={cS.menuBar2}></div>
                 <div className={cS.menuBar3}></div>
-            </a>
+            </button>
             <nav className={activeMenu ? `${cS.menu} ${cS.active}` : `${cS.menu}`} aria-label="Main Navigation">
                 <ul className={cS.list}>
                     {blockData.Menu.map((element, index) => (
@@ -116,7 +113,7 @@ export default ({ blockData, siteUrlMap }) => {
                             }
 
                             {element.SubmenuPages.length > 0 &&
-                                <ul aria-haspopup="true" aria-expanded="false" className={activeSubmenu === index ? `${cS.listInner} ${cS.list} ${cS.activeSubmenu}` : `${cS.listInner} ${cS.list}`}>
+                                <ul aria-expanded="false" className={activeSubmenu === index ? `${cS.listInner} ${cS.list} ${cS.activeSubmenu}` : `${cS.listInner} ${cS.list}`}>
                                     {element.SubmenuPages.map((subMenu, indexInner) => (
                                         <li key={`submenu--${indexInner}`} className={`${cS.item} ${cS.itemInner}`}>
                                             <Link to={`${getRealUrl(subMenu.id)}`} className={cS.link} tabIndex={activeSubmenu === index ? `0` : `-1`}>
