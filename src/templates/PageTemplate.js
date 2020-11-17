@@ -24,6 +24,12 @@ import cS from './PageTemplate.module.scss';
 
 export default ({ data, pageContext }) => {
 
+    console.log(data);
+    console.log(pageContext);
+
+    const keywords = data.strapiPages.MetaKeywords ? data.strapiPages.MetaKeywords : '';
+    const description = data.strapiPages.MetaDescription ? data.strapiPages.MetaDescription : '';
+
     const getRightComponent = currentComponent => {
         let returnComponent = '';
 
@@ -182,8 +188,9 @@ export default ({ data, pageContext }) => {
         <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
             <Helmet>
-                <meta charSet="utf-8" />
                 <title>{currentPageTitle}</title>
+                <meta name="description" content={keywords} />
+                <meta name="keywords" content={description} />
             </Helmet>
             <main>
                 {data.strapiPages.DynamicComponent.map((component, index) => (
@@ -265,6 +272,8 @@ export const query = graphql`
             Title
             TitleInMenu
             Url
+            MetaKeywords
+            MetaDescription
             DynamicComponent {
                 GraphicTitle
                 TextUnderTitle
@@ -371,6 +380,8 @@ export const query = graphql`
                     Url
                     Name
                     Perex
+                    MetaKeywords
+                    MetaDescription
                     TabText {
                         Text
                         Title
@@ -391,6 +402,8 @@ export const query = graphql`
                     Perex
                     Title
                     Url
+                    MetaKeywords
+                    MetaDescription
                     created_at
                     news_tags {
                         Title

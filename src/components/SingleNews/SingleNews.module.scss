@@ -6,13 +6,6 @@
     text-align: center;
 }
 
-
-@media screen and (min-width: 1200px) {
-    .articleWrap {
-        text-align: left;
-    }
-}
-
 .main {
     display: block;
     width: 100%;
@@ -52,9 +45,10 @@
     margin-bottom: 2rem;
 }
 
-.date {
-    display: block;
-    text-align: right;
+.dateWrap {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     padding-bottom: 4rem;
     padding-top: 2rem;
     border-top: 1px solid $colorHeader;
@@ -64,7 +58,7 @@
 .title,
 .perexInner,
 .text,
-.date {
+.dateWrap {
     max-width: $maxWidth;
     margin-left: auto;
     margin-right: auto;
@@ -76,7 +70,33 @@
     .title,
     .perexInner,
     .text,
-    .date  {
+    .dateWrap  {
         max-width: calc(#{$maxWidth} - 30rem);
+    }
+}
+
+.name {
+    margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 700px) {
+    .dateWrap {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .name {
+        margin-bottom: 0;
+        margin-right: 2rem;
+    }
+    
+    .title {
+        padding-top: 4rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .articleWrap {
+        text-align: left;
     }
 }

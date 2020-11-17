@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { Helmet } from "react-helmet"
 
 import RootLayout from './../components/RootLayout/RootLayout';
 import SingleNews from './../components/SingleNews/SingleNews';
@@ -13,6 +14,10 @@ import cSNews from './NewsSignpostTemplate.module.scss';
 export default ({ data, pageContext }) => {
     console.log(data);
     console.log(pageContext);
+    const keywords = data.strapiNews.MetaKeywords ? data.strapiNews.MetaKeywords : '';
+    const description = data.strapiNews.MetaDescription ? data.strapiNews.MetaDescription : '';
+    const currentPageTitle = `${data.strapiNews.Title} - ${data.strapiSettings.SiteName}`;
+
 
     const allNews = data.allStrapiNews.edges.filter((el, index) => index < 4);
 
@@ -26,8 +31,23 @@ export default ({ data, pageContext }) => {
         </MaxWidthWrap>
     );
 
+
+    const getName = (name) => {
+        return `${name.TitleBefore}${name.Name}${name.TitleAfter}`;
+    }
+
     return (
         <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+
+            <Helmet>
+                <title>{currentPageTitle}</title>
+                <meta name="description" content={keywords} />
+                <meta name="keywords" content={description} />
+                {data.strapiNews.author !== null ? (
+                    <meta name="author" content={getName(data.strapiNews.author)} />
+                ) : ('')}
+            </Helmet>
+
             <SmallBanner blockData={data.strapiNews.MainImage} />
             <main>
                 <SingleNews blockData={data.strapiNews} />
@@ -107,6 +127,8 @@ export const pageQuery = graphql`
             strapiId
             created_at
             updated_at
+            MetaKeywords
+            MetaDescription
             news_tags {
                 Title
                 id
@@ -122,6 +144,12 @@ export const pageQuery = graphql`
                 id
                 url
                 alternativeText
+            }
+            author{
+                id
+                TitleBefore
+                TitleAfter
+                Name
             }
         }
         allStrapiNews(limit: 5) {
