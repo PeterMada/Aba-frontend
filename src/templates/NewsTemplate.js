@@ -5,15 +5,12 @@ import { Helmet } from "react-helmet"
 import RootLayout from './../components/RootLayout/RootLayout';
 import SingleNews from './../components/SingleNews/SingleNews';
 import NewsList from '../components/NewsList/NewsList';
-import SmallBanner from './../components/SmallBanner/SmallBanner';
 import Footer from './../components/Footer/Footer';
 import MaxWidthWrap from '../components/MaxWidthWrap/MaxWidthWrap';
 
 import cSNews from './NewsSignpostTemplate.module.scss';
 
 export default ({ data, pageContext }) => {
-    console.log(data);
-    console.log(pageContext);
     const keywords = data.strapiNews.MetaKeywords ? data.strapiNews.MetaKeywords : '';
     const description = data.strapiNews.MetaDescription ? data.strapiNews.MetaDescription : '';
     const currentPageTitle = `${data.strapiNews.Title} - ${data.strapiSettings.SiteName}`;
@@ -33,7 +30,10 @@ export default ({ data, pageContext }) => {
 
 
     const getName = (name) => {
-        return `${name.TitleBefore}${name.Name}${name.TitleAfter}`;
+        const titleBefore = name.TitleBefore ? name.TitleBefore : '';
+        const titleAfter = name.TitleAfter ? name.TitleAfter : '';
+
+        return `${titleBefore}${name.Name}${titleAfter}`;
     }
 
     return (
@@ -48,10 +48,8 @@ export default ({ data, pageContext }) => {
                 ) : ('')}
             </Helmet>
 
-            <SmallBanner blockData={data.strapiNews.MainImage} />
             <main>
-                <SingleNews blockData={data.strapiNews} />
-                {returnComponent}
+                <SingleNews blockData={data.strapiNews} allNews={allNews} />
             </main>
             <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
         </RootLayout >
@@ -140,11 +138,6 @@ export const pageQuery = graphql`
                     }
                 }
             }
-            ImgGallery {
-                id
-                url
-                alternativeText
-            }
             author{
                 id
                 TitleBefore
@@ -162,6 +155,12 @@ export const pageQuery = graphql`
                     news_tags {
                         Title
                         id
+                    }
+                    author{
+                        id
+                        TitleBefore
+                        TitleAfter
+                        Name
                     }
                     MainImage {
                         childImageSharp {

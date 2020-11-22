@@ -1,39 +1,28 @@
 @import '../../utlis/variables.scss';
 
 .articleWrap {
+    text-align: center;
+    max-width: $maxWidth;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
 }
 
 .main {
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
 }
-
-.galery {
-    display: none;
-}
-
-
-.withGallery {
-}
-
 
 .title {
     margin-top: 0;
     padding-top: 2rem;
+    text-transform: none;
 }
 
 .perex {
-    margin: 0 auto;
-    background-color: $colorGray;
-    color: $colorBlack;
 }
 
 .perexInner {
-    padding-top: $sitePaddings;
-    padding-bottom: $sitePaddings;
 }
 
 .hidden {
@@ -52,13 +41,19 @@
     padding-bottom: 4rem;
     padding-top: 2rem;
     border-top: 1px solid $colorHeader;
+    order: 2;
+    width: auto;
+    max-width: $maxWidth;
+    margin-left: $sitePaddings;
+    margin-right: $sitePaddings;
 }
 
+.name {
+    margin-top: 1rem;
+}
 
-.title,
-.perexInner,
-.text,
-.dateWrap {
+.mainContent {
+    order: 0;
     max-width: $maxWidth;
     margin-left: auto;
     margin-right: auto;
@@ -66,17 +61,26 @@
     padding-right: $sitePaddings;
 }
 
-.noGallery {
-    .title,
-    .perexInner,
-    .text,
-    .dateWrap  {
-        max-width: calc(#{$maxWidth} - 30rem);
+.list {
+    display: flex;
+    flex-direction: column;
+    order: 3;
+    padding-left: calc(#{$sitePaddings} - 1rem);
+    padding-right: calc(#{$sitePaddings} - 1rem);
+
+    article {
+        width: 100%;
     }
 }
 
-.name {
-    margin-bottom: 1rem;
+@media screen and (min-width: 500px) {
+    .list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        article {
+            width: 50%;
+        }
+    }
 }
 
 @media screen and (min-width: 700px) {
@@ -86,17 +90,51 @@
     }
 
     .name {
-        margin-bottom: 0;
-        margin-right: 2rem;
+        margin-top: 0;
+        margin-left: 2rem;
     }
     
     .title {
-        padding-top: 4rem;
+        padding-top: 0;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .articleWrap {
+        padding-top: 8rem;
     }
 }
 
 @media screen and (min-width: 1200px) {
+    .main {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
     .articleWrap {
         text-align: left;
+    }
+
+    .mainContent {
+        width: 70%;
+    }
+
+    .list {
+        width: 30%;
+        order: 2;
+        flex-direction: column;
+
+        article {
+            width: 100%;
+
+            &:first-child {
+                padding-top: 0;
+            }
+        }
+    }
+
+    .dateWrap {
+        order: 3;
+        width: 100%;
     }
 }

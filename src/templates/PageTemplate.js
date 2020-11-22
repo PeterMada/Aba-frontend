@@ -24,8 +24,6 @@ import cS from './PageTemplate.module.scss';
 
 export default ({ data, pageContext }) => {
 
-    console.log(data);
-    console.log(pageContext);
 
     const keywords = data.strapiPages.MetaKeywords ? data.strapiPages.MetaKeywords : '';
     const description = data.strapiPages.MetaDescription ? data.strapiPages.MetaDescription : '';
@@ -408,6 +406,12 @@ export const query = graphql`
                     news_tags {
                         Title
                         id
+                    }
+                    author{
+                        id
+                        TitleBefore
+                        TitleAfter
+                        Name
                     }
                     MainImage {
                         childImageSharp {

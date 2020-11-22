@@ -8,6 +8,18 @@ $smallText: 0.9em;
     margin-bottom: 2rem;
 }
 
+.itemWrap {
+    border: 1px solid $colorHeader;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.innerWrap {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 2rem;
+}
+
 .link {
     display: flex;
     flex-direction: column;
@@ -32,7 +44,7 @@ $smallText: 0.9em;
 
 .img {
     height: 15rem;
-    border-radius: 0.5rem;
+    //border-radius: 0.5rem;
     margin-bottom: 0;
     display: block;
 }
@@ -49,20 +61,39 @@ $smallText: 0.9em;
 .text {
     text-align: center;
     color: $colorMain;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+.bottomWrap {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: 1px solid $colorHeader;
+}
+
+.footerWrap {
+    display: flex;
+    justify-content: space-between;
 }
 
 .newsTime {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
     font-size: $smallText;
     display: block;
     text-align: right;
+}
+
+.name {
+    
+    font-size: $smallText;
 }
 
 
 .tagsWrap {
     display: block;
     margin-top: 0.5rem;
+    margin-bottom: 1rem;
     text-align: center;
 }
 
@@ -89,6 +120,7 @@ $smallText: 0.9em;
         margin-right: 0.5rem;
     }
 }
+
 
 @media screen and (min-width: 560px) { 
     .item {

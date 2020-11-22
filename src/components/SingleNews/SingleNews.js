@@ -1,43 +1,59 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import Img from 'gatsby-image';
+
 import remark from 'remark';
 import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
+import NewsList from '../NewsList/NewsList';
 
 import cS from './SingleNews.module.scss';
 
 
-export default ({ blockData }) => {
+export default ({ blockData, allNews = [] }) => {
     const createdDate = new Date(blockData.created_at);
     const formatedDate = `${createdDate.getDate()}. ${(createdDate.getMonth() + 1)}. ${createdDate.getFullYear()}`;
-    const hasGallery = blockData.ImgGallery.length > 0 ? true : false;
     const textContent = remark().use(recommended).use(remarkHtml).processSync(blockData.Text.replace(RegExp("\n", "g"), "<br>")).toString();
 
-
     const getName = (name) => {
-        return `${name.TitleBefore}${name.Name}${name.TitleAfter}`;
+        const titleBefore = name.TitleBefore ? name.TitleBefore : '';
+        const titleAfter = name.TitleAfter ? name.TitleAfter : '';
+
+        return `${titleBefore}${name.Name}${titleAfter}`;
     }
-
     return (
-        <article className={hasGallery ? `${cS.articleWrap} ${cS.withGallery}` : `${cS.articleWrap} ${cS.noGallery}`}>
+        <article className={cS.articleWrap}>
             <div className={cS.main}>
-                <h1 className={cS.title}>{blockData.Title}</h1>
-                <div className={blockData.Perex.length > 0 ? `${cS.perex}` : `${cS.perex} ${cS.hidden}`}>
-                    <p className={cS.perexInner}>{blockData.Perex}</p>
+                <div className={cS.mainContent}>
+                    <h1 className={cS.title}>{blockData.Title}</h1>
+
+                    <div className={blockData.Perex.length > 0 ? `${cS.perex}` : `${cS.perex} ${cS.hidden}`}>
+                        <p className={cS.perexInner}>{blockData.Perex}</p>
+                    </div>
+                    <Img className={cS.img} fluid={blockData.MainImage.childImageSharp.fluid} alt={blockData.Title} />
+
+
+                    <div
+                        className={cS.text}
+                        dangerouslySetInnerHTML={{ __html: textContent }}>
+
+                    </div>
                 </div>
 
-                <div
-                    className={cS.text}
-                    dangerouslySetInnerHTML={{ __html: textContent }}>
+                <aside className={cS.list}>
+                    {allNews.map((singleNews, index) => (
+                        <NewsList blockData={singleNews.node} key={index} />
+                    ))}
+                </aside>
 
-                </div>
                 <div className={cS.dateWrap}>
+                    <time dateTime={blockData.created_at} className={cS.date}>{formatedDate}</time>
+
                     {blockData.author !== null ? (
                         <Link to="" className={cS.name}>
                             {getName(blockData.author)}
                         </Link>) : ('')}
 
-                    <time dateTime={blockData.created_at} className={cS.date}>{formatedDate}</time>
                 </div>
             </div>
         </article>
