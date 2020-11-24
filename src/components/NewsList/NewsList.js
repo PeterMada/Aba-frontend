@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTag } from '@fortawesome/free-solid-svg-icons';
 
 
-import Time from './../Time/Time';
+import { Time } from './../Time/Time';
 
 
 

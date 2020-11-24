@@ -1,10 +1,9 @@
 import React from 'react';
 
-export default ({ timeString }) => {
-    const createdDate = new Date(timeString);
-    const formatedDate = `${createdDate.getDate()}. ${(createdDate.getMonth() + 1)}. ${createdDate.getFullYear()}`;
+export const Time = ({ timeString = false }) => {
+    const date = new Date(timeString);
+    const finalDate = timeString ?
+        <time>{`${date.getDate()}. ${(date.getMonth() + 1)}. ${date.getFullYear()}`}</time> : '';
 
-    return (
-        <time dateTime={timeString}>{formatedDate}</time>
-    )
-}
+    return finalDate;
+};
