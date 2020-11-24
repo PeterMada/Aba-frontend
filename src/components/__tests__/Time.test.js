@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { createContainer } from '../../../__testDoubles__/domManipulators';
 
 import { Time } from '../Time/Time';
