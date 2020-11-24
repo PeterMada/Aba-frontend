@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 
 import RootLayout from './../components/RootLayout/RootLayout';
 import MaxWidthWrap from './../components/MaxWidthWrap/MaxWidthWrap';
-import TherapistList from './../components/TherapistList/TherapistList';
+import { TherapistList } from './../components/TherapistList/TherapistList';
 import SmallBanner from './../components/SmallBanner/SmallBanner';
 import Footer from './../components/Footer/Footer';
 

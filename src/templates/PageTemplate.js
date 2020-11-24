@@ -9,7 +9,7 @@ import Slider from '../components/Slider/Slider';
 import TextWithImage from '../components/TextWithImage/TextWithImage';
 import TextBlock from '../components/TextBlock/TextBlock';
 import Footer from '../components/Footer/Footer';
-import TherapistList from '../components/TherapistList/TherapistList';
+import { TherapistList } from '../components/TherapistList/TherapistList';
 import MaxWidthWrap from '../components/MaxWidthWrap/MaxWidthWrap';
 import NewsList from '../components/NewsList/NewsList';
 import TextOnImage from '../components/TextOnImage/TextOnImage';

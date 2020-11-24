@@ -1,5 +1,6 @@
 import React from 'react';
 
+// TODO #1 @PeterMada
 export const Time = ({ timeString = false }) => {
     const date = new Date(timeString);
     const finalDate = timeString ?
