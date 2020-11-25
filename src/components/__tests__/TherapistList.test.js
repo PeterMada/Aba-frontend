@@ -14,4 +14,13 @@ describe('TherapistList', () => {
 
         expect(container.querySelector('article')).not.toBeNull();
     });
+
+    it.skip('render a link to article', () => {
+
+        render(<TherapistList />);
+
+        expect(container.querySelector('article a')).not.toBeNull();
+        expect(container.querySelector('article a').href.textContent).not.toBeNull();
+        expect(container.querySelector('article a').href.textContent).not.toBeUndefined();
+    })
 });

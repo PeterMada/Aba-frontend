@@ -5,7 +5,6 @@ import Img from 'gatsby-image';
 
 import cS from './TherapistList.module.scss';
 
-/*
 export const TherapistList = ({ blockData }) => {
 
     return (
@@ -17,9 +16,4 @@ export const TherapistList = ({ blockData }) => {
             </Link>
         </article>
     )
-}
-*/
-
-export const TherapistList = () => {
-    return <article />;
 }
