@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
-
 import remark from 'remark';
 import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
 import NewsList from '../NewsList/NewsList';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTag } from '@fortawesome/free-solid-svg-icons';
 
 import cS from './SingleNews.module.scss';
 
@@ -21,17 +22,18 @@ export default ({ blockData, allNews = [] }) => {
 
         return `${titleBefore}${name.Name}${titleAfter}`;
     }
+
     return (
         <article className={cS.articleWrap}>
             <div className={cS.main}>
                 <div className={cS.mainContent}>
                     <h1 className={cS.title}>{blockData.Title}</h1>
 
-                    <div className={blockData.Perex.length > 0 ? `${cS.perex}` : `${cS.perex} ${cS.hidden}`}>
+                    <div className={cS.perex}>
                         <p className={cS.perexInner}>{blockData.Perex}</p>
                     </div>
-                    <Img className={cS.img} fluid={blockData.MainImage.childImageSharp.fluid} alt={blockData.Title} />
 
+                    <Img className={cS.img} fluid={blockData.MainImage.childImageSharp.fluid} alt={blockData.Title} />
 
                     <div
                         className={cS.text}
@@ -47,6 +49,16 @@ export default ({ blockData, allNews = [] }) => {
                 </aside>
 
                 <div className={cS.dateWrap}>
+
+                    {blockData.news_tags.length > 0 &&
+                        <div className={cS.tagsWrap}>
+                            {blockData.news_tags.map((tag, index) => (
+                                <Link to={`/novinky?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={cS.tag}><FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />{tag.Title}</Link>
+
+                            ))}
+                        </div>
+                    }
+
                     <time dateTime={blockData.created_at} className={cS.date}>{formatedDate}</time>
 
                     {blockData.author !== null ? (

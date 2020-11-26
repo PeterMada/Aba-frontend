@@ -16,10 +16,20 @@
 .title {
     margin-top: 0;
     padding-top: 2rem;
+    margin-bottom: 1rem;
     text-transform: none;
 }
 
 .perex {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.img {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    display: block;
 }
 
 .perexInner {
@@ -30,8 +40,12 @@
 }
 
 .text {
-    margin-top: 2rem;
+    margin-top: 0;
     margin-bottom: 2rem;
+
+    > p {
+        margin-top: 0;
+    }
 }
 
 .dateWrap {
@@ -46,10 +60,15 @@
     max-width: $maxWidth;
     margin-left: $sitePaddings;
     margin-right: $sitePaddings;
+
+    time {
+        white-space: nowrap;
+    }
 }
 
 .name {
     margin-top: 1rem;
+    white-space: nowrap;
 }
 
 .mainContent {
@@ -73,6 +92,37 @@
     }
 }
 
+
+.tagsWrap {
+    display: block;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.75rem;
+    margin-left: 0.75rem;
+    text-decoration: none;
+
+    color: $colorMain;
+    transition: color 0.25s ease-in-out;
+
+    &:visited {
+        color: $colorMain;
+    }
+
+    &:hover {
+        color: $colorHrefHover;
+        text-decoration: underline;
+    }
+
+    > svg {
+        margin-right: 0.5rem;
+    }
+}
+
 @media screen and (min-width: 500px) {
     .list {
         flex-direction: row;
@@ -86,7 +136,16 @@
 @media screen and (min-width: 700px) {
     .dateWrap {
         flex-direction: row;
-        justify-content: flex-end;
+        justify-content: space-between;
+
+        time {
+            margin-left: auto;
+            margin-right: 0;
+        }
+    }
+
+    .tagsWrap {
+        text-align: left;
     }
 
     .name {

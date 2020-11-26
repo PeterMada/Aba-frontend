@@ -23,6 +23,9 @@ import cSNews from './NewsSignpostTemplate.module.scss';
 import cS from './PageTemplate.module.scss';
 
 export default ({ data, pageContext }) => {
+    const params = new URLSearchParams(document.location.search.substring(1));
+    const tag = params.get('tag');
+    const authorName = params.get('author');
 
 
     const keywords = data.strapiPages.MetaKeywords ? data.strapiPages.MetaKeywords : '';
@@ -71,13 +74,30 @@ export default ({ data, pageContext }) => {
             const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
 
             if (isLongList) {
-                allNews = data.allStrapiNews.edges.filter((el, index) => true);
+                allNews = data.allStrapiNews.edges.filter((el, index) => {
+                    let returnValue = true;
+
+                    if (tag) {
+                        returnValue = false;
+                        //console.log(el.node);
+                        const test = el.node.news_tags.find(news => tag === encodeURI(news.Title.toLowerCase()));
+                        if (test) {
+                            console.log('xxx');
+                            returnValue = true;
+                        }
+                    }
+                    console.log(returnValue);
+                    return returnValue;
+                });
+
             } else {
                 allNews = data.allStrapiNews.edges.filter((el, index) => index < 4);
             }
 
-
-            const hasEnoughtNews = allNews.length >= 4 ? true : false;
+            let hasEnoughtNews = allNews.length >= 4 ? true : false;
+            if (isLongList) {
+                hasEnoughtNews = true;
+            }
 
             returnComponent = (
                 <MaxWidthWrap>

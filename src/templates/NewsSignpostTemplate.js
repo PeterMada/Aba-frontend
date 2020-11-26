@@ -9,6 +9,7 @@ import Footer from './../components/Footer/Footer';
 import cS from './NewsSignpostTemplate.module.scss';
 
 export default ({ data, pageContext }) => {
+
     return (
         <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 

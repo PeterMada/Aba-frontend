@@ -1,6 +1,5 @@
 @import '../../utlis/variables.scss';
 
-$smallText: 0.9em;
 
 .item {
     width: 100%;
@@ -156,7 +155,7 @@ $smallText: 0.9em;
         padding: 1rem 2rem;
 
         &:last-child {
-            display: none;
+         //   display: none;
         }
     }
 }
