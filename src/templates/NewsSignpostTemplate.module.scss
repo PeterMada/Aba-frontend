@@ -11,6 +11,7 @@
 }
 
 
+
 @media screen and (min-width: 560px) { 
     .list {
         flex-direction: row;
@@ -18,6 +19,17 @@
     }
 }
 
+
+
+@media screen and (min-width: 700px) { 
+    .listShort {
+        article {
+            &:last-child {
+                display: none;
+            }
+        }
+    }
+}
 
 @media screen and (min-width: 860px) {  
     .list {

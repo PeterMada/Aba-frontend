@@ -41,8 +41,7 @@ export default ({ blockData }) => {
                         {blockData.news_tags.length > 0 &&
                             <div className={cS.tagsWrap}>
                                 {blockData.news_tags.map((tag, index) => (
-                                    <Link to='novinky' key={index} className={cS.tag}><FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />{tag.Title}</Link>
-
+                                    <Link to={`/novinky?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={cS.tag}><FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />{tag.Title}</Link>
                                 ))}
                             </div>
                         }

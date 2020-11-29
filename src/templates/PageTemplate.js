@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { graphql, Link } from 'gatsby';
 
 
@@ -76,17 +76,15 @@ export default ({ data, pageContext }) => {
             if (isLongList) {
                 allNews = data.allStrapiNews.edges.filter((el, index) => {
                     let returnValue = true;
-
                     if (tag) {
                         returnValue = false;
-                        //console.log(el.node);
-                        const test = el.node.news_tags.find(news => tag === encodeURI(news.Title.toLowerCase()));
+                        const test = el.node.news_tags.find(news => {
+                            return tag === decodeURI(news.Title.toLowerCase())
+                        });
                         if (test) {
-                            console.log('xxx');
                             returnValue = true;
                         }
                     }
-                    console.log(returnValue);
                     return returnValue;
                 });
 
@@ -103,7 +101,7 @@ export default ({ data, pageContext }) => {
                 <MaxWidthWrap>
                     <NiceTitle title={currentComponent?.Title} subtitle={currentComponent?.GraphicTitle} text={currentComponent?.TextUnderTitle?.length ? currentComponent.TextUnderTitle : ''} />
 
-                    <div className={cSNews.list}>
+                    <div className={isLongList ? `${cSNews.list}` : `${cSNews.list} ${cSNews.listShort}`}>
                         {allNews.map((singleNews, index) => (
                             <NewsList blockData={singleNews.node} key={index} />
                         ))}

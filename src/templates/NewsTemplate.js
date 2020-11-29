@@ -15,8 +15,10 @@ export default ({ data, pageContext }) => {
     const description = data.strapiNews.MetaDescription ? data.strapiNews.MetaDescription : '';
     const currentPageTitle = `${data.strapiNews.Title} - ${data.strapiSettings.SiteName}`;
 
-
-    const allNews = data.allStrapiNews.edges.filter((el, index) => index < 4);
+    // TODO #2 @PeterMada
+    const allNews = data.allStrapiNews.edges.filter((el, index) => {
+        return (el.node.id !== data.strapiNews.id);
+    });
 
     let returnComponent = (
         <MaxWidthWrap>
@@ -145,9 +147,10 @@ export const pageQuery = graphql`
                 Name
             }
         }
-        allStrapiNews(limit: 5) {
+        allStrapiNews(limit: 6) {
             edges {
                 node {
+                    id
                     Perex
                     Title
                     Url
