@@ -78,10 +78,10 @@ export default ({ data, pageContext }) => {
                     let returnValue = true;
                     if (tag) {
                         returnValue = false;
-                        const test = el.node.news_tags.find(news => {
+                        const currentTag = el.node.news_tags.find(news => {
                             return tag === decodeURI(news.Title.toLowerCase())
                         });
-                        if (test) {
+                        if (currentTag) {
                             returnValue = true;
                         }
                     }
@@ -430,6 +430,7 @@ export const query = graphql`
                         TitleBefore
                         TitleAfter
                         Name
+                        Url
                     }
                     MainImage {
                         childImageSharp {

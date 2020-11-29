@@ -145,6 +145,7 @@ export const pageQuery = graphql`
                 TitleBefore
                 TitleAfter
                 Name
+                Url
             }
         }
         allStrapiNews(limit: 6) {
@@ -164,6 +165,7 @@ export const pageQuery = graphql`
                         TitleBefore
                         TitleAfter
                         Name
+                        Url
                     }
                     MainImage {
                         childImageSharp {

@@ -14,6 +14,8 @@ import cS from './NewsList.module.scss';
 
 
 export default ({ blockData }) => {
+    const params = new URLSearchParams(document.location.search.substring(1));
+    const currentTag = params.get('tag');
 
     const getName = (name) => {
         const titleBefore = name.TitleBefore ? name.TitleBefore : '';
@@ -41,7 +43,10 @@ export default ({ blockData }) => {
                         {blockData.news_tags.length > 0 &&
                             <div className={cS.tagsWrap}>
                                 {blockData.news_tags.map((tag, index) => (
-                                    <Link to={`/novinky?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={cS.tag}><FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />{tag.Title}</Link>
+                                    <Link to={`/novinky?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={currentTag === tag.Title.toLowerCase() ? `${cS.tag} ${cS.tagActive}` : `${cS.tag}`}>
+                                        <FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />
+                                        {tag.Title}
+                                    </Link>
                                 ))}
                             </div>
                         }
@@ -53,7 +58,7 @@ export default ({ blockData }) => {
                             </div>
 
                             {blockData.author !== null ? (
-                                <Link to="" className={cS.name}>
+                                <Link to={`/terapeuti/${blockData.author.Url}`} className={cS.name}>
                                     {getName(blockData.author)}
                                 </Link>) : ('')}
                         </div>
