@@ -146,6 +146,7 @@ exports.createPages = async ({ graphql, actions }) => {
             component: path.resolve('./src/templates/TherapistTemplate.js'),
             context: {
                 pageId: page.node.id,
+                therapistPageId: parseInt(page.node.id.replace('Therapists_', '')),
                 pagesUrlMap: urlMap
             }
         });
