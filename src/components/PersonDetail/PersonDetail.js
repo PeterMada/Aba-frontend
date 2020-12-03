@@ -66,7 +66,7 @@ export default ({ blockData }) => {
                             <div
                                 key='9999'
                                 className={activeTab === 9999 ? `${cS.tabContent} ${cS.activeContent}` : `${cS.tabContent}`}>
-                                {blockData.Email.length > 0 &&
+                                {blockData?.Email?.length > 0 &&
                                     <div className={cS.contactEmail}>
                                         <a href={`mailto:${blockData.Email}`}>{blockData.Email}</a>
                                     </div>
