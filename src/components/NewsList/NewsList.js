@@ -14,8 +14,10 @@ import cS from './NewsList.module.scss';
 
 
 export default ({ blockData }) => {
-    const params = new URLSearchParams(document.location.search.substring(1));
-    const currentTag = params.get('tag');
+    // TODO #4 @PeterMada
+    //const params = new URLSearchParams(document.location.search.substring(1));
+    //const currentTag = params.get('tag');
+    const currentTag = '';
 
     const getName = (name) => {
         const titleBefore = name.TitleBefore ? name.TitleBefore : '';

@@ -23,9 +23,11 @@ import cSNews from './NewsSignpostTemplate.module.scss';
 import cS from './PageTemplate.module.scss';
 
 export default ({ data, pageContext }) => {
-    const params = new URLSearchParams(document.location.search.substring(1));
-    const tag = params.get('tag');
-    const authorName = params.get('author');
+    // TODO #3 @PeterMada
+    //const params = new URLSearchParams(document.location.search.substring(1));
+    // const tag = params.get('tag');
+    //const authorName = params.get('author');
+    const tag = '';
 
 
     const keywords = data.strapiPages.MetaKeywords ? data.strapiPages.MetaKeywords : '';
