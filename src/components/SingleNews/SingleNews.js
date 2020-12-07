@@ -58,14 +58,13 @@ export default ({ blockData, allNews = [] }) => {
                             ))}
                         </div>
                     }
-
-                    <time dateTime={blockData.created_at} className={cS.date}>{formatedDate}</time>
-
                     {blockData.author !== null ? (
                         <Link to="" className={cS.name}>
                             {getName(blockData.author)}
-                        </Link>) : ('')}
+                        </Link>) : ('')
+                    }
 
+                    <time dateTime={blockData.created_at} className={cS.date}>{formatedDate}</time>
                 </div>
             </div>
         </article>
