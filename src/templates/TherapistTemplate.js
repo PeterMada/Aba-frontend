@@ -136,6 +136,18 @@ export const pageQuery = graphql`
                     }
                 }
             }
+            price_list {
+              TextAfterTable
+              TextBeforeTable
+              id
+              PriceTable {
+                LeftColumn
+                RightColumn
+                id
+                IsEmpty
+                IsHeading
+              }
+            }
         }
         allStrapiTherapists {
             edges {

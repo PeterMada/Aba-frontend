@@ -25,8 +25,10 @@ export default ({ blockData }) => {
 
     const titleBefore = blockData?.TitleBefore?.length > 0 ? `${blockData.TitleBefore}` : '';
     const titleAfter = blockData?.TitleAfter?.length > 0 ? `${blockData?.TitleAfter}` : '';
-
     const personFullName = `${titleBefore}${blockData.Name}${titleAfter}`;
+    const hasPriceList = blockData?.price_list ? true : false;
+
+    console.log(blockData.price_list);
 
     return (
         <div className={cS.wrap}>
@@ -51,6 +53,11 @@ export default ({ blockData }) => {
                                 <a className={activeTab === index ? `${cS.tabControl} ${cS.activeControl}` : `${cS.tabControl}`} href="" key={index} rel='nofollow' onClick={e => changeTab(e, index)}>{tabEl.Title}</a>
                             ))}
 
+                            {hasPriceList &&
+                                <a className={activeTab === 9998 ? `${cS.tabControl} ${cS.activeControl}` : `${cS.tabControl}`} href="" key='9998' rel='nofollow' onClick={e => changeTab(e, 9998)}>Ceník</a>
+
+                            }
+
                             <a className={activeTab === 9999 ? `${cS.tabControl} ${cS.activeControl}` : `${cS.tabControl}`} href="" key='9999' rel='nofollow' onClick={e => changeTab(e, 9999)}>Kontakt</a>
 
                         </div>
@@ -63,6 +70,51 @@ export default ({ blockData }) => {
                                     dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(tabEl.Text.replace(RegExp("\n", "g"), "<br>")).toString() }}>
                                 </div>
                             ))}
+
+                            {hasPriceList &&
+                                <div
+                                    key='9998'
+                                    className={activeTab === 9998 ? `${cS.tabContent} ${cS.activeContent}` : `${cS.tabContent}`}>
+
+                                    {blockData.price_list?.TextBeforeTable?.length > 0 &&
+                                        <div
+                                            className={cS.textBefore}
+                                            dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(blockData.price_list.TextBeforeTable.replace(RegExp("\n", "g"), "<br>")).toString() }}>
+                                        </div>
+                                    }
+
+                                    <div>
+                                        {blockData.price_list.map((row, i) => (
+                                            <div key={row.id}
+                                                className={`${(row.IsHeading ? cS.tableRow + ' ' + cS.tableHeader : cS.tableRow) + ' ' + (row.IsEmpty ? cS.tableRowEmpty : '')}`}>
+                                                {(row.LeftColumn && !row.IsEmpty) ? (
+                                                    <div
+                                                        className={cS.tableLeft}
+                                                        dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(row.LeftColumn.replace(RegExp("\n", "g"), "<br>")).toString() }}>
+                                                    </div>
+                                                ) : (<div className={`${cS.tableLeft} ${cS.tableEmpty}`} >&nbsp;</div>)}
+
+                                                {(row.RightColumn && !row.IsEmpty) ? (
+                                                    <div
+                                                        className={cS.tableRight}
+                                                        dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(row.RightColumn.replace(RegExp("\n", "g"), "<br>")).toString() }}>
+                                                    </div>
+                                                ) : (<div className={`${cS.tableRight} ${cS.tableEmpty}`}>&nbsp;</div>)}
+
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {blockData.price_list?.TextAfterTable?.length > 0 &&
+                                        <div
+                                            className={cS.textAfter}
+                                            dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(blockData.price_list.TextAfterTable.replace(RegExp("\n", "g"), "<br>")).toString() }}>
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+
                             <div
                                 key='9999'
                                 className={activeTab === 9999 ? `${cS.tabContent} ${cS.activeContent}` : `${cS.tabContent}`}>
@@ -78,6 +130,6 @@ export default ({ blockData }) => {
                     </div>
                 }
             </div>
-        </div>
+        </div >
     )
 }

@@ -88,8 +88,15 @@
 
 }
 
-.tabContents {
+.textBefore {
+}
 
+.textAfter {
+    margin-top: 0.5rem;
+    font-size: 0.85em;
+    p {
+        margin: 0;
+    }
 }
 
 .tabContent {
@@ -118,6 +125,89 @@
     display: block;
     font-weight: 500;
     margin-bottom: 3rem;
+}
+
+.tableRow {
+    display: flex;
+    
+    p {
+        margin: 0;
+    }
+
+    > div {
+        padding: 0.5em 1rem;
+    }
+
+    &:last-child {
+
+        border-bottom: 1px solid $colorMain;
+    }
+
+    &:first-child {  
+        .tableLeft {
+            border-top-left-radius: 1rem;
+        }
+
+        .tableRight {
+            border-top-right-radius: 1rem;
+        }
+    }
+
+    &:nth-child(2n + 1) {
+        > div {
+            background-color: $colorHeader;
+        }
+    }
+}
+
+.tableLeft {
+    border-top: 1px solid $colorMain;
+    border-left: 1px solid $colorMain;
+    width: 60%;
+}
+
+.tableRight {
+    width: 40%;
+    text-align: right;
+    border-top: 1px solid $colorMain;
+    border-left: 1px solid $colorMain;
+    border-right: 1px solid $colorMain;
+}
+
+.tableHeader {
+    font-weight: 600;
+    color: $colorWhite;
+
+    .tableLeft,
+    .tableRight {
+        text-align: center;
+        background-color: $tableHeading!important;    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .tableLeft {
+        border-top-left-radius: 1rem;
+    }
+
+    .tableRight {
+        border-top-right-radius: 1rem;
+    }
+}
+
+.tableRowEmpty {
+
+    .tableLeft {
+        border-left: none;
+        background-color: transparent!important;
+    }
+
+    .tableRight {
+        border-left: none;
+        border-right: none;
+        background-color: transparent!important;
+    }
 }
 
 @keyframes fadeIn {
@@ -160,8 +250,17 @@
         padding-top: 8rem;
     }
 
-    
     .imgWrap {
         padding-left: 0;
+    }
+}
+
+@media screen and (min-width: 800px) { 
+    .tableLeft {
+        width: 70%;
+    }
+
+    .tableRight { 
+        width: 30%;
     }
 }

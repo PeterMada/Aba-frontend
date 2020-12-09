@@ -32,7 +32,7 @@ module.exports = {
         apiURL: apiUrl,
         queryLimit: 100, // Default to 100
         contentTypes: [`pages`, `sliders`, `Text-Block-With-Image`, `news`, `text-blocks`, `Therapists`, `Text-On-Images`, `news-tags`, `text-on-sliders`, `Text-with-photo-effects`, `Social-media-sites`],
-        singleTypes: [`settings`, `menu-footer`, `menu-header`],
+        singleTypes: [`settings`, `menu-footer`, `menu-header`, `price-lists`],
         // Possibility to login with a strapi user, when content types are not publically available (optional).
         loginData: {
           identifier: "",
