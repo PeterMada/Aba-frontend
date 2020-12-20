@@ -36,13 +36,12 @@ export default () => {
                     const Url = window.location.pathname;
                     const updateValues = { ...values, Url };
                     const subitJson = JSON.stringify(updateValues, null, 2);
-                    alert(subitJson);
 
                     fetch(`${process.env.GATSBY_API_URL}/emails`, {
                         method: 'POST',
                         body: subitJson,
                         headers: {
-                            'Content-type': 'application/json; charset=UTF-8' // The type of data you're sending
+                            'Content-type': 'application/json; charset=UTF-8'
                         }
                     }).then(function (response) {
                         if (response.ok) {
