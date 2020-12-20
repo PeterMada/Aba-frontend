@@ -16,7 +16,8 @@ import TextOnImage from '../components/TextOnImage/TextOnImage';
 import NiceTitle from '../components/NiceTitle/NiceTitle';
 import TextOnSlilder from '../components/TextOnSlider/TextOnSlider';
 import TextWithPhotoEffect from '../components/TextWithPhotoEffect/TextWithPhotoEffect';
-import SmallBanner from '../components/SmallBanner/SmallBanner'
+import SmallBanner from '../components/SmallBanner/SmallBanner';
+import Form from '../components/Form/Form';
 
 import cSTherapist from './TherapistSignpostTemplate.module.scss';
 import cSNews from './NewsSignpostTemplate.module.scss';
@@ -32,6 +33,8 @@ export default ({ data, pageContext }) => {
 
     const keywords = data.strapiPages.MetaKeywords ? data.strapiPages.MetaKeywords : '';
     const description = data.strapiPages.MetaDescription ? data.strapiPages.MetaDescription : '';
+
+    console.log(data.strapiPages.Title);
 
     const getRightComponent = currentComponent => {
         let returnComponent = '';
@@ -184,7 +187,6 @@ export default ({ data, pageContext }) => {
             )
         }
 
-
         return returnComponent;
     }
 
@@ -202,6 +204,12 @@ export default ({ data, pageContext }) => {
         }
     }
 
+    let isContactPage = false;
+    console.log(data.strapiPages.Title.toLowerCase());
+    if (data.strapiPages.Title.toLowerCase() === 'kontakt') {
+        isContactPage = true;
+    }
+    console.log(isContactPage);
     return (
         <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
@@ -211,11 +219,19 @@ export default ({ data, pageContext }) => {
                 <meta name="keywords" content={description} />
             </Helmet>
             <main>
-                {data.strapiPages.DynamicComponent.map((component, index) => (
-                    <div key={index}>
-                        {getRightComponent(component)}
-                    </div>
-                ))}
+                {isContactPage ? (
+                    <MaxWidthWrap>
+                        <div className={cS.formWrap}>
+                            <Form />
+                        </div>
+                    </MaxWidthWrap>
+                ) : (
+                        data.strapiPages.DynamicComponent.map((component, index) => (
+                            <div key={index}>
+                                {getRightComponent(component)}
+                            </div>
+                        ))
+                    )}
             </main>
 
             <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
