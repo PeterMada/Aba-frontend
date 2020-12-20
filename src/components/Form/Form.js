@@ -8,6 +8,7 @@ export default () => {
     const succesfulMessage = <span className={cS.good}>Formulář byl úspěšně odeslán.</span>
     const errorMessage = <span className={cS.bad}>Nastala chyba, zkuste to prosím později.</span>
 
+    // @TODO #5 @PeterMada
     return (
         <div>
             <div className={cS.message}>{message}</div>
