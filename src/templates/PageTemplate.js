@@ -34,8 +34,6 @@ export default ({ data, pageContext }) => {
     const keywords = data.strapiPages.MetaKeywords ? data.strapiPages.MetaKeywords : '';
     const description = data.strapiPages.MetaDescription ? data.strapiPages.MetaDescription : '';
 
-    console.log(data.strapiPages.Title);
-
     const getRightComponent = currentComponent => {
         let returnComponent = '';
 
@@ -205,11 +203,10 @@ export default ({ data, pageContext }) => {
     }
 
     let isContactPage = false;
-    console.log(data.strapiPages.Title.toLowerCase());
     if (data.strapiPages.Title.toLowerCase() === 'kontakt') {
         isContactPage = true;
     }
-    console.log(isContactPage);
+
     return (
         <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 

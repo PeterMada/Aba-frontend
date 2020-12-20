@@ -28,8 +28,6 @@ export default ({ blockData }) => {
     const personFullName = `${titleBefore}${blockData.Name}${titleAfter}`;
     const hasPriceList = blockData?.price_list ? true : false;
 
-    console.log(blockData.price_list);
-
     return (
         <div className={cS.wrap}>
             <div className={cS.imgWrap}>
