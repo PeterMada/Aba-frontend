@@ -15,9 +15,14 @@ export default ({ data, pageContext }) => {
 
             <MaxWidthWrap>
                 <div className={cS.list}>
-                    {data.allStrapiNews.edges.map((singleNews, index) => (
-                        <NewsList key={`news-list-${index}`} blockData={singleNews.node} />
-                    ))}
+                    {data.allStrapiNews.edges.map((singleNews, index) => {
+                        console.log(singleNews.node.Url);
+                        if (singleNews.node.Url !== 'test') {
+                            return <NewsList key={`news-list-${index}`} blockData={singleNews.node} />
+                        }
+
+                        return null;
+                    })}
                 </div>
             </MaxWidthWrap>
             <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} />

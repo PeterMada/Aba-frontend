@@ -24,15 +24,17 @@ export default ({ data, pageContext }) => {
 
                 <MaxWidthWrap>
                     <div className={cSNews.list}>
-                        {allNews.map((singleNews, index) => (
-                            <NewsList blockData={singleNews.node} key={index} />
-                        ))}
+                        {allNews.map((singleNews, index) => {
+                            if (singleNews.node.Url !== 'test') {
+                                return <NewsList blockData={singleNews.node} key={index} />
+                            }
+                        })}
                     </div>
 
 
                     {allNews.length > 0 ? (
                         <div className={cSTherapist.buttonWrap}>
-                            <Link to='/novinky' className={cSTherapist.button}>Novinky</Link>
+                            <Link to='/clanky' className={cSTherapist.button}>Články</Link>
                         </div>
                     ) : null
                     }

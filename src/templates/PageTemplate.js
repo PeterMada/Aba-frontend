@@ -105,15 +105,17 @@ export default ({ data, pageContext }) => {
                     <NiceTitle title={currentComponent?.Title} subtitle={currentComponent?.GraphicTitle} text={currentComponent?.TextUnderTitle?.length ? currentComponent.TextUnderTitle : ''} />
 
                     <div className={isLongList ? `${cSNews.list}` : `${cSNews.list} ${cSNews.listShort}`}>
-                        {allNews.map((singleNews, index) => (
-                            <NewsList blockData={singleNews.node} key={index} />
-                        ))}
+                        {allNews.map((singleNews, index) => {
+                            if (singleNews.node.Url !== 'test') {
+                                return <NewsList blockData={singleNews.node} key={index} />
+                            }
+                        })}
                     </div>
 
 
                     {(!isLongList && hasButtonText && hasEnoughtNews) ? (
                         <div className={cSTherapist.buttonWrap}>
-                            <Link to='/novinky' className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
+                            <Link to='/clanky' className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
                         </div>
                     ) : null
                     }

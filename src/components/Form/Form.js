@@ -34,7 +34,6 @@ export default () => {
                 }}
 
                 onSubmit={(values, actions) => {
-                    console.log(process.env.GATSBY_API_URL);
                     const Url = window.location.pathname;
                     const updateValues = { ...values, Url };
                     const subitJson = JSON.stringify(updateValues, null, 2);
