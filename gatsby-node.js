@@ -5,7 +5,7 @@
  */
 
 const path = require('path');
-const newsUrl = 'novinky';
+const newsUrl = 'clanky';
 const terapeutiUrl = 'terapeuti';
 
 // You can delete this file if you're not using it
@@ -98,7 +98,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
 
     urlMap.map(page => {
-
         const basicTemplatePath = path.resolve(__dirname + '/src/templates/PageTemplate.js');
         let currentTemplate = basicTemplatePath;
         let isNewsSignpostPage = false;
@@ -126,16 +125,18 @@ exports.createPages = async ({ graphql, actions }) => {
 
 
     // Create news pages
-
     result.data.allStrapiNews.edges.map((page) => {
-        createPage({
-            path: `/${newsUrl}/${page.node.Url}`,
-            component: path.resolve('./src/templates/NewsTemplate.js'),
-            context: {
-                pageId: page.node.id,
-                pagesUrlMap: urlMap
-            }
-        });
+
+        if (page.node.Url != 'test') {
+            createPage({
+                path: `/${newsUrl}/${page.node.Url}`,
+                component: path.resolve('./src/templates/NewsTemplate.js'),
+                context: {
+                    pageId: page.node.id,
+                    pagesUrlMap: urlMap
+                }
+            });
+        }
     });
 
 
@@ -152,6 +153,21 @@ exports.createPages = async ({ graphql, actions }) => {
         });
     });
 
+}
+
+// Implement the Gatsby API “onCreatePage”. This is
+// called after every page is created.
+exports.onCreatePage = async ({ page, actions }) => {
+    const { createPage } = actions
+
+    // page.matchPath is a special key that's used for matching pages
+    // only on the client.
+    if (page.path.match(/^\/app/)) {
+        page.matchPath = "/app/*"
+
+        // Update the page.
+        createPage(page)
+    }
 }
 
 function getUrl(allPages, current) {

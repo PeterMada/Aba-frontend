@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 
 import RootLayout from './../components/RootLayout/RootLayout';
 import MaxWidthWrap from './../components/MaxWidthWrap/MaxWidthWrap';
@@ -8,20 +8,38 @@ import Footer from './../components/Footer/Footer';
 
 import cS from './NewsSignpostTemplate.module.scss';
 
+import { getUser, isLoggedIn } from '../services/auth';
+
 export default ({ data, pageContext }) => {
 
     return (
-        <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+        <>
 
-            <MaxWidthWrap>
-                <div className={cS.list}>
-                    {data.allStrapiNews.edges.map((singleNews, index) => (
-                        <NewsList key={`news-list-${index}`} blockData={singleNews.node} />
-                    ))}
-                </div>
-            </MaxWidthWrap>
-            <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} />
-        </RootLayout>
+            {isLoggedIn() ? (
+
+                <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+
+                    <MaxWidthWrap>
+                        <div className={cS.list}>
+                            {data.allStrapiNews.edges.map((singleNews, index) => {
+
+                                if (singleNews.node.Url !== 'test') {
+                                    return <NewsList key={`news-list-${index}`} blockData={singleNews.node} />
+                                }
+
+                                return null;
+                            })}
+                        </div>
+                    </MaxWidthWrap>
+                    <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} />
+                </RootLayout>
+            ) : (
+
+                    <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
+                        Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
+                    </div>
+                )}
+        </>
     );
 }
 

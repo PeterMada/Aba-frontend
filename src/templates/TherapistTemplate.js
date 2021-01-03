@@ -12,35 +12,50 @@ import cSNews from './NewsSignpostTemplate.module.scss';
 import cSTherapist from './TherapistSignpostTemplate.module.scss';
 
 
+import { getUser, isLoggedIn } from '../services/auth';
+
+
 export default ({ data, pageContext }) => {
     const allNews = data?.allStrapiNews?.edges;
 
     return (
-        <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+        <>
 
-            <main>
-                <PersonDetail blockData={data.strapiTherapists} />
+            {isLoggedIn() ? (
+                <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+
+                    <main>
+                        <PersonDetail blockData={data.strapiTherapists} />
 
 
-                <MaxWidthWrap>
-                    <div className={cSNews.list}>
-                        {allNews.map((singleNews, index) => (
-                            <NewsList blockData={singleNews.node} key={index} />
-                        ))}
+                        <MaxWidthWrap>
+                            <div className={cSNews.list}>
+                                {allNews.map((singleNews, index) => {
+                                    if (singleNews.node.Url !== 'test') {
+                                        return <NewsList blockData={singleNews.node} key={index} />
+                                    }
+                                })}
+                            </div>
+
+
+                            {allNews.length > 0 ? (
+                                <div className={cSTherapist.buttonWrap}>
+                                    <Link to='/clanky' className={cSTherapist.button}>Články</Link>
+                                </div>
+                            ) : null
+                            }
+                        </MaxWidthWrap>
+                    </main>
+
+                    <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
+                </RootLayout >
+            ) : (
+
+                    <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
+                        Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
                     </div>
-
-
-                    {allNews.length > 0 ? (
-                        <div className={cSTherapist.buttonWrap}>
-                            <Link to='/novinky' className={cSTherapist.button}>Novinky</Link>
-                        </div>
-                    ) : null
-                    }
-                </MaxWidthWrap>
-            </main>
-
-            <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
-        </RootLayout >
+                )}
+        </>
     )
 }
 

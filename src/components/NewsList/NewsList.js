@@ -28,13 +28,13 @@ export default ({ blockData }) => {
     return (
         <article className={cS.item}>
             <div className={cS.itemWrap}>
-                <Link to={`/novinky/${blockData.Url}`} className={cS.link} aria-label={blockData.Title} aria-hidden='true' tabIndex='-1'>
+                <Link to={`/clanky/${blockData.Url}`} className={cS.link} aria-label={blockData.Title} aria-hidden='true' tabIndex='-1'>
                     <Img className={cS.img} fluid={blockData.MainImage.childImageSharp.fluid} alt={blockData.Title} />
                 </Link>
 
 
                 <div className={cS.innerWrap}>
-                    <Link to={`/novinky/${blockData.Url}`} className={cS.link}>
+                    <Link to={`/clanky/${blockData.Url}`} className={cS.link}>
                         <h1 className={cS.title}>{blockData.Title}</h1>
                     </Link>
 
@@ -45,7 +45,7 @@ export default ({ blockData }) => {
                         {blockData.news_tags.length > 0 &&
                             <div className={cS.tagsWrap}>
                                 {blockData.news_tags.map((tag, index) => (
-                                    <Link to={`/novinky?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={currentTag === tag.Title.toLowerCase() ? `${cS.tag} ${cS.tagActive}` : `${cS.tag}`}>
+                                    <Link to={`/clanky?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={currentTag === tag.Title.toLowerCase() ? `${cS.tag} ${cS.tagActive}` : `${cS.tag}`}>
                                         <FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />
                                         {tag.Title}
                                     </Link>
