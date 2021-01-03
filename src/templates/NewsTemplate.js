@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import { Helmet } from "react-helmet"
 
 import RootLayout from './../components/RootLayout/RootLayout';
@@ -9,6 +9,8 @@ import Footer from './../components/Footer/Footer';
 import MaxWidthWrap from '../components/MaxWidthWrap/MaxWidthWrap';
 
 import cSNews from './NewsSignpostTemplate.module.scss';
+
+import { getUser, isLoggedIn } from '../services/auth';
 
 export default ({ data, pageContext }) => {
     const keywords = data.strapiNews.MetaKeywords ? data.strapiNews.MetaKeywords : '';
@@ -39,22 +41,34 @@ export default ({ data, pageContext }) => {
     }
 
     return (
-        <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+        <>
 
-            <Helmet>
-                <title>{currentPageTitle}</title>
-                <meta name="description" content={keywords} />
-                <meta name="keywords" content={description} />
-                {data.strapiNews.author !== null ? (
-                    <meta name="author" content={getName(data.strapiNews.author)} />
-                ) : ('')}
-            </Helmet>
+            {isLoggedIn() ? (
 
-            <main>
-                <SingleNews blockData={data.strapiNews} allNews={allNews} />
-            </main>
-            <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
-        </RootLayout >
+                <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+
+                    <Helmet>
+                        <title>{currentPageTitle}</title>
+                        <meta name="description" content={keywords} />
+                        <meta name="keywords" content={description} />
+                        {data.strapiNews.author !== null ? (
+                            <meta name="author" content={getName(data.strapiNews.author)} />
+                        ) : ('')}
+                    </Helmet>
+
+                    <main>
+                        <SingleNews blockData={data.strapiNews} allNews={allNews} />
+                    </main>
+                    <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
+                </RootLayout >
+            ) : (
+
+                    <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
+                        Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
+                    </div>
+                )}
+
+        </>
     )
 }
 

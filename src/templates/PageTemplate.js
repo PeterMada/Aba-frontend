@@ -23,6 +23,9 @@ import cSTherapist from './TherapistSignpostTemplate.module.scss';
 import cSNews from './NewsSignpostTemplate.module.scss';
 import cS from './PageTemplate.module.scss';
 
+
+import { getUser, isLoggedIn } from '../services/auth';
+
 export default ({ data, pageContext }) => {
     // TODO #3 @PeterMada
     //const params = new URLSearchParams(document.location.search.substring(1));
@@ -210,31 +213,42 @@ export default ({ data, pageContext }) => {
     }
 
     return (
-        <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+        <>
 
-            <Helmet>
-                <title>{currentPageTitle}</title>
-                <meta name="description" content={keywords} />
-                <meta name="keywords" content={description} />
-            </Helmet>
-            <main>
-                {isContactPage ? (
-                    <MaxWidthWrap>
-                        <div className={cS.formWrap}>
-                            <Form />
-                        </div>
-                    </MaxWidthWrap>
-                ) : (
-                        data.strapiPages.DynamicComponent.map((component, index) => (
-                            <div key={index}>
-                                {getRightComponent(component)}
-                            </div>
-                        ))
-                    )}
-            </main>
+            {isLoggedIn() ? (
+                <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
-            <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
-        </RootLayout>
+                    <Helmet>
+                        <title>{currentPageTitle}</title>
+                        <meta name="description" content={keywords} />
+                        <meta name="keywords" content={description} />
+                    </Helmet>
+                    <main>
+                        {isContactPage ? (
+                            <MaxWidthWrap>
+                                <div className={cS.formWrap}>
+                                    <Form />
+                                </div>
+                            </MaxWidthWrap>
+                        ) : (
+                                data.strapiPages.DynamicComponent.map((component, index) => (
+                                    <div key={index}>
+                                        {getRightComponent(component)}
+                                    </div>
+                                ))
+                            )}
+                    </main>
+
+                    <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
+                </RootLayout>
+
+            ) : (
+                    <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
+                        Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
+                    </div>
+                )}
+
+        </>
     );
 
 }

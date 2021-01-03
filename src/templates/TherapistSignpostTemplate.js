@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 
 import RootLayout from './../components/RootLayout/RootLayout';
 import MaxWidthWrap from './../components/MaxWidthWrap/MaxWidthWrap';
@@ -10,23 +10,36 @@ import Footer from './../components/Footer/Footer';
 
 import cS from './TherapistSignpostTemplate.module.scss';
 
+
+import { getUser, isLoggedIn } from '../services/auth';
+
 export default ({ data, pageContext }) => {
 
     return (
-        <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+        <>
 
-            <h1 className={cS.title}>Terapeuti</h1>
+            {isLoggedIn() ? (
+                <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
-            <MaxWidthWrap>
-                <div className={cS.wrap}>
-                    {data.allStrapiTherapists.edges.map((therapist, index) => (
-                        <TherapistList blockData={therapist.node} key={index} />
-                    ))}
-                </div>
-            </MaxWidthWrap>
+                    <h1 className={cS.title}>Terapeuti</h1>
 
-            <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} />
-        </RootLayout>
+                    <MaxWidthWrap>
+                        <div className={cS.wrap}>
+                            {data.allStrapiTherapists.edges.map((therapist, index) => (
+                                <TherapistList blockData={therapist.node} key={index} />
+                            ))}
+                        </div>
+                    </MaxWidthWrap>
+
+                    <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} />
+                </RootLayout>
+            ) : (
+
+                    <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
+                        Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
+                    </div>
+                )}
+        </>
     )
 
 }
