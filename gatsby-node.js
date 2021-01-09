@@ -8,7 +8,6 @@ const path = require('path');
 const newsUrl = 'clanky';
 const terapeutiUrl = 'terapeuti';
 
-// You can delete this file if you're not using it
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions;
 
@@ -46,42 +45,6 @@ exports.createPages = async ({ graphql, actions }) => {
         }
     `);
 
-    /*
-    const result = await graphql(`
-        query pagesQuery {
-            allStrapiPages {
-                edges {
-                    node {
-                        Url
-                        Title
-                        id
-                        strapiId
-                        strapiParent {
-                            id
-                        }
-                    }
-                }
-            }
-            allStrapiNews {
-                edges {
-                    node {
-                        id
-                        Url
-                    }
-                }
-            }
-            allStrapiTherapists {
-                edges {
-                    node {
-                        id
-                        Url
-                    }
-                }
-            }
-        }
-    `);
-    */
-
     // Create basic pages
     const urlMap = result.data.allStrapiPages.edges.map((page) => {
         const returnUrl = getUrl(result.data.allStrapiPages.edges, page.node);
@@ -99,22 +62,15 @@ exports.createPages = async ({ graphql, actions }) => {
 
     urlMap.map(page => {
         const basicTemplatePath = path.resolve(__dirname + '/src/templates/PageTemplate.js');
-        let currentTemplate = basicTemplatePath;
         let isNewsSignpostPage = false;
 
         if (page.url === newsUrl) {
             isNewsSignpostPage = true;
-            // currentTemplate = newsSignpostPath;
         }
-
-        if (page.url === terapeutiUrl) {
-            //currentTemplate = therapistSignpostPath;
-        }
-
 
         createPage({
             path: `/${page.url}`,
-            component: currentTemplate,
+            component: basicTemplatePath,
             context: {
                 pageId: page.id,
                 pagesUrlMap: urlMap,
@@ -155,8 +111,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
 }
 
-// Implement the Gatsby API “onCreatePage”. This is
-// called after every page is created.
+// Login function
 exports.onCreatePage = async ({ page, actions }) => {
     const { createPage } = actions
 
