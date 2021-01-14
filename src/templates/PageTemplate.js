@@ -74,7 +74,7 @@ export default ({ data, pageContext }) => {
         }
 
         // News list component
-        if (currentComponent?.HasNewsList) {
+        if (currentComponent?.HasListOfArticles) {
             let allNews = [];
             const isLongList = currentComponent?.IsLongList ? true : false;
             const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
@@ -131,7 +131,7 @@ export default ({ data, pageContext }) => {
 
 
         // Therapist list component
-        if (currentComponent?.HasTherapistList) {
+        if (currentComponent?.HasListOfTherapist) {
             let allTherapist = [];
             const isLongList = currentComponent?.IsLongList ? true : false;
             const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
@@ -328,8 +328,9 @@ export const query = graphql`
                 GraphicTitle
                 TextUnderTitle
                 Title
-                HasNewsList
-                HasTherapistList
+                HasListOfArticles
+                HasListOfTherapist
+                HasListOfWorkshops
                 id
                 IsLongList
                 SmallImgTitle
