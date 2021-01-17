@@ -73,7 +73,7 @@ export default ({ data, pageContext }) => {
 
         }
 
-        // News list component
+        // Articles list component
         if (currentComponent?.HasListOfArticles) {
             let allNews = [];
             const isLongList = currentComponent?.IsLongList ? true : false;
@@ -84,7 +84,7 @@ export default ({ data, pageContext }) => {
                     let returnValue = true;
                     if (tag) {
                         returnValue = false;
-                        const currentTag = el.node.news_tags.find(news => {
+                        const currentTag = el.node.tags.find(news => {
                             return tag === decodeURI(news.Title.toLowerCase())
                         });
                         if (currentTag) {
@@ -110,7 +110,7 @@ export default ({ data, pageContext }) => {
                     <div className={isLongList ? `${cSNews.list}` : `${cSNews.list} ${cSNews.listShort}`}>
                         {allNews.map((singleNews, index) => {
                             if (singleNews.node.Url !== 'test') {
-                                return <NewsList blockData={singleNews.node} key={index} />
+                                return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} />
                             }
                         })}
                     </div>
@@ -118,7 +118,63 @@ export default ({ data, pageContext }) => {
 
                     {(!isLongList && hasButtonText && hasEnoughtNews) ? (
                         <div className={cSTherapist.buttonWrap}>
-                            <Link to='/clanky' className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
+                            <Link to={`/${pageContext.articlesUrl}`} className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
+                        </div>
+                    ) : null
+                    }
+                </MaxWidthWrap>
+            )
+        }
+
+
+        // Workshops list component
+        if (currentComponent?.HasListOfWorkshops) {
+            let allWorkshops = [];
+            const isLongList = currentComponent?.IsLongList ? true : false;
+            const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
+
+            if (isLongList) {
+                allWorkshops = data.allStrapiWorkshops.edges.filter(el => {
+                    let returnValue = true;
+                    if (tag) {
+                        returnValue = false;
+                        const currentTag = el.node.tags.find(news => {
+                            return tag === decodeURI(news.Title.toLowerCase())
+                        });
+                        if (currentTag) {
+                            returnValue = true;
+                        }
+                    }
+                    return returnValue;
+                });
+
+            } else {
+                allWorkshops = data.allStrapiWorkshops.edges.filter((el, index) => index < 4);
+            }
+
+            let hasEnoughWorkshops = allWorkshops.length >= 4 ? true : false;
+            if (isLongList) {
+                hasEnoughWorkshops = true;
+            }
+
+            console.log(allWorkshops);
+
+            returnComponent = (
+                <MaxWidthWrap>
+                    <NiceTitle title={currentComponent?.Title} subtitle={currentComponent?.GraphicTitle} text={currentComponent?.TextUnderTitle?.length ? currentComponent.TextUnderTitle : ''} />
+
+                    <div className={isLongList ? `${cSNews.list}` : `${cSNews.list} ${cSNews.listShort}`}>
+                        {allWorkshops.map((singleNews, index) => {
+                            if (singleNews.node.Url !== 'test') {
+                                return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.workshopsUrl} />
+                            }
+                        })}
+                    </div>
+
+
+                    {(!isLongList && hasButtonText && hasEnoughWorkshops) ? (
+                        <div className={cSTherapist.buttonWrap}>
+                            <Link to={`/${pageContext.workshopsUrl}`} className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
                         </div>
                     ) : null
                     }
@@ -453,7 +509,37 @@ export const query = graphql`
                     MetaKeywords
                     MetaDescription
                     created_at
-                    news_tags {
+                    tags {
+                        Title
+                        id
+                    }
+                    author{
+                        id
+                        TitleBefore
+                        TitleAfter
+                        Name
+                        Url
+                    }
+                    MainImage {
+                        childImageSharp {
+                            fluid(maxWidth: 250) {
+                            ...GatsbyImageSharpFluid
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        allStrapiWorkshops {
+            edges {
+                node {
+                    Perex
+                    Title
+                    Url
+                    MetaKeywords
+                    MetaDescription
+                    created_at
+                    tags {
                         Title
                         id
                     }

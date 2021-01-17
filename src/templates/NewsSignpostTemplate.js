@@ -99,7 +99,7 @@ export const pageQuery = graphql`
                     Title
                     Url
                     created_at
-                    news_tags {
+                    tags {
                         Title
                         id
                     }

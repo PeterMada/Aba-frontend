@@ -5,7 +5,6 @@
  */
 
 const path = require('path');
-const newsUrl = 'clanky';
 const terapeutiUrl = 'terapeuti';
 
 exports.createPages = async ({ graphql, actions }) => {
@@ -34,6 +33,14 @@ exports.createPages = async ({ graphql, actions }) => {
                     }
                 }
             }
+            allStrapiWorkshops {
+                edges {
+                    node {
+                        id
+                        Url
+                    }
+                }
+            }
             allStrapiTherapists {
                 edges {
                     node {
@@ -42,6 +49,18 @@ exports.createPages = async ({ graphql, actions }) => {
                     }
                 }
             }
+            strapiSettings {
+                ArticlesPage {
+                  Url
+                  id
+                  parent
+                }
+                WorkshopPage {
+                  Url
+                  id
+                  parent
+                }
+              }
         }
     `);
 
@@ -60,11 +79,15 @@ exports.createPages = async ({ graphql, actions }) => {
     }, []);
 
 
+    const articleUrl = findUrl(urlMap, result.data.strapiSettings.ArticlesPage.id);
+    const workshopsUrl = findUrl(urlMap, result.data.strapiSettings.WorkshopPage.id);
+
+
     urlMap.map(page => {
         const basicTemplatePath = path.resolve(__dirname + '/src/templates/PageTemplate.js');
         let isNewsSignpostPage = false;
 
-        if (page.url === newsUrl) {
+        if (page.url === result.data.strapiSettings.ArticlesPage.Url || page.url === result.data.strapiSettings.WorkshopPage.Url) {
             isNewsSignpostPage = true;
         }
 
@@ -74,27 +97,46 @@ exports.createPages = async ({ graphql, actions }) => {
             context: {
                 pageId: page.id,
                 pagesUrlMap: urlMap,
-                isNewsSignpost: isNewsSignpostPage
+                isNewsSignpost: isNewsSignpostPage,
+                articlesUrl: articleUrl,
+                workshopsUrl: workshopsUrl
             },
         });
     });
 
 
-    // Create news pages
+    // Create Article pages
     result.data.allStrapiNews.edges.map((page) => {
 
         if (page.node.Url != 'test') {
             createPage({
-                path: `/${newsUrl}/${page.node.Url}`,
+                path: `/${articleUrl}/${page.node.Url}`,
                 component: path.resolve('./src/templates/NewsTemplate.js'),
                 context: {
                     pageId: page.node.id,
-                    pagesUrlMap: urlMap
+                    pagesUrlMap: urlMap,
+                    articlesUrl: articleUrl
                 }
             });
         }
     });
 
+
+    // Create Workshops pages
+    result.data.allStrapiWorkshops.edges.map((page) => {
+
+        if (page.node.Url != 'test') {
+            createPage({
+                path: `/${workshopsUrl}/${page.node.Url}`,
+                component: path.resolve('./src/templates/WorkshopTemplate.js'),
+                context: {
+                    pageId: page.node.id,
+                    pagesUrlMap: urlMap,
+                    workshopsUrl: workshopsUrl
+                }
+            });
+        }
+    });
 
     // Create therapist pages
     result.data.allStrapiTherapists.edges.map((page) => {
@@ -125,14 +167,43 @@ exports.onCreatePage = async ({ page, actions }) => {
     }
 }
 
-function getUrl(allPages, current) {
+function findUrl(urlMap, pageId) {
 
-    if (current.strapiParent == null) {
+    let returnUrl = urlMap.filter(page => {
+        if (page.id === `Pages_${pageId}`) {
+            return page.url;
+        } else {
+            return false;
+        }
+    });
+
+    if (returnUrl.length === 1) {
+        return returnUrl[0].url;
+    }
+
+    return false;
+}
+
+function getUrl(allPages, current) {
+    let parentIdSettings = false;
+
+    if (current.parent) {
+        parentIdSettings = current.parent;
+    }
+
+    if (parentIdSettings == 4) {
+    }
+
+    if (current.strapiParent == null && parentIdSettings === false) {
         return current.Url;
     } else {
-        const parentId = current.strapiParent.id;
+        let parentId = false;
+        if (current.strapiParent) {
+            parentId = current.strapiParent.id;
+        }
+
         const parentNode = allPages.reduce((result, page) => {
-            if (page.node.strapiId == parentId) {
+            if (page.node.strapiId == parentId || page.node.strapiId == parentIdSettings) {
                 result = page.node;
             }
 

@@ -2,10 +2,10 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import { Helmet } from "react-helmet"
 
-import RootLayout from './../components/RootLayout/RootLayout';
-import SingleNews from './../components/SingleNews/SingleNews';
+import RootLayout from '../components/RootLayout/RootLayout';
+import SingleNews from '../components/SingleNews/SingleNews';
 import NewsList from '../components/NewsList/NewsList';
-import Footer from './../components/Footer/Footer';
+import Footer from '../components/Footer/Footer';
 import MaxWidthWrap from '../components/MaxWidthWrap/MaxWidthWrap';
 
 import cSNews from './NewsSignpostTemplate.module.scss';
@@ -13,20 +13,19 @@ import cSNews from './NewsSignpostTemplate.module.scss';
 import { getUser, isLoggedIn } from '../services/auth';
 
 export default ({ data, pageContext }) => {
-    const keywords = data.strapiNews.MetaKeywords ? data.strapiNews.MetaKeywords : '';
-    const description = data.strapiNews.MetaDescription ? data.strapiNews.MetaDescription : '';
-    const currentPageTitle = `${data.strapiNews.Title} - ${data.strapiSettings.SiteName}`;
+    const keywords = data.strapiWorkshops.MetaKeywords ? data.strapiWorkshops.MetaKeywords : '';
+    const description = data.strapiWorkshops.MetaDescription ? data.strapiWorkshops.MetaDescription : '';
+    const currentPageTitle = `${data.strapiWorkshops.Title} - ${data.strapiSettings.SiteName}`;
 
-    // TODO #2 @PeterMada
-    const allNews = data.allStrapiNews.edges.filter((el, index) => {
-        return (el.node.id !== data.strapiNews.id);
+    const allNews = data.allStrapiWorkshops.edges.filter((el, index) => {
+        return (el.node.id !== data.strapiWorkshops.id);
     });
 
     let returnComponent = (
         <MaxWidthWrap>
             <div className={cSNews.list}>
                 {allNews.map((singleNews, index) => (
-                    <NewsList blockData={singleNews.node} key={index} />
+                    <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.workshopsUrl} />
                 ))}
             </div>
         </MaxWidthWrap>
@@ -51,13 +50,13 @@ export default ({ data, pageContext }) => {
                         <title>{currentPageTitle}</title>
                         <meta name="description" content={keywords} />
                         <meta name="keywords" content={description} />
-                        {data.strapiNews.author !== null ? (
-                            <meta name="author" content={getName(data.strapiNews.author)} />
+                        {data.strapiWorkshops.author !== null ? (
+                            <meta name="author" content={getName(data.strapiWorkshops.author)} />
                         ) : ('')}
                     </Helmet>
 
                     <main>
-                        <SingleNews blockData={data.strapiNews} allNews={allNews} pageUrl={pageContext.articlesUrl} />
+                        <SingleNews blockData={data.strapiWorkshops} allNews={allNews} pageUrl={pageContext.workshopsUrl} />
                     </main>
                     <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
                 </RootLayout >
@@ -73,7 +72,7 @@ export default ({ data, pageContext }) => {
 }
 
 export const pageQuery = graphql`
-    query singleNews($pageId: String!) {
+    query singleWorkshop ($pageId: String!) {
         strapiSettings {
             SiteName
             Copyright
@@ -133,7 +132,7 @@ export const pageQuery = graphql`
                 }
             }
         }
-        strapiNews(id: {eq: $pageId}) {
+        strapiWorkshops(id: {eq: $pageId}) {
             id
             Title
             Perex
@@ -162,7 +161,7 @@ export const pageQuery = graphql`
                 Url
             }
         }
-        allStrapiNews(limit: 6) {
+        allStrapiWorkshops(limit: 6) {
             edges {
                 node {
                     id
