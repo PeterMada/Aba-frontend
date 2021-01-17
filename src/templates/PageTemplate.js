@@ -79,9 +79,6 @@ export default ({ data, pageContext }) => {
             const isLongList = currentComponent?.IsLongList ? true : false;
             const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
 
-            console.log(data.allStrapiNews.edges);
-            console.log(isLongList);
-
             if (isLongList) {
                 allNews = data.allStrapiNews.edges.filter(el => {
                     let returnValue = true;
