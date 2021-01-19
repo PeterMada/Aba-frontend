@@ -5,7 +5,7 @@ import Img from 'gatsby-image';
 import remark from 'remark';
 import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
-
+import remarkBreaks from 'remark-breaks'
 import Form from './../Form/Form';
 
 import SocialMediaSite from './../SocialMediaSite/SocialMediaSite';
@@ -22,6 +22,8 @@ export default ({ blockData }) => {
         e.preventDefault();
         setActiveTab(index);
     }
+
+    console.log(blockData);
 
     const titleBefore = blockData?.TitleBefore?.length > 0 ? `${blockData.TitleBefore}` : '';
     const titleAfter = blockData?.TitleAfter?.length > 0 ? `${blockData?.TitleAfter}` : '';
@@ -61,13 +63,19 @@ export default ({ blockData }) => {
                         </div>
                         <div className={cS.tabContents}>
 
-                            {blockData.TabText.map((tabEl, index) => (
-                                <div
-                                    key={index}
-                                    className={activeTab === index ? `${cS.tabContent} ${cS.activeContent}` : `${cS.tabContent}`}
-                                    dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(tabEl.Text.replace(RegExp("\n", "g"), "<br>")).toString() }}>
-                                </div>
-                            ))}
+                            {blockData.TabText.map((tabEl, index) => {
+                                let tabText = tabEl.Text;
+                                //tabText = tabText.replace(RegExp("\n\n\n", "g"), "\n <br/><br/>");
+                                //tabText = tabText.replace(RegExp("\n\n", "g"), "\n <br/>");
+                                console.log(tabText);
+                                return (
+                                    <div
+                                        key={index}
+                                        className={activeTab === index ? `${cS.tabContent} ${cS.activeContent}` : `${cS.tabContent}`}
+                                        dangerouslySetInnerHTML={{ __html: remark().use(remarkHtml).processSync(tabText) }}>
+                                    </div>
+                                );
+                            })}
 
                             {hasPriceList &&
                                 <div
