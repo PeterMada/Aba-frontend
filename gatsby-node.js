@@ -77,9 +77,29 @@ exports.createPages = async ({ graphql, actions }) => {
         finalUrl = finalUrl.reverse().join('/');
         finalUrl = finalUrl.replace('homepage/', '').replace('homepage', '');
 
+        let isArticleSignpostPage = false;
+        let isWorkshopsSignpostPage = false;
+        let isTherapistSignpostPage = false;
+
+        if (page.node.Url === result.data.strapiSettings.ArticlesPage.Url) {
+            isArticleSignpostPage = true;
+        }
+
+        if (page.node.Url === result.data.strapiSettings.WorkshopPage.Url) {
+            isWorkshopsSignpostPage = true;
+        }
+
+        if (page.node.Url === result.data.strapiSettings.TherapistPage.Url) {
+            isTherapistSignpostPage = true;
+        }
+
         return {
             id: page.node.id,
-            url: finalUrl
+            url: finalUrl,
+            isArticleSignpostPage,
+            isWorkshopsSignpostPage,
+            isTherapistSignpostPage
+
         };
     }, []);
 
@@ -90,22 +110,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
     urlMap.map(page => {
         const basicTemplatePath = path.resolve(__dirname + '/src/templates/PageTemplate.js');
-        let isArticleSignpostPage = false;
-        let isWorkshopsSignpostPage = false;
-        let isTherapistSignpostPage = false;
-
-        if (page.url === result.data.strapiSettings.ArticlesPage.Url) {
-            isArticleSignpostPage = true;
-        }
-
-        if (page.url === result.data.strapiSettings.WorkshopPage.Url) {
-            isWorkshopsSignpostPage = true;
-        }
-
-        if (page.url === result.data.strapiSettings.TherapistPage.Url) {
-            isTherapistSignpostPage = true;
-        }
-
 
         createPage({
             path: `/${page.url}`,
@@ -115,9 +119,9 @@ exports.createPages = async ({ graphql, actions }) => {
                 pagesUrlMap: urlMap,
                 articlesUrl: articleUrl,
                 workshopsUrl: workshopsUrl,
-                isArticleSignpostPage: isArticleSignpostPage,
-                isWorkshopsSignpostPage: isWorkshopsSignpostPage,
-                isTherapistSignpostPage: isTherapistSignpostPage
+                isArticleSignpostPage: page.isArticleSignpostPage,
+                isWorkshopsSignpostPage: page.isWorkshopsSignpostPage,
+                isTherapistSignpostPage: page.isTherapistSignpostPage
             },
         });
     });

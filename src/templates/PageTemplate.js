@@ -28,21 +28,96 @@ import { getUser, isLoggedIn } from '../services/auth';
 import { number } from 'prop-types';
 
 export default ({ data, pageContext }) => {
-    // TODO #3 @PeterMada
+
+    //TODO #9 @PeterMada
+    /*
+    const [tags, setTags] = useState('');
+
+    setTags(getTags());
 
     let params;
     let tag = '';
-    let authorName;
+    //let authorName;
 
-    if (typeof window !== 'undefined') {
-        params = new URLSearchParams(document.location.search.substring(1));
-        tag = params.get('tag');
-        authorName = params.get('author');
-    };
+    const getTags = () => {
+        let tag = ''
+
+        if (typeof window !== 'undefined') {
+            params = new URLSearchParams(document.location.search.substring(1));
+            tag = params.get('tag');
+            //authorName = params.get('author');
+        };
+
+        return tag
+    }
+    */
+
+    // TODO #3 @PeterMada
 
 
     const keywords = data.strapiPages.MetaKeywords ? data.strapiPages.MetaKeywords : '';
     const description = data.strapiPages.MetaDescription ? data.strapiPages.MetaDescription : '';
+
+
+    const getListOfArticles = (listFromStrapi) => {
+        let allNews = [];
+        let returnComponent = null;
+
+        allNews = listFromStrapi.edges.filter(el => {
+            let returnValue = true;
+
+            if (el.node.Url === 'test') {
+                return false;
+            }
+
+            /*
+            if (tag) {
+                returnValue = false;
+                const currentTag = el.node.tags.find(news => {
+                    return tag === decodeURI(news.Title.toLowerCase())
+                });
+                if (currentTag) {
+                    returnValue = true;
+                }
+            }
+            */
+
+            return returnValue;
+        });
+
+        returnComponent = (
+            <MaxWidthWrap>
+                <div className={`${cSNews.list} ${cSNews.listShort}`}>
+                    {allNews.map((singleNews, index) => {
+                        if (singleNews.node.Url !== 'test') {
+                            return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} />
+                        }
+                    })}
+                </div>
+            </MaxWidthWrap>
+        );
+
+        return returnComponent;
+    }
+
+    const getListOfTherapist = () => {
+        let allTherapist = [];
+        let returnComponent = null;
+
+        allTherapist = data.allStrapiTherapists.edges.filter(el => true);
+
+        returnComponent = (
+            <MaxWidthWrap>
+                <div className={cSTherapist.wrap}>
+                    {allTherapist.map((therapist, index) => (
+                        <TherapistList blockData={therapist.node} key={index} />
+                    ))}
+                </div>
+            </MaxWidthWrap>
+        );
+
+        return returnComponent;
+    }
 
     const getRightComponent = currentComponent => {
         let returnComponent = '';
@@ -75,8 +150,8 @@ export default ({ data, pageContext }) => {
         }
 
         // Nice Title component
-        if (currentComponent?.NiceTitle?.length > 0) {
-            returnComponent = <NiceTitle title={currentComponent?.Title} subtitle={currentComponent?.GraphicTitle} text={currentComponent?.TextUnderTitle?.length ? currentComponent.TextUnderTitle : ''} />
+        if (currentComponent?.NiceGraphicTitle?.length > 0 && currentComponent?.NiceTitle?.length) {
+            returnComponent = <NiceTitle title={currentComponent?.NiceTitle} subtitle={currentComponent?.NiceGraphicTitle} text={currentComponent?.NiceTextUnderTitle?.length ? currentComponent.NiceTextUnderTitle : ''} />
 
         }
 
@@ -87,6 +162,7 @@ export default ({ data, pageContext }) => {
 
             allNews = data.allStrapiNews.edges.filter(el => {
                 let returnValue = true;
+                /*
                 if (tag) {
                     returnValue = false;
                     const currentTag = el.node.tags.find(news => {
@@ -96,6 +172,7 @@ export default ({ data, pageContext }) => {
                         returnValue = true;
                     }
                 }
+                */
                 return returnValue;
             });
 
@@ -152,6 +229,8 @@ export default ({ data, pageContext }) => {
 
             allWorkshops = data.allStrapiWorkshops.edges.filter(el => {
                 let returnValue = true;
+
+                /*
                 if (tag) {
                     returnValue = false;
                     const currentTag = el.node.tags.find(news => {
@@ -161,6 +240,7 @@ export default ({ data, pageContext }) => {
                         returnValue = true;
                     }
                 }
+                */
                 return returnValue;
             });
 
@@ -279,10 +359,6 @@ export default ({ data, pageContext }) => {
     let getPageContent = () => {
         let returnComponent = '';
 
-        if (pageContext.isArticleSignpostPage) {
-
-        }
-
         returnComponent = (
             data.strapiPages.DynamicComponent.map((component, index) => (
                 <div key={index}>
@@ -290,6 +366,25 @@ export default ({ data, pageContext }) => {
                 </div>
             ))
         );
+
+
+        return returnComponent;
+    }
+
+    const getOtherLists = () => {
+        let returnComponent = null;
+
+        if (pageContext.isArticleSignpostPage) {
+            returnComponent = getListOfArticles(data.allStrapiNews);
+        }
+
+        if (pageContext.isWorkshopsSignpostPage) {
+            returnComponent = getListOfArticles(data.allStrapiWorkshops);
+        }
+
+        if (pageContext.isTherapistSignpostPage) {
+            returnComponent = getListOfTherapist();
+        }
 
         return returnComponent;
     }
@@ -313,6 +408,7 @@ export default ({ data, pageContext }) => {
                                 </div>
                             </MaxWidthWrap>
                         ) : getPageContent()}
+                        {getOtherLists()}
                     </main>
 
                     <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
@@ -401,6 +497,9 @@ export const query = graphql`
                 GraphicTitle
                 TextUnderTitle
                 Title
+                NiceGraphicTitle
+                NiceTextUnderTitle
+                NiceTitle
                 HasListOfArticles
                 HasListOfTherapist
                 HasListOfWorkshops

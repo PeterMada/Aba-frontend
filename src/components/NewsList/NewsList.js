@@ -23,6 +23,22 @@ export default ({ blockData, articleUrl }) => {
 
         return `${titleBefore}${name.Name}${titleAfter}`;
     }
+
+
+    //TODO #10 @PeterMada
+    /*
+    {blockData.tags.length > 0 &&
+        <div className={cS.tagsWrap}>
+            {blockData.tags.map((tag, index) => (
+                <Link to={`/${articleUrl}?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={currentTag === tag.Title.toLowerCase() ? `${cS.tag} ${cS.tagActive}` : `${cS.tag}`}>
+                    <FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />
+                    {tag.Title}
+                </Link>
+            ))}
+        </div>
+    }
+    */
+
     return (
         <article className={cS.item}>
             <div className={cS.itemWrap}>
@@ -40,16 +56,6 @@ export default ({ blockData, articleUrl }) => {
 
                     <div className={cS.bottomWrap}>
 
-                        {blockData.tags.length > 0 &&
-                            <div className={cS.tagsWrap}>
-                                {blockData.tags.map((tag, index) => (
-                                    <Link to={`/${articleUrl}?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={currentTag === tag.Title.toLowerCase() ? `${cS.tag} ${cS.tagActive}` : `${cS.tag}`}>
-                                        <FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />
-                                        {tag.Title}
-                                    </Link>
-                                ))}
-                            </div>
-                        }
 
 
                         <div className={cS.footerWrap}>

@@ -40,7 +40,7 @@ export default ({ data, pageContext }) => {
 
                             {allNews.length > 0 ? (
                                 <div className={cSTherapist.buttonWrap}>
-                                    <Link to='/clanky' className={cSTherapist.button}>Články</Link>
+                                    <Link to='/OPRAVMAclanky' className={cSTherapist.button}>Články</Link>
                                 </div>
                             ) : null
                             }
