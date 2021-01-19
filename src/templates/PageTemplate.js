@@ -25,13 +25,20 @@ import cS from './PageTemplate.module.scss';
 
 
 import { getUser, isLoggedIn } from '../services/auth';
+import { number } from 'prop-types';
 
 export default ({ data, pageContext }) => {
     // TODO #3 @PeterMada
-    //const params = new URLSearchParams(document.location.search.substring(1));
-    // const tag = params.get('tag');
-    //const authorName = params.get('author');
-    const tag = '';
+
+    let params;
+    let tag = '';
+    let authorName;
+
+    if (typeof window !== 'undefined') {
+        params = new URLSearchParams(document.location.search.substring(1));
+        tag = params.get('tag');
+        authorName = params.get('author');
+    };
 
 
     const keywords = data.strapiPages.MetaKeywords ? data.strapiPages.MetaKeywords : '';
@@ -76,38 +83,49 @@ export default ({ data, pageContext }) => {
         // Articles list component
         if (currentComponent?.HasListOfArticles) {
             let allNews = [];
-            const isLongList = currentComponent?.IsLongList ? true : false;
             const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
 
-            if (isLongList) {
-                allNews = data.allStrapiNews.edges.filter(el => {
-                    let returnValue = true;
-                    if (tag) {
-                        returnValue = false;
-                        const currentTag = el.node.tags.find(news => {
-                            return tag === decodeURI(news.Title.toLowerCase())
-                        });
-                        if (currentTag) {
-                            returnValue = true;
-                        }
+            allNews = data.allStrapiNews.edges.filter(el => {
+                let returnValue = true;
+                if (tag) {
+                    returnValue = false;
+                    const currentTag = el.node.tags.find(news => {
+                        return tag === decodeURI(news.Title.toLowerCase())
+                    });
+                    if (currentTag) {
+                        returnValue = true;
                     }
-                    return returnValue;
+                }
+                return returnValue;
+            });
+
+            if (!pageContext.isArticleSignpostPage) {
+                let numberOfNews = 0;
+                allNews = data.allStrapiNews.edges.filter((el, index) => {
+
+                    if (el.node.Url !== 'test') {
+                        numberOfNews++;
+
+                        if (numberOfNews < 5) {
+                            return true;
+                        }
+                        return false;
+                    }
+
+                    return false;
                 });
 
-            } else {
-                allNews = data.allStrapiNews.edges.filter((el, index) => index < 4);
             }
 
+
+
             let hasEnoughtNews = allNews.length >= 4 ? true : false;
-            if (isLongList) {
-                hasEnoughtNews = true;
-            }
 
             returnComponent = (
                 <MaxWidthWrap>
                     <NiceTitle title={currentComponent?.Title} subtitle={currentComponent?.GraphicTitle} text={currentComponent?.TextUnderTitle?.length ? currentComponent.TextUnderTitle : ''} />
 
-                    <div className={isLongList ? `${cSNews.list}` : `${cSNews.list} ${cSNews.listShort}`}>
+                    <div className={`${cSNews.list} ${cSNews.listShort}`}>
                         {allNews.map((singleNews, index) => {
                             if (singleNews.node.Url !== 'test') {
                                 return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} />
@@ -116,7 +134,7 @@ export default ({ data, pageContext }) => {
                     </div>
 
 
-                    {(!isLongList && hasButtonText && hasEnoughtNews) ? (
+                    {(hasButtonText && hasEnoughtNews) ? (
                         <div className={cSTherapist.buttonWrap}>
                             <Link to={`/${pageContext.articlesUrl}`} className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
                         </div>
@@ -130,40 +148,32 @@ export default ({ data, pageContext }) => {
         // Workshops list component
         if (currentComponent?.HasListOfWorkshops) {
             let allWorkshops = [];
-            const isLongList = currentComponent?.IsLongList ? true : false;
             const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
 
-            if (isLongList) {
-                allWorkshops = data.allStrapiWorkshops.edges.filter(el => {
-                    let returnValue = true;
-                    if (tag) {
-                        returnValue = false;
-                        const currentTag = el.node.tags.find(news => {
-                            return tag === decodeURI(news.Title.toLowerCase())
-                        });
-                        if (currentTag) {
-                            returnValue = true;
-                        }
+            allWorkshops = data.allStrapiWorkshops.edges.filter(el => {
+                let returnValue = true;
+                if (tag) {
+                    returnValue = false;
+                    const currentTag = el.node.tags.find(news => {
+                        return tag === decodeURI(news.Title.toLowerCase())
+                    });
+                    if (currentTag) {
+                        returnValue = true;
                     }
-                    return returnValue;
-                });
+                }
+                return returnValue;
+            });
 
-            } else {
-                allWorkshops = data.allStrapiWorkshops.edges.filter((el, index) => index < 4);
-            }
+            // allWorkshops = data.allStrapiWorkshops.edges.filter((el, index) => index < 4);
 
             let hasEnoughWorkshops = allWorkshops.length >= 4 ? true : false;
-            if (isLongList) {
-                hasEnoughWorkshops = true;
-            }
 
-            console.log(allWorkshops);
 
             returnComponent = (
                 <MaxWidthWrap>
                     <NiceTitle title={currentComponent?.Title} subtitle={currentComponent?.GraphicTitle} text={currentComponent?.TextUnderTitle?.length ? currentComponent.TextUnderTitle : ''} />
 
-                    <div className={isLongList ? `${cSNews.list}` : `${cSNews.list} ${cSNews.listShort}`}>
+                    <div className={`${cSNews.list} ${cSNews.listShort}`}>
                         {allWorkshops.map((singleNews, index) => {
                             if (singleNews.node.Url !== 'test') {
                                 return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.workshopsUrl} />
@@ -172,7 +182,7 @@ export default ({ data, pageContext }) => {
                     </div>
 
 
-                    {(!isLongList && hasButtonText && hasEnoughWorkshops) ? (
+                    {(hasButtonText && hasEnoughWorkshops) ? (
                         <div className={cSTherapist.buttonWrap}>
                             <Link to={`/${pageContext.workshopsUrl}`} className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
                         </div>
@@ -186,14 +196,12 @@ export default ({ data, pageContext }) => {
         // Therapist list component
         if (currentComponent?.HasListOfTherapist) {
             let allTherapist = [];
-            const isLongList = currentComponent?.IsLongList ? true : false;
             const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
 
-            if (isLongList) {
-                allTherapist = data.allStrapiTherapists.edges.filter(el => true);
-            } else {
-                allTherapist = data.allStrapiTherapists.edges.sort(() => Math.random() - Math.random()).slice(0, 4);
-            }
+            allTherapist = data.allStrapiTherapists.edges.filter(el => true);
+
+            //allTherapist = data.allStrapiTherapists.edges.sort(() => Math.random() - Math.random()).slice(0, 4);
+
 
             const hasEnoughtTherapist = allTherapist.length > 4 ? true : false;
 
@@ -209,7 +217,7 @@ export default ({ data, pageContext }) => {
                     </div>
 
 
-                    {!isLongList && hasButtonText && hasEnoughtTherapist &&
+                    {hasButtonText && hasEnoughtTherapist &&
                         <div className={cSTherapist.buttonWrap}>
                             <Link to='/terapeuti' className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
                         </div>
@@ -268,6 +276,24 @@ export default ({ data, pageContext }) => {
         isContactPage = true;
     }
 
+    let getPageContent = () => {
+        let returnComponent = '';
+
+        if (pageContext.isArticleSignpostPage) {
+
+        }
+
+        returnComponent = (
+            data.strapiPages.DynamicComponent.map((component, index) => (
+                <div key={index}>
+                    {getRightComponent(component)}
+                </div>
+            ))
+        );
+
+        return returnComponent;
+    }
+
     return (
         <>
 
@@ -286,13 +312,7 @@ export default ({ data, pageContext }) => {
                                     <Form />
                                 </div>
                             </MaxWidthWrap>
-                        ) : (
-                                data.strapiPages.DynamicComponent.map((component, index) => (
-                                    <div key={index}>
-                                        {getRightComponent(component)}
-                                    </div>
-                                ))
-                            )}
+                        ) : getPageContent()}
                     </main>
 
                     <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
@@ -385,7 +405,6 @@ export const query = graphql`
                 HasListOfTherapist
                 HasListOfWorkshops
                 id
-                IsLongList
                 SmallImgTitle
                 ButtonText
                 BackgroundImg {

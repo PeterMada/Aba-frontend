@@ -60,6 +60,11 @@ exports.createPages = async ({ graphql, actions }) => {
                   id
                   parent
                 }
+                TherapistPage {
+                    Url
+                    id
+                    parent
+                }
               }
         }
     `);
@@ -85,11 +90,22 @@ exports.createPages = async ({ graphql, actions }) => {
 
     urlMap.map(page => {
         const basicTemplatePath = path.resolve(__dirname + '/src/templates/PageTemplate.js');
-        let isNewsSignpostPage = false;
+        let isArticleSignpostPage = false;
+        let isWorkshopsSignpostPage = false;
+        let isTherapistSignpostPage = false;
 
-        if (page.url === result.data.strapiSettings.ArticlesPage.Url || page.url === result.data.strapiSettings.WorkshopPage.Url) {
-            isNewsSignpostPage = true;
+        if (page.url === result.data.strapiSettings.ArticlesPage.Url) {
+            isArticleSignpostPage = true;
         }
+
+        if (page.url === result.data.strapiSettings.WorkshopPage.Url) {
+            isWorkshopsSignpostPage = true;
+        }
+
+        if (page.url === result.data.strapiSettings.TherapistPage.Url) {
+            isTherapistSignpostPage = true;
+        }
+
 
         createPage({
             path: `/${page.url}`,
@@ -97,9 +113,11 @@ exports.createPages = async ({ graphql, actions }) => {
             context: {
                 pageId: page.id,
                 pagesUrlMap: urlMap,
-                isNewsSignpost: isNewsSignpostPage,
                 articlesUrl: articleUrl,
-                workshopsUrl: workshopsUrl
+                workshopsUrl: workshopsUrl,
+                isArticleSignpostPage: isArticleSignpostPage,
+                isWorkshopsSignpostPage: isWorkshopsSignpostPage,
+                isTherapistSignpostPage: isTherapistSignpostPage
             },
         });
     });
