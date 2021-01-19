@@ -49,7 +49,7 @@ export default ({ blockData, allNews = [], pageUrl }) => {
 
                 <div className={cS.dateWrap}>
 
-                    {blockData.tags.length > 0 &&
+                    {blockData.tags.length > 0 && false &&
                         <div className={cS.tagsWrap}>
                             {blockData.tags.map((tag, index) => (
                                 <Link to={`/${pageUrl}?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={cS.tag}><FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />{tag.Title}</Link>
@@ -57,6 +57,7 @@ export default ({ blockData, allNews = [], pageUrl }) => {
                             ))}
                         </div>
                     }
+
                     {blockData.author !== null ? (
                         <Link to="" className={cS.name}>
                             {getName(blockData.author)}

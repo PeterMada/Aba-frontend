@@ -19,6 +19,7 @@ export default ({ data, pageContext }) => {
     const allNews = data?.allStrapiNews?.edges;
 
     console.log(pageContext);
+
     return (
         <>
 
@@ -28,12 +29,11 @@ export default ({ data, pageContext }) => {
                     <main>
                         <PersonDetail blockData={data.strapiTherapists} />
 
-
                         <MaxWidthWrap>
                             <div className={cSNews.list}>
                                 {allNews.map((singleNews, index) => {
                                     if (singleNews.node.Url !== 'test') {
-                                        return <NewsList blockData={singleNews.node} key={index} />
+                                        return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} />
                                     }
                                 })}
                             </div>

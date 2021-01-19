@@ -24,6 +24,8 @@ export default ({ blockData, articleUrl }) => {
         return `${titleBefore}${name.Name}${titleAfter}`;
     }
 
+    console.log('XXXX');
+    console.log(articleUrl);
 
     //TODO #10 @PeterMada
     /*
