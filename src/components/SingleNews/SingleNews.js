@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import remark from 'remark';
-import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
 import NewsList from '../NewsList/NewsList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,7 +13,7 @@ import cS from './SingleNews.module.scss';
 export default ({ blockData, allNews = [], pageUrl }) => {
     const createdDate = new Date(blockData.created_at);
     const formatedDate = `${createdDate.getDate()}. ${(createdDate.getMonth() + 1)}. ${createdDate.getFullYear()}`;
-    const textContent = remark().use(recommended).use(remarkHtml).processSync(blockData.Text.replace(RegExp("\n", "g"), "<br>")).toString();
+    const textContent = remark().use(remarkHtml).processSync(blockData.Text);
 
     const getName = (name) => {
         const titleBefore = name.TitleBefore ? name.TitleBefore : '';

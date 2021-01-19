@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import BackgroundImage from 'gatsby-background-image';
 
 import remark from 'remark';
-import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
 
 import cS from './TextOnSlider.module.scss';
@@ -71,7 +70,7 @@ export default ({ blockData, backgroundData }) => {
 
                                     <div
                                         className={cS.text}
-                                        dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(slider.Text.replace(RegExp("\n", "g"), "<br>")).toString() }}>
+                                        dangerouslySetInnerHTML={{ __html: remark().use(remarkHtml).processSync(slider.Text) }}>
                                     </div>
 
                                     {slider?.TextUnder?.length > 0 &&

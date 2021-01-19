@@ -2,7 +2,6 @@ import React from 'react';
 import Img from 'gatsby-image';
 
 import remark from 'remark';
-import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
 
 import PageButton from './../PageButton/PageButton';
@@ -27,7 +26,7 @@ export default ({ blockData, siteUrlMap }) => {
 
                             <div
                                 className={cS.textBlock__text}
-                                dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(data.Text.replace(RegExp("\n", "g"), "<br>")).toString() }}>
+                                dangerouslySetInnerHTML={{ __html: remark().use(remarkHtml).processSync(data.Text) }}>
                             </div>
 
                             <PageButton blockData={data} siteUrlMap={siteUrlMap} />
