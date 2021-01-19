@@ -168,7 +168,8 @@ exports.createPages = async ({ graphql, actions }) => {
             context: {
                 pageId: page.node.id,
                 therapistPageId: parseInt(page.node.id.replace('Therapists_', '')),
-                pagesUrlMap: urlMap
+                pagesUrlMap: urlMap,
+                articlesUrl: articleUrl
             }
         });
     });
