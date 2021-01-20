@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import Img from 'gatsby-image';
 
 import remark from 'remark';
-import recommended from 'remark-preset-lint-recommended';
+// import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
-
 import Form from './../Form/Form';
 
 import SocialMediaSite from './../SocialMediaSite/SocialMediaSite';
@@ -13,6 +12,8 @@ import SocialMediaSite from './../SocialMediaSite/SocialMediaSite';
 import cS from './PersonDetail.module.scss';
 
 //const ReactMarkdown = require('react-markdown')
+//dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(blockData.price_list.TextBeforeTable.replace(RegExp("\n", "g"), "<br>")).toString() }}>
+
 
 export default ({ blockData }) => {
     const [activeTab, setActiveTab] = useState(0);
@@ -61,13 +62,15 @@ export default ({ blockData }) => {
                         </div>
                         <div className={cS.tabContents}>
 
-                            {blockData.TabText.map((tabEl, index) => (
-                                <div
-                                    key={index}
-                                    className={activeTab === index ? `${cS.tabContent} ${cS.activeContent}` : `${cS.tabContent}`}
-                                    dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(tabEl.Text.replace(RegExp("\n", "g"), "<br>")).toString() }}>
-                                </div>
-                            ))}
+                            {blockData.TabText.map((tabEl, index) => {
+                                return (
+                                    <div
+                                        key={index}
+                                        className={activeTab === index ? `${cS.tabContent} ${cS.activeContent}` : `${cS.tabContent}`}
+                                        dangerouslySetInnerHTML={{ __html: remark().use(remarkHtml).processSync(tabEl.Text) }}>
+                                    </div>
+                                );
+                            })}
 
                             {hasPriceList &&
                                 <div
@@ -77,7 +80,7 @@ export default ({ blockData }) => {
                                     {blockData.price_list?.TextBeforeTable?.length > 0 &&
                                         <div
                                             className={cS.textBefore}
-                                            dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(blockData.price_list.TextBeforeTable.replace(RegExp("\n", "g"), "<br>")).toString() }}>
+                                            dangerouslySetInnerHTML={{ __html: remark().use(remarkHtml).processSync(blockData.price_list.TextBeforeTable) }}>
                                         </div>
                                     }
 
@@ -88,14 +91,14 @@ export default ({ blockData }) => {
                                                 {(row.LeftColumn && !row.IsEmpty) ? (
                                                     <div
                                                         className={cS.tableLeft}
-                                                        dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(row.LeftColumn.replace(RegExp("\n", "g"), "<br>")).toString() }}>
+                                                        dangerouslySetInnerHTML={{ __html: remark().use(remarkHtml).processSync(row.LeftColumn) }}>
                                                     </div>
                                                 ) : (<div className={`${cS.tableLeft} ${cS.tableEmpty}`} >&nbsp;</div>)}
 
                                                 {(row.RightColumn && !row.IsEmpty) ? (
                                                     <div
                                                         className={cS.tableRight}
-                                                        dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(row.RightColumn.replace(RegExp("\n", "g"), "<br>")).toString() }}>
+                                                        dangerouslySetInnerHTML={{ __html: remark().use(remarkHtml).processSync(row.RightColumn) }}>
                                                     </div>
                                                 ) : (<div className={`${cS.tableRight} ${cS.tableEmpty}`}>&nbsp;</div>)}
 
@@ -106,7 +109,7 @@ export default ({ blockData }) => {
                                     {blockData.price_list?.TextAfterTable?.length > 0 &&
                                         <div
                                             className={cS.textAfter}
-                                            dangerouslySetInnerHTML={{ __html: remark().use(recommended).use(remarkHtml).processSync(blockData.price_list.TextAfterTable.replace(RegExp("\n", "g"), "<br>")).toString() }}>
+                                            dangerouslySetInnerHTML={{ __html: remark().use(remarkHtml).processSync(blockData.price_list.TextAfterTable) }}>
                                         </div>
                                     }
 

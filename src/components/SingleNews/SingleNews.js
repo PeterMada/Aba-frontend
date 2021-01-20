@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import remark from 'remark';
-import recommended from 'remark-preset-lint-recommended';
 import remarkHtml from 'remark-html';
 import NewsList from '../NewsList/NewsList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,10 +10,10 @@ import { faTag } from '@fortawesome/free-solid-svg-icons';
 import cS from './SingleNews.module.scss';
 
 
-export default ({ blockData, allNews = [] }) => {
+export default ({ blockData, allNews = [], pageUrl }) => {
     const createdDate = new Date(blockData.created_at);
     const formatedDate = `${createdDate.getDate()}. ${(createdDate.getMonth() + 1)}. ${createdDate.getFullYear()}`;
-    const textContent = remark().use(recommended).use(remarkHtml).processSync(blockData.Text.replace(RegExp("\n", "g"), "<br>")).toString();
+    const textContent = remark().use(remarkHtml).processSync(blockData.Text);
 
     const getName = (name) => {
         const titleBefore = name.TitleBefore ? name.TitleBefore : '';
@@ -44,20 +43,21 @@ export default ({ blockData, allNews = [] }) => {
 
                 <aside className={cS.list}>
                     {allNews.map((singleNews, index) => (
-                        <NewsList blockData={singleNews.node} key={index} />
+                        <NewsList blockData={singleNews.node} key={index} articleUrl={pageUrl} />
                     ))}
                 </aside>
 
                 <div className={cS.dateWrap}>
 
-                    {blockData.news_tags.length > 0 &&
+                    {blockData.tags.length > 0 && false &&
                         <div className={cS.tagsWrap}>
-                            {blockData.news_tags.map((tag, index) => (
-                                <Link to={`/clanky?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={cS.tag}><FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />{tag.Title}</Link>
+                            {blockData.tags.map((tag, index) => (
+                                <Link to={`/${pageUrl}?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={cS.tag}><FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />{tag.Title}</Link>
 
                             ))}
                         </div>
                     }
+
                     {blockData.author !== null ? (
                         <Link to="" className={cS.name}>
                             {getName(blockData.author)}

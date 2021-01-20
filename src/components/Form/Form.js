@@ -57,7 +57,7 @@ export default () => {
                 }}
             >
                 {({ isSubmitting }) => (
-                    <Form className={cS.wrap}>
+                    <Form className={cS.wrap} data-netlify="true">
                         <div className={`${cS.row} ${cS.rowHalf}`}>
                             <label htmlFor="Jmeno" className={cS.label}>Jméno</label>
                             <Field type='text' name='Jmeno' className={cS.input} />

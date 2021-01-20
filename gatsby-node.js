@@ -5,10 +5,8 @@
  */
 
 const path = require('path');
-const newsUrl = 'clanky';
 const terapeutiUrl = 'terapeuti';
 
-// You can delete this file if you're not using it
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions;
 
@@ -35,34 +33,7 @@ exports.createPages = async ({ graphql, actions }) => {
                     }
                 }
             }
-            allStrapiTherapists {
-                edges {
-                    node {
-                        id
-                        Url
-                    }
-                }
-            }
-        }
-    `);
-
-    /*
-    const result = await graphql(`
-        query pagesQuery {
-            allStrapiPages {
-                edges {
-                    node {
-                        Url
-                        Title
-                        id
-                        strapiId
-                        strapiParent {
-                            id
-                        }
-                    }
-                }
-            }
-            allStrapiNews {
+            allStrapiWorkshops {
                 edges {
                     node {
                         id
@@ -78,9 +49,25 @@ exports.createPages = async ({ graphql, actions }) => {
                     }
                 }
             }
+            strapiSettings {
+                ArticlesPage {
+                  Url
+                  id
+                  parent
+                }
+                WorkshopPage {
+                  Url
+                  id
+                  parent
+                }
+                TherapistPage {
+                    Url
+                    id
+                    parent
+                }
+              }
         }
     `);
-    */
 
     // Create basic pages
     const urlMap = result.data.allStrapiPages.edges.map((page) => {
@@ -90,55 +77,88 @@ exports.createPages = async ({ graphql, actions }) => {
         finalUrl = finalUrl.reverse().join('/');
         finalUrl = finalUrl.replace('homepage/', '').replace('homepage', '');
 
+        let isArticleSignpostPage = false;
+        let isWorkshopsSignpostPage = false;
+        let isTherapistSignpostPage = false;
+
+        if (page.node.Url === result.data.strapiSettings.ArticlesPage.Url) {
+            isArticleSignpostPage = true;
+        }
+
+        if (page.node.Url === result.data.strapiSettings.WorkshopPage.Url) {
+            isWorkshopsSignpostPage = true;
+        }
+
+        if (page.node.Url === result.data.strapiSettings.TherapistPage.Url) {
+            isTherapistSignpostPage = true;
+        }
+
         return {
             id: page.node.id,
-            url: finalUrl
+            url: finalUrl,
+            isArticleSignpostPage,
+            isWorkshopsSignpostPage,
+            isTherapistSignpostPage
+
         };
     }, []);
 
 
+    const articleUrl = findUrl(urlMap, result.data.strapiSettings.ArticlesPage.id);
+    const workshopsUrl = findUrl(urlMap, result.data.strapiSettings.WorkshopPage.id);
+
+
     urlMap.map(page => {
         const basicTemplatePath = path.resolve(__dirname + '/src/templates/PageTemplate.js');
-        let currentTemplate = basicTemplatePath;
-        let isNewsSignpostPage = false;
-
-        if (page.url === newsUrl) {
-            isNewsSignpostPage = true;
-            // currentTemplate = newsSignpostPath;
-        }
-
-        if (page.url === terapeutiUrl) {
-            //currentTemplate = therapistSignpostPath;
-        }
-
 
         createPage({
             path: `/${page.url}`,
-            component: currentTemplate,
+            component: basicTemplatePath,
             context: {
                 pageId: page.id,
                 pagesUrlMap: urlMap,
-                isNewsSignpost: isNewsSignpostPage
+                articlesUrl: articleUrl,
+                workshopsUrl: workshopsUrl,
+                isArticleSignpostPage: page.isArticleSignpostPage,
+                isWorkshopsSignpostPage: page.isWorkshopsSignpostPage,
+                isTherapistSignpostPage: page.isTherapistSignpostPage
             },
         });
     });
 
 
-    // Create news pages
+    // Create Article pages
     result.data.allStrapiNews.edges.map((page) => {
 
         if (page.node.Url != 'test') {
             createPage({
-                path: `/${newsUrl}/${page.node.Url}`,
+                path: `/${articleUrl}/${page.node.Url}`,
                 component: path.resolve('./src/templates/NewsTemplate.js'),
                 context: {
                     pageId: page.node.id,
-                    pagesUrlMap: urlMap
+                    pagesUrlMap: urlMap,
+                    articlesUrl: articleUrl
                 }
             });
         }
     });
 
+
+    // Create Workshops pages
+    result.data.allStrapiWorkshops.edges.map((page) => {
+
+        if (page.node.Url != 'test') {
+            createPage({
+                path: `/${workshopsUrl}/${page.node.Url}`,
+                component: path.resolve('./src/templates/WorkshopTemplate.js'),
+                context: {
+                    pageId: page.node.id,
+                    pagesUrlMap: urlMap,
+                    workshopsUrl: workshopsUrl
+                }
+            });
+        }
+    });
 
     // Create therapist pages
     result.data.allStrapiTherapists.edges.map((page) => {
@@ -148,15 +168,15 @@ exports.createPages = async ({ graphql, actions }) => {
             context: {
                 pageId: page.node.id,
                 therapistPageId: parseInt(page.node.id.replace('Therapists_', '')),
-                pagesUrlMap: urlMap
+                pagesUrlMap: urlMap,
+                articlesUrl: articleUrl
             }
         });
     });
 
 }
 
-// Implement the Gatsby API “onCreatePage”. This is
-// called after every page is created.
+// Login function
 exports.onCreatePage = async ({ page, actions }) => {
     const { createPage } = actions
 
@@ -170,14 +190,43 @@ exports.onCreatePage = async ({ page, actions }) => {
     }
 }
 
-function getUrl(allPages, current) {
+function findUrl(urlMap, pageId) {
 
-    if (current.strapiParent == null) {
+    let returnUrl = urlMap.filter(page => {
+        if (page.id === `Pages_${pageId}`) {
+            return page.url;
+        } else {
+            return false;
+        }
+    });
+
+    if (returnUrl.length === 1) {
+        return returnUrl[0].url;
+    }
+
+    return false;
+}
+
+function getUrl(allPages, current) {
+    let parentIdSettings = false;
+
+    if (current.parent) {
+        parentIdSettings = current.parent;
+    }
+
+    if (parentIdSettings == 4) {
+    }
+
+    if (current.strapiParent == null && parentIdSettings === false) {
         return current.Url;
     } else {
-        const parentId = current.strapiParent.id;
+        let parentId = false;
+        if (current.strapiParent) {
+            parentId = current.strapiParent.id;
+        }
+
         const parentNode = allPages.reduce((result, page) => {
-            if (page.node.strapiId == parentId) {
+            if (page.node.strapiId == parentId || page.node.strapiId == parentIdSettings) {
                 result = page.node;
             }
 

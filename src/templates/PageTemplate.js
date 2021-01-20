@@ -25,17 +25,99 @@ import cS from './PageTemplate.module.scss';
 
 
 import { getUser, isLoggedIn } from '../services/auth';
+import { number } from 'prop-types';
 
 export default ({ data, pageContext }) => {
+
+    //TODO #9 @PeterMada
+    /*
+    const [tags, setTags] = useState('');
+
+    setTags(getTags());
+
+    let params;
+    let tag = '';
+    //let authorName;
+
+    const getTags = () => {
+        let tag = ''
+
+        if (typeof window !== 'undefined') {
+            params = new URLSearchParams(document.location.search.substring(1));
+            tag = params.get('tag');
+            //authorName = params.get('author');
+        };
+
+        return tag
+    }
+    */
+
     // TODO #3 @PeterMada
-    //const params = new URLSearchParams(document.location.search.substring(1));
-    // const tag = params.get('tag');
-    //const authorName = params.get('author');
-    const tag = '';
 
 
     const keywords = data.strapiPages.MetaKeywords ? data.strapiPages.MetaKeywords : '';
     const description = data.strapiPages.MetaDescription ? data.strapiPages.MetaDescription : '';
+
+
+    const getListOfArticles = (listFromStrapi) => {
+        let allNews = [];
+        let returnComponent = null;
+
+        allNews = listFromStrapi.edges.filter(el => {
+            let returnValue = true;
+
+            if (el.node.Url === 'test') {
+                return false;
+            }
+
+            /*
+            if (tag) {
+                returnValue = false;
+                const currentTag = el.node.tags.find(news => {
+                    return tag === decodeURI(news.Title.toLowerCase())
+                });
+                if (currentTag) {
+                    returnValue = true;
+                }
+            }
+            */
+
+            return returnValue;
+        });
+
+        returnComponent = (
+            <MaxWidthWrap>
+                <div className={`${cSNews.list} ${cSNews.listShort}`}>
+                    {allNews.map((singleNews, index) => {
+                        if (singleNews.node.Url !== 'test') {
+                            return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} />
+                        }
+                    })}
+                </div>
+            </MaxWidthWrap>
+        );
+
+        return returnComponent;
+    }
+
+    const getListOfTherapist = () => {
+        let allTherapist = [];
+        let returnComponent = null;
+
+        allTherapist = data.allStrapiTherapists.edges.filter(el => true);
+
+        returnComponent = (
+            <MaxWidthWrap>
+                <div className={cSTherapist.wrap}>
+                    {allTherapist.map((therapist, index) => (
+                        <TherapistList blockData={therapist.node} key={index} />
+                    ))}
+                </div>
+            </MaxWidthWrap>
+        );
+
+        return returnComponent;
+    }
 
     const getRightComponent = currentComponent => {
         let returnComponent = '';
@@ -68,57 +150,121 @@ export default ({ data, pageContext }) => {
         }
 
         // Nice Title component
-        if (currentComponent?.NiceTitle?.length > 0) {
-            returnComponent = <NiceTitle title={currentComponent?.Title} subtitle={currentComponent?.GraphicTitle} text={currentComponent?.TextUnderTitle?.length ? currentComponent.TextUnderTitle : ''} />
+        if (currentComponent?.NiceGraphicTitle?.length > 0 && currentComponent?.NiceTitle?.length) {
+            returnComponent = <NiceTitle title={currentComponent?.NiceTitle} subtitle={currentComponent?.NiceGraphicTitle} text={currentComponent?.NiceTextUnderTitle?.length ? currentComponent.NiceTextUnderTitle : ''} />
 
         }
 
-        // News list component
-        if (currentComponent?.HasNewsList) {
+        // Articles list component
+        if (currentComponent?.HasListOfArticles) {
             let allNews = [];
-            const isLongList = currentComponent?.IsLongList ? true : false;
             const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
 
-            if (isLongList) {
-                allNews = data.allStrapiNews.edges.filter((el, index) => {
-                    let returnValue = true;
-                    if (tag) {
-                        returnValue = false;
-                        const currentTag = el.node.news_tags.find(news => {
-                            return tag === decodeURI(news.Title.toLowerCase())
-                        });
-                        if (currentTag) {
-                            returnValue = true;
-                        }
+            allNews = data.allStrapiNews.edges.filter(el => {
+                let returnValue = true;
+                /*
+                if (tag) {
+                    returnValue = false;
+                    const currentTag = el.node.tags.find(news => {
+                        return tag === decodeURI(news.Title.toLowerCase())
+                    });
+                    if (currentTag) {
+                        returnValue = true;
                     }
-                    return returnValue;
+                }
+                */
+                return returnValue;
+            });
+
+            if (!pageContext.isArticleSignpostPage) {
+                let numberOfNews = 0;
+                allNews = data.allStrapiNews.edges.filter((el, index) => {
+
+                    if (el.node.Url !== 'test') {
+                        numberOfNews++;
+
+                        if (numberOfNews < 5) {
+                            return true;
+                        }
+                        return false;
+                    }
+
+                    return false;
                 });
 
-            } else {
-                allNews = data.allStrapiNews.edges.filter((el, index) => index < 4);
             }
 
+
+
             let hasEnoughtNews = allNews.length >= 4 ? true : false;
-            if (isLongList) {
-                hasEnoughtNews = true;
-            }
 
             returnComponent = (
                 <MaxWidthWrap>
                     <NiceTitle title={currentComponent?.Title} subtitle={currentComponent?.GraphicTitle} text={currentComponent?.TextUnderTitle?.length ? currentComponent.TextUnderTitle : ''} />
 
-                    <div className={isLongList ? `${cSNews.list}` : `${cSNews.list} ${cSNews.listShort}`}>
+                    <div className={`${cSNews.list} ${cSNews.listShort}`}>
                         {allNews.map((singleNews, index) => {
                             if (singleNews.node.Url !== 'test') {
-                                return <NewsList blockData={singleNews.node} key={index} />
+                                return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} />
                             }
                         })}
                     </div>
 
 
-                    {(!isLongList && hasButtonText && hasEnoughtNews) ? (
+                    {(hasButtonText && hasEnoughtNews) ? (
                         <div className={cSTherapist.buttonWrap}>
-                            <Link to='/clanky' className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
+                            <Link to={`/${pageContext.articlesUrl}`} className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
+                        </div>
+                    ) : null
+                    }
+                </MaxWidthWrap>
+            )
+        }
+
+
+        // Workshops list component
+        if (currentComponent?.HasListOfWorkshops) {
+            let allWorkshops = [];
+            const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
+
+            allWorkshops = data.allStrapiWorkshops.edges.filter(el => {
+                let returnValue = true;
+
+                /*
+                if (tag) {
+                    returnValue = false;
+                    const currentTag = el.node.tags.find(news => {
+                        return tag === decodeURI(news.Title.toLowerCase())
+                    });
+                    if (currentTag) {
+                        returnValue = true;
+                    }
+                }
+                */
+                return returnValue;
+            });
+
+            // allWorkshops = data.allStrapiWorkshops.edges.filter((el, index) => index < 4);
+
+            let hasEnoughWorkshops = allWorkshops.length >= 4 ? true : false;
+
+
+            returnComponent = (
+                <MaxWidthWrap>
+                    <NiceTitle title={currentComponent?.Title} subtitle={currentComponent?.GraphicTitle} text={currentComponent?.TextUnderTitle?.length ? currentComponent.TextUnderTitle : ''} />
+
+                    <div className={`${cSNews.list} ${cSNews.listShort}`}>
+                        {allWorkshops.map((singleNews, index) => {
+                            if (singleNews.node.Url !== 'test') {
+                                return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.workshopsUrl} />
+                            }
+                        })}
+                    </div>
+
+
+                    {(hasButtonText && hasEnoughWorkshops) ? (
+                        <div className={cSTherapist.buttonWrap}>
+                            <Link to={`/${pageContext.workshopsUrl}`} className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
                         </div>
                     ) : null
                     }
@@ -128,16 +274,14 @@ export default ({ data, pageContext }) => {
 
 
         // Therapist list component
-        if (currentComponent?.HasTherapistList) {
+        if (currentComponent?.HasListOfTherapist) {
             let allTherapist = [];
-            const isLongList = currentComponent?.IsLongList ? true : false;
             const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
 
-            if (isLongList) {
-                allTherapist = data.allStrapiTherapists.edges.filter(el => true);
-            } else {
-                allTherapist = data.allStrapiTherapists.edges.sort(() => Math.random() - Math.random()).slice(0, 4);
-            }
+            allTherapist = data.allStrapiTherapists.edges.filter(el => true);
+
+            //allTherapist = data.allStrapiTherapists.edges.sort(() => Math.random() - Math.random()).slice(0, 4);
+
 
             const hasEnoughtTherapist = allTherapist.length > 4 ? true : false;
 
@@ -153,7 +297,7 @@ export default ({ data, pageContext }) => {
                     </div>
 
 
-                    {!isLongList && hasButtonText && hasEnoughtTherapist &&
+                    {hasButtonText && hasEnoughtTherapist &&
                         <div className={cSTherapist.buttonWrap}>
                             <Link to='/terapeuti' className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
                         </div>
@@ -212,6 +356,39 @@ export default ({ data, pageContext }) => {
         isContactPage = true;
     }
 
+    let getPageContent = () => {
+        let returnComponent = '';
+
+        returnComponent = (
+            data.strapiPages.DynamicComponent.map((component, index) => (
+                <div key={index}>
+                    {getRightComponent(component)}
+                </div>
+            ))
+        );
+
+
+        return returnComponent;
+    }
+
+    const getOtherLists = () => {
+        let returnComponent = null;
+
+        if (pageContext.isArticleSignpostPage) {
+            returnComponent = getListOfArticles(data.allStrapiNews);
+        }
+
+        if (pageContext.isWorkshopsSignpostPage) {
+            returnComponent = getListOfArticles(data.allStrapiWorkshops);
+        }
+
+        if (pageContext.isTherapistSignpostPage) {
+            returnComponent = getListOfTherapist();
+        }
+
+        return returnComponent;
+    }
+
     return (
         <>
 
@@ -230,13 +407,8 @@ export default ({ data, pageContext }) => {
                                     <Form />
                                 </div>
                             </MaxWidthWrap>
-                        ) : (
-                                data.strapiPages.DynamicComponent.map((component, index) => (
-                                    <div key={index}>
-                                        {getRightComponent(component)}
-                                    </div>
-                                ))
-                            )}
+                        ) : getPageContent()}
+                        {getOtherLists()}
                     </main>
 
                     <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
@@ -325,10 +497,13 @@ export const query = graphql`
                 GraphicTitle
                 TextUnderTitle
                 Title
-                HasNewsList
-                HasTherapistList
+                NiceGraphicTitle
+                NiceTextUnderTitle
+                NiceTitle
+                HasListOfArticles
+                HasListOfTherapist
+                HasListOfWorkshops
                 id
-                IsLongList
                 SmallImgTitle
                 ButtonText
                 BackgroundImg {
@@ -452,7 +627,37 @@ export const query = graphql`
                     MetaKeywords
                     MetaDescription
                     created_at
-                    news_tags {
+                    tags {
+                        Title
+                        id
+                    }
+                    author{
+                        id
+                        TitleBefore
+                        TitleAfter
+                        Name
+                        Url
+                    }
+                    MainImage {
+                        childImageSharp {
+                            fluid(maxWidth: 250) {
+                            ...GatsbyImageSharpFluid
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        allStrapiWorkshops {
+            edges {
+                node {
+                    Perex
+                    Title
+                    Url
+                    MetaKeywords
+                    MetaDescription
+                    created_at
+                    tags {
                         Title
                         id
                     }

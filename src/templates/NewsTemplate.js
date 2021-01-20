@@ -57,7 +57,7 @@ export default ({ data, pageContext }) => {
                     </Helmet>
 
                     <main>
-                        <SingleNews blockData={data.strapiNews} allNews={allNews} />
+                        <SingleNews blockData={data.strapiNews} allNews={allNews} pageUrl={pageContext.articlesUrl} />
                     </main>
                     <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
                 </RootLayout >
@@ -143,7 +143,7 @@ export const pageQuery = graphql`
             updated_at
             MetaKeywords
             MetaDescription
-            news_tags {
+            tags {
                 Title
                 id
             }
@@ -170,7 +170,7 @@ export const pageQuery = graphql`
                     Title
                     Url
                     created_at
-                    news_tags {
+                    tags {
                         Title
                         id
                     }

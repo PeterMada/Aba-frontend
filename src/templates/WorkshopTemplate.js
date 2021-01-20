@@ -1,51 +1,63 @@
 import React from 'react';
-
 import { graphql, Link } from 'gatsby';
+import { Helmet } from "react-helmet"
 
-import RootLayout from './../components/RootLayout/RootLayout';
-import Footer from './../components/Footer/Footer';
-import PersonDetail from './../components/PersonDetail/PersonDetail';
-import NewsList from './../components/NewsList/NewsList'
+import RootLayout from '../components/RootLayout/RootLayout';
+import SingleNews from '../components/SingleNews/SingleNews';
+import NewsList from '../components/NewsList/NewsList';
+import Footer from '../components/Footer/Footer';
 import MaxWidthWrap from '../components/MaxWidthWrap/MaxWidthWrap';
 
 import cSNews from './NewsSignpostTemplate.module.scss';
-import cSTherapist from './TherapistSignpostTemplate.module.scss';
-
 
 import { getUser, isLoggedIn } from '../services/auth';
 
-
 export default ({ data, pageContext }) => {
-    const allNews = data?.allStrapiNews?.edges;
+    const keywords = data.strapiWorkshops.MetaKeywords ? data.strapiWorkshops.MetaKeywords : '';
+    const description = data.strapiWorkshops.MetaDescription ? data.strapiWorkshops.MetaDescription : '';
+    const currentPageTitle = `${data.strapiWorkshops.Title} - ${data.strapiSettings.SiteName}`;
+
+    const allNews = data.allStrapiWorkshops.edges.filter((el, index) => {
+        return (el.node.id !== data.strapiWorkshops.id);
+    });
+
+    let returnComponent = (
+        <MaxWidthWrap>
+            <div className={cSNews.list}>
+                {allNews.map((singleNews, index) => (
+                    <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.workshopsUrl} />
+                ))}
+            </div>
+        </MaxWidthWrap>
+    );
+
+
+    const getName = (name) => {
+        const titleBefore = name.TitleBefore ? name.TitleBefore : '';
+        const titleAfter = name.TitleAfter ? name.TitleAfter : '';
+
+        return `${titleBefore}${name.Name}${titleAfter}`;
+    }
 
     return (
         <>
 
             {isLoggedIn() ? (
+
                 <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
+                    <Helmet>
+                        <title>{currentPageTitle}</title>
+                        <meta name="description" content={keywords} />
+                        <meta name="keywords" content={description} />
+                        {data.strapiWorkshops.author !== null ? (
+                            <meta name="author" content={getName(data.strapiWorkshops.author)} />
+                        ) : ('')}
+                    </Helmet>
+
                     <main>
-                        <PersonDetail blockData={data.strapiTherapists} />
-
-                        <MaxWidthWrap>
-                            <div className={cSNews.list}>
-                                {allNews.map((singleNews, index) => {
-                                    if (singleNews.node.Url !== 'test') {
-                                        return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} />
-                                    }
-                                })}
-                            </div>
-
-
-                            {allNews.length > 0 ? (
-                                <div className={cSTherapist.buttonWrap}>
-                                    <Link to={pageContext.articlesUrl} className={cSTherapist.button}>Články</Link>
-                                </div>
-                            ) : null
-                            }
-                        </MaxWidthWrap>
+                        <SingleNews blockData={data.strapiWorkshops} allNews={allNews} pageUrl={pageContext.workshopsUrl} />
                     </main>
-
                     <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
                 </RootLayout >
             ) : (
@@ -54,13 +66,13 @@ export default ({ data, pageContext }) => {
                         Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
                     </div>
                 )}
+
         </>
     )
 }
 
-
 export const pageQuery = graphql`
-    query singleTherapist($pageId: String!, $therapistPageId: Int!) {
+    query singleWorkshop ($pageId: String!) {
         strapiSettings {
             SiteName
             Copyright
@@ -120,97 +132,62 @@ export const pageQuery = graphql`
                 }
             }
         }
-        strapiTherapists(id: {eq: $pageId}) {
+        strapiWorkshops(id: {eq: $pageId}) {
             id
-            Name
-            TitleBefore
-            TitleAfter
+            Title
             Perex
+            Text
             strapiId
-            Email
-            TabText {
-                Text
+            created_at
+            updated_at
+            MetaKeywords
+            MetaDescription
+            tags {
                 Title
+                id
             }
-            social_media_sites {
-                Url
-                Title
-                Logo {
-                    childImageSharp {
-                        fixed(width: 26){
-                            ...GatsbyImageSharpFixed
-                        }
-                    }
-                }
-            }
-            TherapistImg {
+            MainImage {
                 childImageSharp {
                     fluid(maxWidth: 2500) {
                       ...GatsbyImageSharpFluid
                     }
                 }
             }
-            price_list {
-              TextAfterTable
-              TextBeforeTable
-              id
-              PriceTable {
-                LeftColumn
-                RightColumn
+            author{
                 id
-                IsEmpty
-                IsHeading
-              }
+                TitleBefore
+                TitleAfter
+                Name
+                Url
             }
         }
-        allStrapiTherapists {
+        allStrapiWorkshops(limit: 6) {
             edges {
-              node {
+                node {
                     id
-                    Url
-                    Name
                     Perex
-                    TabText {
-                        Text
+                    Title
+                    Url
+                    created_at
+                    tags {
                         Title
+                        id
                     }
-                    TherapistImg {
+                    author{
+                        id
+                        TitleBefore
+                        TitleAfter
+                        Name
+                        Url
+                    }
+                    MainImage {
                         childImageSharp {
                             fluid(maxWidth: 250) {
                             ...GatsbyImageSharpFluid
                             }
                         }
                     }
-              }
-            }
-        }
-        allStrapiNews(limit: 4,filter: {author: {id: {eq: $therapistPageId}}}) {
-          edges {
-            node {
-                id
-                Perex
-                Title
-                Url
-                created_at
-                tags {
-                    Title
-                    id
-                }
-                author{
-                    id
-                    TitleBefore
-                    TitleAfter
-                    Name
-                    Url
-                }
-                MainImage {
-                    childImageSharp {
-                        fluid(maxWidth: 250) {
-                        ...GatsbyImageSharpFluid
-                        }
-                    }
                 }
             }
-          }
         }
     }`;
