@@ -595,7 +595,7 @@ export const query = graphql`
                 }
             }
         }
-        allStrapiTherapists {
+        allStrapiTherapists(filter: {Url: {ne: "test"}}) {
             edges {
               node {
                     id
@@ -618,7 +618,7 @@ export const query = graphql`
               }
             }
         }
-        allStrapiNews {
+        allStrapiNews(filter: {Url: {ne: "test"}}) {
             edges {
                 node {
                     Perex
@@ -648,7 +648,7 @@ export const query = graphql`
                 }
             }
         }
-        allStrapiWorkshops {
+        allStrapiWorkshops(filter: {Url: {ne: "test"}}) {
             edges {
                 node {
                     Perex

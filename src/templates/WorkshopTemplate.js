@@ -161,7 +161,7 @@ export const pageQuery = graphql`
                 Url
             }
         }
-        allStrapiWorkshops(limit: 6) {
+        allStrapiWorkshops(filter: {Url: {ne: "test"}}, limit: 6) {
             edges {
                 node {
                     id

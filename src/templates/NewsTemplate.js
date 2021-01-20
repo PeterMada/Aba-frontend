@@ -162,7 +162,7 @@ export const pageQuery = graphql`
                 Url
             }
         }
-        allStrapiNews(limit: 6) {
+        allStrapiNews(filter: {Url: {ne: "test"}}, limit: 6) {
             edges {
                 node {
                     id
