@@ -18,8 +18,6 @@ import { getUser, isLoggedIn } from '../services/auth';
 export default ({ data, pageContext }) => {
     const allNews = data?.allStrapiNews?.edges;
 
-    console.log(pageContext);
-
     return (
         <>
 
