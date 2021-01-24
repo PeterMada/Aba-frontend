@@ -25,7 +25,7 @@ export default ({ data, pageContext }) => {
         <MaxWidthWrap>
             <div className={cSNews.list}>
                 {allNews.map((singleNews, index) => (
-                    <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.workshopsUrl} />
+                    <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.workshopsUrl} therapistUrl={pageContext.therapistUrl} />
                 ))}
             </div>
         </MaxWidthWrap>
@@ -56,7 +56,7 @@ export default ({ data, pageContext }) => {
                     </Helmet>
 
                     <main>
-                        <SingleNews blockData={data.strapiWorkshops} allNews={allNews} pageUrl={pageContext.workshopsUrl} />
+                        <SingleNews blockData={data.strapiWorkshops} allNews={allNews} pageUrl={pageContext.workshopsUrl} therapistUrl={pageContext.therapistUrl} />
                     </main>
                     <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
                 </RootLayout >

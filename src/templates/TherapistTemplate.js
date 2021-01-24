@@ -31,7 +31,7 @@ export default ({ data, pageContext }) => {
                             <div className={cSNews.list}>
                                 {allNews.map((singleNews, index) => {
                                     if (singleNews.node.Url !== 'test') {
-                                        return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} />
+                                        return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} therapistUrl={pageContext.therapistUrl} />
                                     }
                                 })}
                             </div>

@@ -10,7 +10,7 @@ import { faTag } from '@fortawesome/free-solid-svg-icons';
 import cS from './SingleNews.module.scss';
 
 
-export default ({ blockData, allNews = [], pageUrl }) => {
+export default ({ blockData, allNews = [], pageUrl, therapistUrl }) => {
     const createdDate = new Date(blockData.created_at);
     const formatedDate = `${createdDate.getDate()}. ${(createdDate.getMonth() + 1)}. ${createdDate.getFullYear()}`;
     const textContent = remark().use(remarkHtml).processSync(blockData.Text);
@@ -43,7 +43,7 @@ export default ({ blockData, allNews = [], pageUrl }) => {
 
                 <aside className={cS.list}>
                     {allNews.map((singleNews, index) => (
-                        <NewsList blockData={singleNews.node} key={index} articleUrl={pageUrl} />
+                        <NewsList blockData={singleNews.node} key={index} articleUrl={pageUrl} therapistUrl={therapistUrl} />
                     ))}
                 </aside>
 

@@ -54,7 +54,6 @@ export default ({ data, pageContext }) => {
 
     // TODO #3 @PeterMada
 
-
     const keywords = data.strapiPages.MetaKeywords ? data.strapiPages.MetaKeywords : '';
     const description = data.strapiPages.MetaDescription ? data.strapiPages.MetaDescription : '';
 
@@ -90,7 +89,7 @@ export default ({ data, pageContext }) => {
                 <div className={`${cSNews.list} ${cSNews.listShort}`}>
                     {allNews.map((singleNews, index) => {
                         if (singleNews.node.Url !== 'test') {
-                            return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} />
+                            return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} therapistUrl={pageContext.therapistUrl} />
                         }
                     })}
                 </div>
@@ -110,7 +109,7 @@ export default ({ data, pageContext }) => {
             <MaxWidthWrap>
                 <div className={cSTherapist.wrap}>
                     {allTherapist.map((therapist, index) => (
-                        <TherapistList blockData={therapist.node} key={index} />
+                        <TherapistList blockData={therapist.node} key={index} therapistUrl={pageContext.therapistUrl} />
                     ))}
                 </div>
             </MaxWidthWrap>
@@ -205,7 +204,7 @@ export default ({ data, pageContext }) => {
                     <div className={`${cSNews.list} ${cSNews.listShort}`}>
                         {allNews.map((singleNews, index) => {
                             if (singleNews.node.Url !== 'test') {
-                                return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} />
+                                return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} therapistUrl={pageContext.therapistUrl} />
                             }
                         })}
                     </div>
@@ -256,7 +255,7 @@ export default ({ data, pageContext }) => {
                     <div className={`${cSNews.list} ${cSNews.listShort}`}>
                         {allWorkshops.map((singleNews, index) => {
                             if (singleNews.node.Url !== 'test') {
-                                return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.workshopsUrl} />
+                                return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.workshopsUrl} therapistUrl={pageContext.therapistUrl} />
                             }
                         })}
                     </div>
@@ -292,14 +291,14 @@ export default ({ data, pageContext }) => {
 
                     <div className={cSTherapist.wrap}>
                         {allTherapist.map((therapist, index) => (
-                            <TherapistList blockData={therapist.node} key={index} />
+                            <TherapistList blockData={therapist.node} key={index} therapistUrl={pageContext.therapistUrl} />
                         ))}
                     </div>
 
 
                     {hasButtonText && hasEnoughtTherapist &&
                         <div className={cSTherapist.buttonWrap}>
-                            <Link to='/terapeuti' className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
+                            <Link to={`/${pageContext.therapistUrl}`} className={cSTherapist.button}>{currentComponent.ButtonText}</Link>
                         </div>
                     }
 

@@ -57,7 +57,7 @@ export default ({ data, pageContext }) => {
                     </Helmet>
 
                     <main>
-                        <SingleNews blockData={data.strapiNews} allNews={allNews} pageUrl={pageContext.articlesUrl} />
+                        <SingleNews blockData={data.strapiNews} allNews={allNews} pageUrl={pageContext.articlesUrl} therapistUrl={pageContext.therapistUrl} />
                     </main>
                     <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
                 </RootLayout >
