@@ -14,7 +14,7 @@ export default ({ blockData, allNews = [], pageUrl, therapistUrl }) => {
     const createdDate = new Date(blockData.created_at);
     const formatedDate = `${createdDate.getDate()}. ${(createdDate.getMonth() + 1)}. ${createdDate.getFullYear()}`;
     const textContent = remark().use(remarkHtml).processSync(blockData.Text);
-
+    console.log(blockData);
     const getName = (name) => {
         const titleBefore = name.TitleBefore ? name.TitleBefore : '';
         const titleAfter = name.TitleAfter ? name.TitleAfter : '';
@@ -59,7 +59,7 @@ export default ({ blockData, allNews = [], pageUrl, therapistUrl }) => {
                     }
 
                     {blockData.author !== null ? (
-                        <Link to="" className={cS.name}>
+                        <Link to={`/${therapistUrl}/${blockData.author.Url}`} className={cS.name}>
                             {getName(blockData.author)}
                         </Link>) : ('')
                     }
