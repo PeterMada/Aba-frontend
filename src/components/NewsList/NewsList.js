@@ -11,7 +11,7 @@ import { Time } from './../Time/Time';
 import cS from './NewsList.module.scss';
 
 
-export default ({ blockData, articleUrl }) => {
+export default ({ blockData, articleUrl, therapistUrl }) => {
     // TODO #4 @PeterMada
     //const params = new URLSearchParams(document.location.search.substring(1));
     //const currentTag = params.get('tag');
@@ -63,7 +63,7 @@ export default ({ blockData, articleUrl }) => {
                             </div>
 
                             {blockData.author !== null ? (
-                                <Link to={`/terapeuti/${blockData.author.Url}`} className={cS.name}>
+                                <Link to={`/${therapistUrl}/${blockData.author.Url}`} className={cS.name}>
                                     {getName(blockData.author)}
                                 </Link>) : ('')}
                         </div>

@@ -92,7 +92,7 @@ export const pageQuery = graphql`
                 }
             }
         }
-        allStrapiNews {
+        allStrapiNews(filter: {Url: {ne: "test"}}) {
             edges {
                 node {
                     Perex

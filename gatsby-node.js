@@ -5,14 +5,13 @@
  */
 
 const path = require('path');
-const terapeutiUrl = 'terapeuti';
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions;
 
     const result = await graphql(`
         query pagesQuery {
-            allStrapiPages {
+            allStrapiPages(filter: {Url: {ne: "test"}}) {
                 edges {
                     node {
                         Url
@@ -25,7 +24,7 @@ exports.createPages = async ({ graphql, actions }) => {
                     }
                 }
             }
-            allStrapiNews {
+            allStrapiNews(filter: {Url: {ne: "test"}}) {
                 edges {
                     node {
                         id
@@ -33,7 +32,7 @@ exports.createPages = async ({ graphql, actions }) => {
                     }
                 }
             }
-            allStrapiWorkshops {
+            allStrapiWorkshops(filter: {Url: {ne: "test"}}) {
                 edges {
                     node {
                         id
@@ -41,7 +40,7 @@ exports.createPages = async ({ graphql, actions }) => {
                     }
                 }
             }
-            allStrapiTherapists {
+            allStrapiTherapists(filter: {Url: {ne: "test"}}) {
                 edges {
                     node {
                         id
@@ -106,6 +105,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     const articleUrl = findUrl(urlMap, result.data.strapiSettings.ArticlesPage.id);
     const workshopsUrl = findUrl(urlMap, result.data.strapiSettings.WorkshopPage.id);
+    const therapistUrl = findUrl(urlMap, result.data.strapiSettings.TherapistPage.id);
 
 
     urlMap.map(page => {
@@ -119,6 +119,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 pagesUrlMap: urlMap,
                 articlesUrl: articleUrl,
                 workshopsUrl: workshopsUrl,
+                therapistUrl: therapistUrl,
                 isArticleSignpostPage: page.isArticleSignpostPage,
                 isWorkshopsSignpostPage: page.isWorkshopsSignpostPage,
                 isTherapistSignpostPage: page.isTherapistSignpostPage
@@ -137,7 +138,8 @@ exports.createPages = async ({ graphql, actions }) => {
                 context: {
                     pageId: page.node.id,
                     pagesUrlMap: urlMap,
-                    articlesUrl: articleUrl
+                    articlesUrl: articleUrl,
+                    therapistUrl: therapistUrl
                 }
             });
         }
@@ -154,7 +156,8 @@ exports.createPages = async ({ graphql, actions }) => {
                 context: {
                     pageId: page.node.id,
                     pagesUrlMap: urlMap,
-                    workshopsUrl: workshopsUrl
+                    workshopsUrl: workshopsUrl,
+                    therapistUrl: therapistUrl
                 }
             });
         }
@@ -163,13 +166,14 @@ exports.createPages = async ({ graphql, actions }) => {
     // Create therapist pages
     result.data.allStrapiTherapists.edges.map((page) => {
         createPage({
-            path: `/${terapeutiUrl}/${page.node.Url}`,
+            path: `/${therapistUrl}/${page.node.Url}`,
             component: path.resolve('./src/templates/TherapistTemplate.js'),
             context: {
                 pageId: page.node.id,
                 therapistPageId: parseInt(page.node.id.replace('Therapists_', '')),
                 pagesUrlMap: urlMap,
-                articlesUrl: articleUrl
+                articlesUrl: articleUrl,
+                therapistUrl: therapistUrl
             }
         });
     });

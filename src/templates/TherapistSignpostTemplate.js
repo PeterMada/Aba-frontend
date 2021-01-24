@@ -26,7 +26,7 @@ export default ({ data, pageContext }) => {
                     <MaxWidthWrap>
                         <div className={cS.wrap}>
                             {data.allStrapiTherapists.edges.map((therapist, index) => (
-                                <TherapistList blockData={therapist.node} key={index} />
+                                <TherapistList blockData={therapist.node} key={index} therapistUrl={pageContext.therapistUrl} />
                             ))}
                         </div>
                     </MaxWidthWrap>
