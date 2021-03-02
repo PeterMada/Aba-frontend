@@ -150,6 +150,7 @@ export default ({ data, pageContext }) => {
 
         // Nice Title component
         if (currentComponent?.NiceGraphicTitle?.length > 0 && currentComponent?.NiceTitle?.length) {
+            console.log(currentComponent);
             returnComponent = <NiceTitle title={currentComponent?.NiceTitle} subtitle={currentComponent?.NiceGraphicTitle} text={currentComponent?.NiceTextUnderTitle?.length ? currentComponent.NiceTextUnderTitle : ''} />
 
         }
@@ -277,9 +278,9 @@ export default ({ data, pageContext }) => {
             let allTherapist = [];
             const hasButtonText = currentComponent?.ButtonText?.length > 0 ? true : false;
 
-            allTherapist = data.allStrapiTherapists.edges.filter(el => true);
+            // allTherapist = data.allStrapiTherapists.edges.filter(el => true);
 
-            //allTherapist = data.allStrapiTherapists.edges.sort(() => Math.random() - Math.random()).slice(0, 4);
+            allTherapist = data.allStrapiTherapists.edges.sort(() => Math.random() - Math.random()).slice(0, 4);
 
 
             const hasEnoughtTherapist = allTherapist.length > 4 ? true : false;
@@ -287,7 +288,6 @@ export default ({ data, pageContext }) => {
             returnComponent = (
                 <MaxWidthWrap>
                     <NiceTitle title={currentComponent?.Title} subtitle={currentComponent?.GraphicTitle} text={currentComponent?.TextUnderTitle?.length ? currentComponent.TextUnderTitle : ''} />
-
 
                     <div className={cSTherapist.wrap}>
                         {allTherapist.map((therapist, index) => (
@@ -399,7 +399,7 @@ export default ({ data, pageContext }) => {
                         <meta name="description" content={keywords} />
                         <meta name="keywords" content={description} />
                     </Helmet>
-                    <main>
+                    <main className={cS.main}>
                         {isContactPage ? (
                             <MaxWidthWrap>
                                 <div className={cS.formWrap}>
@@ -414,10 +414,10 @@ export default ({ data, pageContext }) => {
                 </RootLayout>
 
             ) : (
-                    <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
-                        Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
-                    </div>
-                )}
+                <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
+                    Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
+                </div>
+            )}
 
         </>
     );
