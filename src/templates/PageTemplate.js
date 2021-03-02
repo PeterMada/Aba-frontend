@@ -103,7 +103,8 @@ export default ({ data, pageContext }) => {
         let allTherapist = [];
         let returnComponent = null;
 
-        allTherapist = data.allStrapiTherapists.edges.filter(el => true);
+
+        allTherapist = data.allStrapiTherapists.edges.sort(() => Math.random() - Math.random());
 
         returnComponent = (
             <MaxWidthWrap>
