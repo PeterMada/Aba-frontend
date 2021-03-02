@@ -58,7 +58,7 @@ export default ({ data, pageContext }) => {
     const description = data.strapiPages.MetaDescription ? data.strapiPages.MetaDescription : '';
 
 
-    const getListOfArticles = (listFromStrapi) => {
+    const getListOfArticles = (listFromStrapi, signpostUrl) => {
         let allNews = [];
         let returnComponent = null;
 
@@ -89,7 +89,7 @@ export default ({ data, pageContext }) => {
                 <div className={`${cSNews.list} ${cSNews.listShort}`}>
                     {allNews.map((singleNews, index) => {
                         if (singleNews.node.Url !== 'test') {
-                            return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} therapistUrl={pageContext.therapistUrl} />
+                            return <NewsList blockData={singleNews.node} key={index} articleUrl={signpostUrl} therapistUrl={pageContext.therapistUrl} />
                         }
                     })}
                 </div>
@@ -151,9 +151,7 @@ export default ({ data, pageContext }) => {
 
         // Nice Title component
         if (currentComponent?.NiceGraphicTitle?.length > 0 && currentComponent?.NiceTitle?.length) {
-            console.log(currentComponent);
             returnComponent = <NiceTitle title={currentComponent?.NiceTitle} subtitle={currentComponent?.NiceGraphicTitle} text={currentComponent?.NiceTextUnderTitle?.length ? currentComponent.NiceTextUnderTitle : ''} />
-
         }
 
         // Articles list component
@@ -375,11 +373,11 @@ export default ({ data, pageContext }) => {
         let returnComponent = null;
 
         if (pageContext.isArticleSignpostPage) {
-            returnComponent = getListOfArticles(data.allStrapiNews);
+            returnComponent = getListOfArticles(data.allStrapiNews, pageContext.articlesUrl);
         }
 
         if (pageContext.isWorkshopsSignpostPage) {
-            returnComponent = getListOfArticles(data.allStrapiWorkshops);
+            returnComponent = getListOfArticles(data.allStrapiWorkshops, pageContext.workshopsUrl);
         }
 
         if (pageContext.isTherapistSignpostPage) {
