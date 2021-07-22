@@ -82,7 +82,7 @@ export default ({ personId }) => {
                     }}
                 >
                     {({ isSubmitting }) => (
-                        <Form className={cS.wrap} data-netlify="true">
+                        <Form className={cS.wrap} data-netlify="true" name={`contact-form-${personId}`}>
                             <div className={`${cS.row} ${cS.rowHalf}`}>
                                 <label htmlFor="Jmeno" className={cS.label}>Jméno</label>
                                 <Field type='text' name='Jmeno' className={cS.input} />
