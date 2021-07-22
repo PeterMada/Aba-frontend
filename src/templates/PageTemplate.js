@@ -388,26 +388,28 @@ export default ({ data, pageContext }) => {
         <>
 
             {isLoggedIn() ? (
-                <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+                <>
+                    <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
-                    <Helmet>
-                        <title>{currentPageTitle}</title>
-                        <meta name="description" content={keywords} />
-                        <meta name="keywords" content={description} />
-                    </Helmet>
-                    <main className={cS.main}>
-                        {isContactPage ? (
-                            <MaxWidthWrap>
-                                <div className={cS.formWrap}>
-                                    <Form />
-                                </div>
-                            </MaxWidthWrap>
-                        ) : getPageContent()}
-                        {getOtherLists()}
-                    </main>
+                        <Helmet>
+                            <title>{currentPageTitle}</title>
+                            <meta name="description" content={keywords} />
+                            <meta name="keywords" content={description} />
+                        </Helmet>
+                        <main className={cS.main}>
+                            {isContactPage ? (
+                                <MaxWidthWrap>
+                                    <div className={cS.formWrap}>
+                                        <Form />
+                                    </div>
+                                </MaxWidthWrap>
+                            ) : getPageContent()}
+                            {getOtherLists()}
+                        </main>
 
-                    <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
-                </RootLayout>
+                        <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
+                    </RootLayout>
+                </>
 
             ) : (
                 <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
