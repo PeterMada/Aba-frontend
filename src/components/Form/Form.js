@@ -76,7 +76,6 @@ export default ({ personId }) => {
                             setMessage(errorMessage);
                         });
 
-                        let formData = new FormData(updateValues);
 
                         fetch('/', {
                             method: 'POST',
