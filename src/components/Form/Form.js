@@ -69,11 +69,12 @@ export default ({ personId }) => {
                             setMessage(errorMessage);
                         });
 
+                        let formData = new FormData(updateValues);
 
                         fetch('/', {
                             method: 'POST',
                             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: new URLSearchParams(updateValues).toString()
+                            body: new URLSearchParams(formData).toString()
                         }).then(() => console.log('Form successfully submitted')).catch((error) =>
                             alert(error))
 
