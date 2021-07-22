@@ -29,28 +29,25 @@ import { number } from 'prop-types';
 
 export default ({ data, pageContext }) => {
 
-    //TODO #9 @PeterMada
-    /*
-    const [tags, setTags] = useState('');
-
-    setTags(getTags());
-
     let params;
-    let tag = '';
-    //let authorName;
 
     const getTags = () => {
         let tag = ''
 
         if (typeof window !== 'undefined') {
-            params = new URLSearchParams(document.location.search.substring(1));
-            tag = params.get('tag');
-            //authorName = params.get('author');
+            // params = new URLSearchParams(document.location.search.substring(1));
+            // tag = params.get('tag');
         };
 
+        console.log('xab')
+        console.log(tag);
         return tag
     }
-    */
+
+    //TODO #9 @PeterMada
+
+    const [tags, setTags] = useState(getTags());
+
 
     // TODO #3 @PeterMada
 

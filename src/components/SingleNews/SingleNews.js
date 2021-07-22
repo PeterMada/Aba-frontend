@@ -21,6 +21,7 @@ export default ({ blockData, allNews = [], pageUrl, therapistUrl }) => {
         return `${titleBefore}${name.Name}${titleAfter}`;
     }
 
+
     return (
         <article className={cS.articleWrap}>
             <div className={cS.main}>
@@ -48,7 +49,7 @@ export default ({ blockData, allNews = [], pageUrl, therapistUrl }) => {
 
                 <div className={cS.dateWrap}>
 
-                    {blockData.tags.length > 0 && false &&
+                    {blockData.tags.length > 0 &&
                         <div className={cS.tagsWrap}>
                             {blockData.tags.map((tag, index) => (
                                 <Link to={`/${pageUrl}?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={cS.tag}><FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />{tag.Title}</Link>
