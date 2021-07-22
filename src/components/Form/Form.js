@@ -4,6 +4,8 @@ import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 import cS from './Form.module.scss';
 
+
+
 export default ({ personId }) => {
     const [message, setMessage] = useState(false);
     const succesfulMessage = <span className={cS.good}>Formulář byl úspěšně odeslán.</span>
@@ -14,6 +16,11 @@ export default ({ personId }) => {
     const personClearId = personId ? personId.replace('Therapists_', '') : '';
     console.log(personClearId);
 
+    const encode = (data) => {
+        return Object.keys(data)
+            .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+            .join("&");
+    }
 
     // @TODO #5 @PeterMada
     return (
@@ -74,7 +81,7 @@ export default ({ personId }) => {
                         fetch('/', {
                             method: 'POST',
                             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: new URLSearchParams(formData).toString()
+                            body: encode({ "form-name": "contact-demo", ...values })
                         }).then(() => console.log('Form successfully submitted')).catch((error) =>
                             alert(error))
 
@@ -83,7 +90,7 @@ export default ({ personId }) => {
                     }}
                 >
                     {({ isSubmitting }) => (
-                        <Form className={cS.wrap} data-netlify="true" name={`contact-form-${personId}`}>
+                        <Form className={cS.wrap} data-netlify={true} name={`contact-form-${personId}`}>
                             <div className={`${cS.row} ${cS.rowHalf}`}>
                                 <label htmlFor="Jmeno" className={cS.label}>Jméno</label>
                                 <Field type='text' name='Jmeno' className={cS.input} />
