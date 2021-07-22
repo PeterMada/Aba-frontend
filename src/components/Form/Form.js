@@ -50,6 +50,7 @@ export default ({ personId }) => {
                         const Url = window.location.pathname;
                         const updateValues = { ...values, Url };
                         const subitJson = JSON.stringify(updateValues, null, 2);
+                        console.log(updateValues);
 
                         const apiUrlFirstPart = process.env.GATSBY_API_URL;
 
@@ -67,6 +68,14 @@ export default ({ personId }) => {
                         }).catch(function (error) {
                             setMessage(errorMessage);
                         });
+
+
+                        fetch('/', {
+                            method: 'POST',
+                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                            body: new URLSearchParams(updateValues).toString()
+                        }).then(() => console.log('Form successfully submitted')).catch((error) =>
+                            alert(error))
 
                         actions.setSubmitting(false);
                         actions.resetForm({ Jmeno: '', Text: '', Email: '', Interest: 'Terapie_Supervize', therapist: personClearId });
