@@ -14,13 +14,13 @@ export default ({ blockData, allNews = [], pageUrl, therapistUrl }) => {
     const createdDate = new Date(blockData.created_at);
     const formatedDate = `${createdDate.getDate()}. ${(createdDate.getMonth() + 1)}. ${createdDate.getFullYear()}`;
     const textContent = remark().use(remarkHtml).processSync(blockData.Text);
-    console.log(blockData);
     const getName = (name) => {
         const titleBefore = name.TitleBefore ? name.TitleBefore : '';
         const titleAfter = name.TitleAfter ? name.TitleAfter : '';
 
         return `${titleBefore}${name.Name}${titleAfter}`;
     }
+
 
     return (
         <article className={cS.articleWrap}>
@@ -49,7 +49,7 @@ export default ({ blockData, allNews = [], pageUrl, therapistUrl }) => {
 
                 <div className={cS.dateWrap}>
 
-                    {blockData.tags.length > 0 && false &&
+                    {blockData.tags.length > 0 &&
                         <div className={cS.tagsWrap}>
                             {blockData.tags.map((tag, index) => (
                                 <Link to={`/${pageUrl}?tag=${encodeURI(tag.Title.toLowerCase())}`} key={index} className={cS.tag}><FontAwesomeIcon icon={faTag} size='1x' className='fa-flip-horizontal' aria-hidden='true' />{tag.Title}</Link>

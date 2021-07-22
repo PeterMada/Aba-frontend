@@ -29,28 +29,25 @@ import { number } from 'prop-types';
 
 export default ({ data, pageContext }) => {
 
-    //TODO #9 @PeterMada
-    /*
-    const [tags, setTags] = useState('');
-
-    setTags(getTags());
-
     let params;
-    let tag = '';
-    //let authorName;
 
     const getTags = () => {
         let tag = ''
 
         if (typeof window !== 'undefined') {
-            params = new URLSearchParams(document.location.search.substring(1));
-            tag = params.get('tag');
-            //authorName = params.get('author');
+            // params = new URLSearchParams(document.location.search.substring(1));
+            // tag = params.get('tag');
         };
 
+        console.log('xab')
+        console.log(tag);
         return tag
     }
-    */
+
+    //TODO #9 @PeterMada
+
+    const [tags, setTags] = useState(getTags());
+
 
     // TODO #3 @PeterMada
 
@@ -58,7 +55,7 @@ export default ({ data, pageContext }) => {
     const description = data.strapiPages.MetaDescription ? data.strapiPages.MetaDescription : '';
 
 
-    const getListOfArticles = (listFromStrapi) => {
+    const getListOfArticles = (listFromStrapi, signpostUrl) => {
         let allNews = [];
         let returnComponent = null;
 
@@ -89,7 +86,7 @@ export default ({ data, pageContext }) => {
                 <div className={`${cSNews.list} ${cSNews.listShort}`}>
                     {allNews.map((singleNews, index) => {
                         if (singleNews.node.Url !== 'test') {
-                            return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} therapistUrl={pageContext.therapistUrl} />
+                            return <NewsList blockData={singleNews.node} key={index} articleUrl={signpostUrl} therapistUrl={pageContext.therapistUrl} />
                         }
                     })}
                 </div>
@@ -103,7 +100,8 @@ export default ({ data, pageContext }) => {
         let allTherapist = [];
         let returnComponent = null;
 
-        allTherapist = data.allStrapiTherapists.edges.filter(el => true);
+
+        allTherapist = data.allStrapiTherapists.edges.sort(() => Math.random() - Math.random());
 
         returnComponent = (
             <MaxWidthWrap>
@@ -150,9 +148,7 @@ export default ({ data, pageContext }) => {
 
         // Nice Title component
         if (currentComponent?.NiceGraphicTitle?.length > 0 && currentComponent?.NiceTitle?.length) {
-            console.log(currentComponent);
             returnComponent = <NiceTitle title={currentComponent?.NiceTitle} subtitle={currentComponent?.NiceGraphicTitle} text={currentComponent?.NiceTextUnderTitle?.length ? currentComponent.NiceTextUnderTitle : ''} />
-
         }
 
         // Articles list component
@@ -374,11 +370,11 @@ export default ({ data, pageContext }) => {
         let returnComponent = null;
 
         if (pageContext.isArticleSignpostPage) {
-            returnComponent = getListOfArticles(data.allStrapiNews);
+            returnComponent = getListOfArticles(data.allStrapiNews, pageContext.articlesUrl);
         }
 
         if (pageContext.isWorkshopsSignpostPage) {
-            returnComponent = getListOfArticles(data.allStrapiWorkshops);
+            returnComponent = getListOfArticles(data.allStrapiWorkshops, pageContext.workshopsUrl);
         }
 
         if (pageContext.isTherapistSignpostPage) {
