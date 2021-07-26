@@ -67,27 +67,37 @@ export default ({ personId }) => {
                         console.log(updateValues);
 
                         const apiUrlFirstPart = process.env.GATSBY_API_URL;
+                        console.log(encode({ "form-name": `contact-form-${personId}`, ...values }));
 
                         fetch('/', {
-                            method: 'POST',
+                            method: "POST",
                             headers: { "Content-Type": "application/x-www-form-urlencoded" },
                             body: encode({ "form-name": `contact-form-${personId}`, ...values })
-                        }).then(() => console.log('Form successfully submitted')).catch((error) =>
-                            alert(error))
+                        })
+                            .then(() => {
+                                alert('Success');
+                                actions.resetForm()
+                            })
+                            .catch(() => {
+                                alert('Error');
+                            })
+                            .finally(() => actions.setSubmitting(false))
 
-                        fetch(`${apiUrlFirstPart}/emails`, {
-                            method: 'POST',
-                            body: subitJson,
-                            headers: {
-                                'Content-type': 'application/json; charset=UTF-8'
-                            }
-                        }).then(function (response) {
-                            if (response.ok) {
-                                setMessage(succesfulMessage);
-                            }
-                        }).catch(function (error) {
-                            setMessage(errorMessage);
-                        });
+                        /*
+                    fetch(`${apiUrlFirstPart}/emails`, {
+                        method: 'POST',
+                        body: subitJson,
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8'
+                        }
+                    }).then(function (response) {
+                        if (response.ok) {
+                            setMessage(succesfulMessage);
+                        }
+                    }).catch(function (error) {
+                        setMessage(errorMessage);
+                    });
+                    */
 
 
 
@@ -97,8 +107,9 @@ export default ({ personId }) => {
                 >
                     {({ isSubmitting }) => (
                         <Form netlify-honeypot="bot-field" className={cS.wrap} method="post" data-netlify="true" name={`contact-form-${personId}`}>
-                            <Field type="hidden" name="form-name" />
+                            <Field type="hidden" name="form-name" value={`contact-form-${personId}`} />
                             <Field type="hidden" name="bot-field" />
+                            <input type="hidden" name="cnjp" />
                             <div className={`${cS.row} ${cS.rowHalf}`}>
                                 <label htmlFor="Jmeno" className={cS.label}>Jméno</label>
                                 <Field type='text' name='Jmeno' className={cS.input} />
