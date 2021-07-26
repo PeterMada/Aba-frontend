@@ -22,13 +22,20 @@ export default ({ personId }) => {
             .join("&");
     }
 
-    // @TODO #5 @PeterMada
-    return (
-
+    /*
         <GoogleReCaptchaProvider
             reCaptchaKey='6LcnEToaAAAAAEVEqWaLisSesGREwWpKkJiO-OFu'
             language='cs'
         >
+        
+        </GoogleReCaptchaProvider >
+    */
+
+
+    // @TODO #5 @PeterMada
+    return (
+
+        <>
 
             <div>
                 <div className={cS.message}>{message}</div>
@@ -61,6 +68,12 @@ export default ({ personId }) => {
 
                         const apiUrlFirstPart = process.env.GATSBY_API_URL;
 
+                        fetch('/', {
+                            method: 'POST',
+                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                            body: encode({ "form-name": `contact-form-${personId}`, ...values })
+                        }).then(() => console.log('Form successfully submitted')).catch((error) =>
+                            alert(error))
 
                         fetch(`${apiUrlFirstPart}/emails`, {
                             method: 'POST',
@@ -77,19 +90,15 @@ export default ({ personId }) => {
                         });
 
 
-                        fetch('/', {
-                            method: 'POST',
-                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: encode({ "form-name": "contact-demo", ...values })
-                        }).then(() => console.log('Form successfully submitted')).catch((error) =>
-                            alert(error))
 
                         actions.setSubmitting(false);
                         actions.resetForm({ Jmeno: '', Text: '', Email: '', Interest: 'Terapie_Supervize', therapist: personClearId });
                     }}
                 >
                     {({ isSubmitting }) => (
-                        <Form className={cS.wrap} data-netlify={true} name={`contact-form-${personId}`}>
+                        <Form netlify-honeypot="bot-field" className={cS.wrap} method="post" data-netlify="true" name={`contact-form-${personId}`}>
+                            <Field type="hidden" name="form-name" />
+                            <Field type="hidden" name="bot-field" />
                             <div className={`${cS.row} ${cS.rowHalf}`}>
                                 <label htmlFor="Jmeno" className={cS.label}>Jméno</label>
                                 <Field type='text' name='Jmeno' className={cS.input} />
@@ -122,6 +131,6 @@ export default ({ personId }) => {
                     )}
                 </Formik>
             </div>
-        </GoogleReCaptchaProvider>
+        </>
     );
 }
