@@ -40,7 +40,7 @@ export default ({ personId }) => {
             <div>
                 <div className={cS.message}>{message}</div>
                 <Formik
-                    initialValues={{ Jmeno: '', Text: '', Email: '', Interest: 'Terapie_Supervize', therapist: personClearId }}
+                    initialValues={{ Jmeno: '', Text: '', _replyto: '', Interest: 'Terapie_Supervize', therapist: personClearId }}
                     validate={values => {
                         const errors = {};
                         if (!values.Jmeno) {
@@ -51,10 +51,10 @@ export default ({ personId }) => {
                             errors.Text = 'Toto pole nemůže být prázdné.';
                         }
 
-                        if (!values.Email) {
-                            errors.Email = 'Toto pole nemůže být prázdné.';
+                        if (!values._replyto) {
+                            errors._replyto = 'Toto pole nemůže být prázdné.';
                         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.Email)) {
-                            errors.Email = 'Nesprávný formát emailu.';
+                            errors._replyto = 'Nesprávný formát emailu.';
                         }
 
                         return errors;
@@ -105,10 +105,11 @@ export default ({ personId }) => {
                         actions.setSubmitting(false);
                         actions.resetForm({ Jmeno: '', Text: '', Email: '', Interest: 'Terapie_Supervize', therapist: personClearId });
                         */
+                        actions.resetForm({ Jmeno: '', Text: '', _replyto: '', Interest: 'Terapie_Supervize', therapist: personClearId });
                     }}
                 >
                     {({ isSubmitting }) => (
-                        <Form className={cS.wrap} method="post" action="https://formspree.io/email@domain.tld" name={`contact-form-${personId}`}>
+                        <Form className={cS.wrap} method="POST" action="https://formspree.io/f/xpzkyzqp" name={`contact-form-${personId}`}>
                             <input type="hidden" name="cnjp" />
                             <div className={`${cS.row} ${cS.rowHalf}`}>
                                 <label htmlFor="Jmeno" className={cS.label}>Jméno</label>
@@ -116,9 +117,9 @@ export default ({ personId }) => {
                                 <ErrorMessage name='Jmeno' component="span" className={cS.error} />
                             </div>
                             <div className={`${cS.row} ${cS.rowHalf}`}>
-                                <label htmlFor="Email" className={cS.label}>Email</label>
-                                <Field type='email' name='Email' className={cS.input} name="_replyto" />
-                                <ErrorMessage name='Email' component="span" className={cS.error} />
+                                <label htmlFor="_replyto" className={cS.label}>Email</label>
+                                <Field type='email' name="_replyto" className={cS.input} />
+                                <ErrorMessage name='_replyto' component="span" className={cS.error} />
                             </div>
                             <div className={`${cS.row} ${cS.rowHalf}`}>
                                 <label htmlFor="Interest" className={cS.label}>Mám zájem o</label>
