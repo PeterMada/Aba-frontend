@@ -50,10 +50,10 @@ export default ({ data, pageContext }) => {
                 </RootLayout >
             ) : (
 
-                    <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
-                        Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
-                    </div>
-                )}
+                <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
+                    Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
+                </div>
+            )}
         </>
     )
 }
@@ -109,7 +109,6 @@ export const pageQuery = graphql`
                 pages {
                     id
                     Url
-                    parent
                     Title
                     TitleInMenu
                 }
