@@ -473,7 +473,6 @@ export const query = graphql`
                 pages {
                     id
                     Url
-                    parent
                     Title
                     TitleInMenu
                 }

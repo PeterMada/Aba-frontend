@@ -8,6 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 apiUrl = 'https://aba-strapi-api.herokuapp.com';
+apiUrl = 'http://localhost:1337';
 
 module.exports = {
   siteMetadata: {
