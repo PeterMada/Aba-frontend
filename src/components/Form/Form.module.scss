@@ -59,7 +59,7 @@
 
 .textArea {
     resize: vertical;
-    min-height: 15rem;
+    min-height: 25rem;
 }
 
 .error {
@@ -98,6 +98,25 @@
     } 
 }
 
+.consentRow {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    flex-flow: wrap;
+
+    label {
+        margin-bottom: 0;
+        margin-left: 1rem;
+    }
+
+    input {
+        width: auto;
+    }
+
+    span {
+        width: 100%;
+    }
+}
 
 @media screen and (min-width: 700px) { 
     .wrap {

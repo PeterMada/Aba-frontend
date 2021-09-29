@@ -11,51 +11,39 @@ import MaxWidthWrap from '../components/MaxWidthWrap/MaxWidthWrap';
 import cSNews from './NewsSignpostTemplate.module.scss';
 import cSTherapist from './TherapistSignpostTemplate.module.scss';
 
-
-import { getUser, isLoggedIn } from '../services/auth';
-
-
 export default ({ data, pageContext }) => {
-    const allNews = data?.allStrapiNews?.edges;
+  const allNews = data?.allStrapiNews?.edges;
 
-    return (
-        <>
+  return (
+    <>
+      <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
-            {isLoggedIn() ? (
-                <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+        <main>
+          <PersonDetail blockData={data.strapiTherapists} />
 
-                    <main>
-                        <PersonDetail blockData={data.strapiTherapists} />
-
-                        <MaxWidthWrap>
-                            <div className={cSNews.list}>
-                                {allNews.map((singleNews, index) => {
-                                    if (singleNews.node.Url !== 'test') {
-                                        return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} therapistUrl={pageContext.therapistUrl} />
-                                    }
-                                })}
-                            </div>
+          <MaxWidthWrap>
+            <div className={cSNews.list}>
+              {allNews.map((singleNews, index) => {
+                if (singleNews.node.Url !== 'test') {
+                  return <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.articlesUrl} therapistUrl={pageContext.therapistUrl} />
+                }
+              })}
+            </div>
 
 
-                            {allNews.length > 0 ? (
-                                <div className={cSTherapist.buttonWrap}>
-                                    <Link to={pageContext.articlesUrl} className={cSTherapist.button}>Články</Link>
-                                </div>
-                            ) : null
-                            }
-                        </MaxWidthWrap>
-                    </main>
+            {allNews.length > 0 ? (
+              <div className={cSTherapist.buttonWrap}>
+                <Link to={`/${pageContext.articlesUrl}`} className={cSTherapist.button}>Články</Link>
+              </div>
+            ) : null
+            }
+          </MaxWidthWrap>
+        </main>
 
-                    <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
-                </RootLayout >
-            ) : (
-
-                <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
-                    Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
-                </div>
-            )}
-        </>
-    )
+        <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
+      </RootLayout >
+    </>
+  )
 }
 
 

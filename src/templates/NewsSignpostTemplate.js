@@ -1,5 +1,7 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTag } from '@fortawesome/free-solid-svg-icons';
 
 import RootLayout from './../components/RootLayout/RootLayout';
 import MaxWidthWrap from './../components/MaxWidthWrap/MaxWidthWrap';
@@ -8,39 +10,28 @@ import Footer from './../components/Footer/Footer';
 
 import cS from './NewsSignpostTemplate.module.scss';
 
-import { getUser, isLoggedIn } from '../services/auth';
-
 export default ({ data, pageContext }) => {
 
-    return (
-        <>
+  return (
+    <>
+      <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
-            {isLoggedIn() ? (
+        <MaxWidthWrap>
+          <div className={cS.list}>
+            {data.allStrapiNews.edges.map((singleNews, index) => {
 
-                <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+              if (singleNews.node.Url !== 'test') {
+                return <NewsList key={`news-list-${index}`} blockData={singleNews.node} />
+              }
 
-                    <MaxWidthWrap>
-                        <div className={cS.list}>
-                            {data.allStrapiNews.edges.map((singleNews, index) => {
-
-                                if (singleNews.node.Url !== 'test') {
-                                    return <NewsList key={`news-list-${index}`} blockData={singleNews.node} />
-                                }
-
-                                return null;
-                            })}
-                        </div>
-                    </MaxWidthWrap>
-                    <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} />
-                </RootLayout>
-            ) : (
-
-                <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
-                    Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
-                </div>
-            )}
-        </>
-    );
+              return null;
+            })}
+          </div>
+        </MaxWidthWrap>
+        <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} />
+      </RootLayout>
+    </>
+  );
 }
 
 export const pageQuery = graphql`

@@ -10,65 +10,55 @@ import MaxWidthWrap from '../components/MaxWidthWrap/MaxWidthWrap';
 
 import cSNews from './NewsSignpostTemplate.module.scss';
 
-import { getUser, isLoggedIn } from '../services/auth';
 
 export default ({ data, pageContext }) => {
-    const keywords = data.strapiWorkshops.MetaKeywords ? data.strapiWorkshops.MetaKeywords : '';
-    const description = data.strapiWorkshops.MetaDescription ? data.strapiWorkshops.MetaDescription : '';
-    const currentPageTitle = `${data.strapiWorkshops.Title} - ${data.strapiSettings.SiteName}`;
+  const keywords = data.strapiWorkshops.MetaKeywords ? data.strapiWorkshops.MetaKeywords : '';
+  const description = data.strapiWorkshops.MetaDescription ? data.strapiWorkshops.MetaDescription : '';
+  const currentPageTitle = `${data.strapiWorkshops.Title} - ${data.strapiSettings.SiteName}`;
 
-    const allNews = data.allStrapiWorkshops.edges.filter((el, index) => {
-        return (el.node.id !== data.strapiWorkshops.id);
-    });
+  const allNews = data.allStrapiWorkshops.edges.filter((el, index) => {
+    return (el.node.id !== data.strapiWorkshops.id);
+  });
 
-    let returnComponent = (
-        <MaxWidthWrap>
-            <div className={cSNews.list}>
-                {allNews.map((singleNews, index) => (
-                    <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.workshopsUrl} therapistUrl={pageContext.therapistUrl} />
-                ))}
-            </div>
-        </MaxWidthWrap>
-    );
+  let returnComponent = (
+    <MaxWidthWrap>
+      <div className={cSNews.list}>
+        {allNews.map((singleNews, index) => (
+          <NewsList blockData={singleNews.node} key={index} articleUrl={pageContext.workshopsUrl} therapistUrl={pageContext.therapistUrl} />
+        ))}
+      </div>
+    </MaxWidthWrap>
+  );
 
 
-    const getName = (name) => {
-        const titleBefore = name.TitleBefore ? name.TitleBefore : '';
-        const titleAfter = name.TitleAfter ? name.TitleAfter : '';
+  const getName = (name) => {
+    const titleBefore = name.TitleBefore ? name.TitleBefore : '';
+    const titleAfter = name.TitleAfter ? name.TitleAfter : '';
 
-        return `${titleBefore}${name.Name}${titleAfter}`;
-    }
+    return `${titleBefore}${name.Name}${titleAfter}`;
+  }
 
-    return (
-        <>
+  return (
+    <>
+      <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
-            {isLoggedIn() ? (
+        <Helmet>
+          <title>{currentPageTitle}</title>
+          <meta name="description" content={keywords} />
+          <meta name="keywords" content={description} />
+          {data.strapiWorkshops.author !== null ? (
+            <meta name="author" content={getName(data.strapiWorkshops.author)} />
+          ) : ('')}
+        </Helmet>
 
-                <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+        <main>
+          <SingleNews blockData={data.strapiWorkshops} allNews={allNews} pageUrl={pageContext.workshopsUrl} therapistUrl={pageContext.therapistUrl} />
+        </main>
+        <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
+      </RootLayout >
 
-                    <Helmet>
-                        <title>{currentPageTitle}</title>
-                        <meta name="description" content={keywords} />
-                        <meta name="keywords" content={description} />
-                        {data.strapiWorkshops.author !== null ? (
-                            <meta name="author" content={getName(data.strapiWorkshops.author)} />
-                        ) : ('')}
-                    </Helmet>
-
-                    <main>
-                        <SingleNews blockData={data.strapiWorkshops} allNews={allNews} pageUrl={pageContext.workshopsUrl} therapistUrl={pageContext.therapistUrl} />
-                    </main>
-                    <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
-                </RootLayout >
-            ) : (
-
-                <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
-                    Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
-                </div>
-            )}
-
-        </>
-    )
+    </>
+  )
 }
 
 export const pageQuery = graphql`
