@@ -20,16 +20,6 @@ export default ({ sendToEmail }) => {
             .join("&");
     }
 
-    /*
-        <GoogleReCaptchaProvider
-            reCaptchaKey='6LcnEToaAAAAAEVEqWaLisSesGREwWpKkJiO-OFu'
-            language='cs'
-        >
-        
-        </GoogleReCaptchaProvider >
-    */
-
-
     // @TODO #5 @PeterMada
     return (
 
@@ -43,7 +33,7 @@ export default ({ sendToEmail }) => {
                     language='cs'
                 >
                     <Formik
-                        initialValues={{ Jmeno: '', Text: '', Email: '', Interest: 'Terapie_Supervize', SendEmailTo: sendToEmailFinnal }}
+                        initialValues={{ Jmeno: '', Text: '', Email: '', Interest: 'Terapie_Supervize', SendEmailTo: sendToEmailFinnal, Consent: false }}
                         validate={values => {
                             const errors = {};
                             if (!values.Jmeno) {
@@ -66,6 +56,9 @@ export default ({ sendToEmail }) => {
                                 errors.SendEmailTo = 'Nastala chyba.';
                             }
 
+                            if (!values.Consent) {
+                                errors.Consent = 'Musíte souhlasit se zpracováním osobních údajů.';
+                            }
 
                             return errors;
                         }}
@@ -92,7 +85,7 @@ export default ({ sendToEmail }) => {
 
 
                             actions.setSubmitting(false);
-                            actions.resetForm({ Jmeno: '', Text: '', Email: '', Interest: 'Terapie_Supervize', SendEmailTo: sendToEmailFinnal });
+                            actions.resetForm({ Jmeno: '', Text: '', Email: '', Interest: 'Terapie_Supervize', SendEmailTo: sendToEmailFinnal, Consent: false });
                         }}
                     >
                         {({ isSubmitting }) => (
@@ -122,6 +115,11 @@ export default ({ sendToEmail }) => {
                                     <label htmlFor="Text" className={cS.label}>Zpráva</label>
                                     <Field type='text' name='Text' as='textarea' className={`${cS.input} ${cS.textArea}`} />
                                     <ErrorMessage name='Text' component='span' className={cS.error} />
+                                </div>
+                                <div className={`${cS.row} ${cS.consentRow}`}>
+                                    <Field id='Consent' type='checkbox' name='Consent' className={`${cS.input}`} />
+                                    <label htmlFor="Consent" className={cS.label}>Suhlasim so spracovanim osobnych udajov</label>
+                                    <ErrorMessage name='Consent' component='span' className={cS.error} />
                                 </div>
                                 <div className={cS.buttonWrap}>
                                     <button type='submit' disabled={isSubmitting} className={cS.button}>

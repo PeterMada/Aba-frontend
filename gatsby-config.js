@@ -8,6 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 apiUrl = 'https://aba-strapi-api.herokuapp.com';
+//apiUrl = 'http://localhost:1337';
 
 module.exports = {
   siteMetadata: {
@@ -43,8 +44,8 @@ module.exports = {
           `workshops`],
         singleTypes: [`settings`,
           `menu-footer`,
-          `menu-header`,
-          `price-lists`],
+          `price-lists`,
+          `menu-header`],
         // Possibility to login with a strapi user, when content types are not publically available (optional).
         loginData: {
           identifier: "",

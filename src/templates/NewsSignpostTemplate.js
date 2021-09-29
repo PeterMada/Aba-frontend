@@ -1,5 +1,7 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTag } from '@fortawesome/free-solid-svg-icons';
 
 import RootLayout from './../components/RootLayout/RootLayout';
 import MaxWidthWrap from './../components/MaxWidthWrap/MaxWidthWrap';
@@ -14,7 +16,6 @@ export default ({ data, pageContext }) => {
 
     return (
         <>
-
             {isLoggedIn() ? (
 
                 <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>

@@ -18,6 +18,7 @@ import TextOnSlilder from '../components/TextOnSlider/TextOnSlider';
 import TextWithPhotoEffect from '../components/TextWithPhotoEffect/TextWithPhotoEffect';
 import SmallBanner from '../components/SmallBanner/SmallBanner';
 import Form from '../components/Form/Form';
+import Tags from '../components/Tags/Tags';
 
 import cSTherapist from './TherapistSignpostTemplate.module.scss';
 import cSNews from './NewsSignpostTemplate.module.scss';
@@ -28,31 +29,38 @@ import { getUser, isLoggedIn } from '../services/auth';
 import { number } from 'prop-types';
 
 export default ({ data, pageContext }) => {
-
     let params;
 
-    const getTags = () => {
+    const getActiveTag = () => {
         let tag = ''
 
         if (typeof window !== 'undefined') {
-            // params = new URLSearchParams(document.location.search.substring(1));
-            // tag = params.get('tag');
+            params = new URLSearchParams(document.location.search.substring(1));
+            tag = params.get('tag');
         };
 
-        console.log('xab')
-        console.log(tag);
         return tag
     }
 
     //TODO #9 @PeterMada
-
-    const [tags, setTags] = useState(getTags());
+    const [activeTag, setActiveTag] = useState(getActiveTag());
 
 
     // TODO #3 @PeterMada
 
     const keywords = data.strapiPages.MetaKeywords ? data.strapiPages.MetaKeywords : '';
     const description = data.strapiPages.MetaDescription ? data.strapiPages.MetaDescription : '';
+
+    const getListOfArticleTags = () => {
+        let allArticleTags = [];
+
+
+        allArticleTags = data.allStrapiNewsTags.edges.map(el => {
+            return el.node.Title;
+        });
+
+        return allArticleTags;
+    }
 
 
     const getListOfArticles = (listFromStrapi, signpostUrl) => {
@@ -66,17 +74,15 @@ export default ({ data, pageContext }) => {
                 return false;
             }
 
-            /*
-            if (tag) {
+            if (activeTag) {
                 returnValue = false;
                 const currentTag = el.node.tags.find(news => {
-                    return tag === decodeURI(news.Title.toLowerCase())
+                    return activeTag === decodeURI(news.Title.toLowerCase())
                 });
                 if (currentTag) {
                     returnValue = true;
                 }
             }
-            */
 
             return returnValue;
         });
@@ -362,7 +368,6 @@ export default ({ data, pageContext }) => {
             ))
         );
 
-
         return returnComponent;
     }
 
@@ -404,7 +409,10 @@ export default ({ data, pageContext }) => {
                                     </div>
                                 </MaxWidthWrap>
                             ) : getPageContent()}
-                            {getOtherLists()}
+
+                            { // pageContext.isArticleSignpostPage ? <Tags allTags={getListOfArticleTags()} activeTag={activeTag} /> : ''}
+                                getOtherLists()
+                            }
                         </main>
 
                         <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
@@ -674,4 +682,11 @@ export const query = graphql`
                 }
             }
         }
+        allStrapiNewsTags {
+            edges {
+              node {
+                Title
+              }
+            }
+          }
     }`;
