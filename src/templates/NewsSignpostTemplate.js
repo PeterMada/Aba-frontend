@@ -14,34 +14,26 @@ import { getUser, isLoggedIn } from '../services/auth';
 
 export default ({ data, pageContext }) => {
 
-    return (
-        <>
-            {isLoggedIn() ? (
+  return (
+    <>
+      <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
-                <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+        <MaxWidthWrap>
+          <div className={cS.list}>
+            {data.allStrapiNews.edges.map((singleNews, index) => {
 
-                    <MaxWidthWrap>
-                        <div className={cS.list}>
-                            {data.allStrapiNews.edges.map((singleNews, index) => {
+              if (singleNews.node.Url !== 'test') {
+                return <NewsList key={`news-list-${index}`} blockData={singleNews.node} />
+              }
 
-                                if (singleNews.node.Url !== 'test') {
-                                    return <NewsList key={`news-list-${index}`} blockData={singleNews.node} />
-                                }
-
-                                return null;
-                            })}
-                        </div>
-                    </MaxWidthWrap>
-                    <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} />
-                </RootLayout>
-            ) : (
-
-                <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
-                    Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
-                </div>
-            )}
-        </>
-    );
+              return null;
+            })}
+          </div>
+        </MaxWidthWrap>
+        <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} />
+      </RootLayout>
+    </>
+  );
 }
 
 export const pageQuery = graphql`

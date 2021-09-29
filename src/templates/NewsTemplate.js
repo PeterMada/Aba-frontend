@@ -13,63 +13,55 @@ import cSNews from './NewsSignpostTemplate.module.scss';
 import { getUser, isLoggedIn } from '../services/auth';
 
 export default ({ data, pageContext }) => {
-    const keywords = data.strapiNews.MetaKeywords ? data.strapiNews.MetaKeywords : '';
-    const description = data.strapiNews.MetaDescription ? data.strapiNews.MetaDescription : '';
-    const currentPageTitle = `${data.strapiNews.Title} - ${data.strapiSettings.SiteName}`;
+  const keywords = data.strapiNews.MetaKeywords ? data.strapiNews.MetaKeywords : '';
+  const description = data.strapiNews.MetaDescription ? data.strapiNews.MetaDescription : '';
+  const currentPageTitle = `${data.strapiNews.Title} - ${data.strapiSettings.SiteName}`;
 
-    // TODO #2 @PeterMada
-    const allNews = data.allStrapiNews.edges.filter((el, index) => {
-        return (el.node.id !== data.strapiNews.id);
-    });
+  // TODO #2 @PeterMada
+  const allNews = data.allStrapiNews.edges.filter((el, index) => {
+    return (el.node.id !== data.strapiNews.id);
+  });
 
-    let returnComponent = (
-        <MaxWidthWrap>
-            <div className={cSNews.list}>
-                {allNews.map((singleNews, index) => (
-                    <NewsList blockData={singleNews.node} key={index} />
-                ))}
-            </div>
-        </MaxWidthWrap>
-    );
+  let returnComponent = (
+    <MaxWidthWrap>
+      <div className={cSNews.list}>
+        {allNews.map((singleNews, index) => (
+          <NewsList blockData={singleNews.node} key={index} />
+        ))}
+      </div>
+    </MaxWidthWrap>
+  );
 
 
-    const getName = (name) => {
-        const titleBefore = name.TitleBefore ? name.TitleBefore : '';
-        const titleAfter = name.TitleAfter ? name.TitleAfter : '';
+  const getName = (name) => {
+    const titleBefore = name.TitleBefore ? name.TitleBefore : '';
+    const titleAfter = name.TitleAfter ? name.TitleAfter : '';
 
-        return `${titleBefore}${name.Name}${titleAfter}`;
-    }
+    return `${titleBefore}${name.Name}${titleAfter}`;
+  }
 
-    return (
-        <>
+  return (
+    <>
 
-            {isLoggedIn() ? (
+      <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
 
-                <RootLayout siteData={data.strapiSettings} siteUrlMap={pageContext.pagesUrlMap} siteMenu={data.strapiMenuHeader}>
+        <Helmet>
+          <title>{currentPageTitle}</title>
+          <meta name="description" content={keywords} />
+          <meta name="keywords" content={description} />
+          {data.strapiNews.author !== null ? (
+            <meta name="author" content={getName(data.strapiNews.author)} />
+          ) : ('')}
+        </Helmet>
 
-                    <Helmet>
-                        <title>{currentPageTitle}</title>
-                        <meta name="description" content={keywords} />
-                        <meta name="keywords" content={description} />
-                        {data.strapiNews.author !== null ? (
-                            <meta name="author" content={getName(data.strapiNews.author)} />
-                        ) : ('')}
-                    </Helmet>
+        <main>
+          <SingleNews blockData={data.strapiNews} allNews={allNews} pageUrl={pageContext.articlesUrl} therapistUrl={pageContext.therapistUrl} />
+        </main>
+        <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
+      </RootLayout >
 
-                    <main>
-                        <SingleNews blockData={data.strapiNews} allNews={allNews} pageUrl={pageContext.articlesUrl} therapistUrl={pageContext.therapistUrl} />
-                    </main>
-                    <Footer blockData={data.strapiSettings} menuData={data.strapiMenuFooter} siteUrlMap={pageContext.pagesUrlMap} socialSites={data.strapiSettings.social_media_sites} />
-                </RootLayout >
-            ) : (
-
-                <div style={{ margin: `0 auto`, textAlign: 'center', padding: `5rem 1rem` }}>
-                    Pro zobrazení stránky se musíte <Link to="/app/login">přihlásit</Link>.
-                </div>
-            )}
-
-        </>
-    )
+    </>
+  )
 }
 
 export const pageQuery = graphql`
