@@ -10,7 +10,6 @@ import MaxWidthWrap from '../components/MaxWidthWrap/MaxWidthWrap';
 
 import cSNews from './NewsSignpostTemplate.module.scss';
 
-import { getUser, isLoggedIn } from '../services/auth';
 
 export default ({ data, pageContext }) => {
   const keywords = data.strapiWorkshops.MetaKeywords ? data.strapiWorkshops.MetaKeywords : '';

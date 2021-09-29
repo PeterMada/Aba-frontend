@@ -24,8 +24,6 @@ import cSTherapist from './TherapistSignpostTemplate.module.scss';
 import cSNews from './NewsSignpostTemplate.module.scss';
 import cS from './PageTemplate.module.scss';
 
-
-import { getUser, isLoggedIn } from '../services/auth';
 import { number } from 'prop-types';
 
 export default ({ data, pageContext }) => {

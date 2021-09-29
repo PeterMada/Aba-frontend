@@ -11,10 +11,6 @@ import MaxWidthWrap from '../components/MaxWidthWrap/MaxWidthWrap';
 import cSNews from './NewsSignpostTemplate.module.scss';
 import cSTherapist from './TherapistSignpostTemplate.module.scss';
 
-
-import { getUser, isLoggedIn } from '../services/auth';
-
-
 export default ({ data, pageContext }) => {
   const allNews = data?.allStrapiNews?.edges;
 

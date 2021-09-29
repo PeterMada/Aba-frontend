@@ -10,8 +10,6 @@ import Footer from './../components/Footer/Footer';
 
 import cS from './NewsSignpostTemplate.module.scss';
 
-import { getUser, isLoggedIn } from '../services/auth';
-
 export default ({ data, pageContext }) => {
 
   return (
