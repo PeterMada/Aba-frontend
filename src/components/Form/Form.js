@@ -11,7 +11,7 @@ export default ({ sendToEmail }) => {
   const [message, setMessage] = useState(false);
   const succesfulMessage = <span className={cS.good}>Formulář byl úspěšně odeslán.</span>
   const errorMessage = <span className={cS.bad}>Nastala chyba, zkuste to prosím později.</span>
-  const sendToEmailFinnal = sendToEmail ? sendToEmail : 'madapeterr@gmail.com';
+  const sendToEmailFinnal = sendToEmail ? sendToEmail : 'vozakovalucie@gmail.com';
 
 
   const encode = (data) => {

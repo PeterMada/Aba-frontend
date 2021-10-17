@@ -119,6 +119,10 @@
             margin-top: 0;
         }
     }
+
+    &:first-child {
+        text-align: justify;
+    }
 }
 
 .contactEmail {
