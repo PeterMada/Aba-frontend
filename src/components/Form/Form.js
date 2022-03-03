@@ -85,7 +85,7 @@ export default ({ sendToEmail }) => {
             }}
           >
             {({ isSubmitting }) => (
-              <Form className={cS.wrap} method="POST" action="https://formspree.io/f/xpzkyzqp" >
+              <Form className={cS.wrap} method="POST" action="https://formspree.io/f/xpzkyzqp" style="display: none;">
                 <div className={`${cS.row}`}>
                   <Field type="hidden" name="SendEmailTo" value={sendToEmailFinnal} />
                   <ErrorMessage name='SendEmailTo' component="span" className={cS.error} />
