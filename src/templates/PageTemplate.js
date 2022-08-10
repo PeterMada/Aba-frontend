@@ -352,7 +352,7 @@ export default ({ data, pageContext }) => {
 
   let isContactPage = false;
   if (data.strapiPages.Title.toLowerCase() === 'kontakt') {
-    isContactPage = true;
+    // isContactPage = true;
   }
 
   let getPageContent = () => {
