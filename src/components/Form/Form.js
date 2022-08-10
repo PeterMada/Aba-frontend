@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+// import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 import cS from './Form.module.scss';
 
@@ -28,10 +28,6 @@ export default ({ sendToEmail }) => {
       <div>
         <div className={cS.message}>{message}</div>
 
-        <GoogleReCaptchaProvider
-          reCaptchaKey='6LcnEToaAAAAAEVEqWaLisSesGREwWpKkJiO-OFu'
-          language='cs'
-        >
           <Formik
             initialValues={{ Jmeno: '', Text: '', Email: '', Interest: 'Terapie_Supervize', SendEmailTo: sendToEmailFinnal }}
             validate={values => {
@@ -121,7 +117,6 @@ export default ({ sendToEmail }) => {
             )}
           </Formik>
 
-        </GoogleReCaptchaProvider >
       </div>
     </>
   );
